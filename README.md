@@ -1,2 +1,2 @@
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/laurisaarni/fida-imu.png?columns=all)](https://waffle.io/laurisaarni/fida-imu?utm_source=badge)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/laurisaarni/fida-imu.png?columns=all)](https://waffle.io/laurisaarni/fida-imu?utm_source=badge) ![Maintainability](https://api.codeclimate.com/v1/badges/bce10b28cf6d02b29e1d/maintainability)](https://codeclimate.com/github/laurisaarni/fida-imu/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/bce10b28cf6d02b29e1d/test_coverage)](https://codeclimate.com/github/laurisaarni/fida-imu/test_coverage)
 # fida-imu
