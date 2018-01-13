@@ -1,0 +1,28 @@
+{
+  "name": "fida-bootstrap",
+  "description": "Simple Bootstrap Starter With Browser Sync and Gulp-SASS",
+  "main": "build/index.css",
+  "authors": [
+    "Lauri Saarni"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "bootstrap",
+    "4",
+    "gulp",
+    "starter",
+    "bower"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^v4.0.0-beta.3",
+    "font-awesome": "^4.7.0"
+  }
+}

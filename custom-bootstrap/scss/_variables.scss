@@ -1,0 +1,70 @@
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+$enable-rounded:            true;
+$enable-shadows:            false;
+$enable-transitions:        true;
+$enable-hover-media-query:  false;
+$enable-grid-classes:       true;
+$enable-print-styles:       true;
+
+// Variables
+//
+// Colors
+
+$theme-colors: (
+  primary: #E84E0F,
+  secondary: #368489,
+  light: #f3f3f3,
+  dark: #151515,
+  info: #c99800,
+  success: #28a745,
+  warning: #ffc107,
+  danger: #dc3545
+);
+
+$body-bg: #F9F6F1;
+$body-color: #333;
+$body-color-inverse: invert($body-color) !default;
+$link-color: #FF473B;
+
+
+// Fonts
+
+$font-weight-normal: 200;
+$display-font-weight: 600;
+$headings-font-weight: 400;
+$display1-weight:     800 !default;
+$display2-weight:     800 !default;
+$display3-weight:     800 !default;
+$display4-weight:     800 !default;
+$lead-font-size:   1.30rem;
+
+$spacer: 1.5rem;
+// $container-max-widths: (sm: 540px, md: 720px, lg: 960px, xl: 960px);
+
+// Components
+$border-width: 1px !default;
+
+// Buttons
+$input-btn-padding-x:       1rem !default;
+$input-btn-padding-x-lg:    1.25rem;
+
+// Cards
+$card-border-width:        1px;
+
+// Breadcrumb
+$breadcrumb-bg: transparent !default;
+
+// Carousel
+$carousel-caption-width:     100% !default;
+$carousel-indicator-height:  6px !default;
+
+// Forms
+$form-group-margin-bottom:   0rem;
+
+
+$border-radius: 0.6rem;
+$border-radius-lg: $border-radius * 1.2;
+$border-radius-sm: $border-radius * .8;
