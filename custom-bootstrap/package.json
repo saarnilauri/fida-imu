@@ -1,0 +1,19 @@
+{
+  "name": "fida-bootstrap",
+  "version": "1.0.0",
+  "description": "Bootstrap theme for Fida International",
+  "main": "build/index.css",
+  "repository": {
+    "url": "https://github.com/laurisaarni/fida-bootstrap.git",
+    "type": "git"
+  },
+  "author": "Lauri Saarni",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.4.1"
+  }
+}
