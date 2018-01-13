@@ -19,24 +19,24 @@ class App extends Component {
                   <div className="card-body">
                     <form className="" method="post" action="app.html">
                       <div className="form-group">
-                        {' '}
-                        <label>Email address</label>
+                        <label htmlFor="email">Email address</label>
                         <input
                           type="email"
                           name="email"
+                          id="email"
                           className="form-control"
                           placeholder="Enter email"
-                        />{' '}
+                        />
                       </div>
                       <div className="form-group py-2">
-                        {' '}
-                        <label>Password</label>
+                        <label htmlFor="password">Password</label>
                         <input
                           type="password"
                           name="password"
+                          id="password"
                           className="form-control"
                           placeholder="Password"
-                        />{' '}
+                        />
                       </div>
                       <div className="form-group py-2">
                         <button type="submit" className="btn btn-primary">
@@ -46,9 +46,8 @@ class App extends Component {
                     </form>
                     <hr className="mt-" />
                     <p>
-                      {' '}
-                      If you don't have an account, please
-                      <a href="signup.html">sign-up here</a>.{' '}
+                      If you don\'t have an account, please
+                      <a href="signup.html">sign-up here</a>.
                     </p>
                   </div>
                 </div>
