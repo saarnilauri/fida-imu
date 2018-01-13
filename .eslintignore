@@ -1,2 +1,4 @@
 package
 jest.config.js
+custom-bootstrap/gulpfile.js
+src/registerServiceWorker.js
