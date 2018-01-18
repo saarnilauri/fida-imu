@@ -1,14 +1,11 @@
 env:
-  global:
-    - CC_TEST_REPORTER_ID=a6f83b299881f117f61a5e18857dc3c3e6ad8e8c1c8460d982cceffd03025d61
+  global: "CC_TEST_REPORTER_ID=a6f83b299881f117f61a5e18857dc3c3e6ad8e8c1c8460d982cceffd03025d61"
 language: node_js
 node_js: 7
 sudo: false
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.27.5
   - export PATH=$HOME/.yarn/bin:$PATH
-  cache:
-  yarn: true
 install:
   - yarn install
 before_script:
@@ -18,7 +15,6 @@ before_script:
 script:
   - cd ./custom-bootstrap && yarn link && cd .. && yarn link 'fida-bootstrap'
   - yarn build
-  - yarn testci
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 deploy:
