@@ -1,7 +1,4 @@
-before_deploy:
-  - "echo 'Building...'"
-  - "yarn build"
-deploy:
-  provider: firebase
-  token:
-    secure: "OAawehJowciBRFOGPC7Wo4niXm65lIfnlKb/FByxe3CL4Uew6ZfuilC2BgX+CAulmchrloxHPla0a7sl+sXQ/xvlmihII9PoGjPhFasGIGGia7OsnsnREf22fiboVVznU32DfknbT3WMU9wJNT5xt2pMexdnjDnt97XA0VipBT9waxfbd3e+yAWtxj4XtNGfn3PAg2PVTnWf5bFrNNQQ3JEpfkCFWMf8elaUfImci8R8nWV30frbjEvhu9DS1wcablJ5xt9t2tCrP0D0XDS8hlyMaNKQIfFAmgkYX9Igu1O5uOEm77DSP15ekNNzKBYMfkjNKFFFP08kZwVWyvlFM3kTOLF+2vPNm+uedGsfxCeW+6oeHvRYpfQE3FSuPtGeat/4s9nFBOOKk/+lJcbMyRKf1WUTShT+o/s4OwlufUHCsnrwQa+z510JWJspdHx9BHJ7u2wGSCftVwRwBzhAY9ZmhYWv+VT3lQ3eFmkhR7grweTs7MycYcVXOuMb66w5lxHi5H/9FF36RIVoWNNl11sxP62i7RPEnOdYWw19aVbMO0PHlUjuBTRGua6292Qji7FtnXksrCDtyzHYV1tZt2TLu3m4nOP3K7W46P1z7Sb/wEf3cu0YzEdBH+8YEFoEFjzHdGBPf/oQwFyJoS+1dLbutCsgf8Bv3Gyv76hc8y0="
+language: node_js
+node_js: 7
+install: true
+script: echo "script"
