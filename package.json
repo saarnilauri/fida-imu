@@ -4,11 +4,16 @@
   "private": true,
   "dependencies": {
     "bootstrap": "4.0.0-beta.3",
+    "firebase": "^4.8.2",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
-    "reactstrap": "next"
+    "reactstrap": "next",
+    "recompose": "^0.26.0",
+    "redux": "^3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
