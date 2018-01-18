@@ -1,7 +1,18 @@
-before_deploy:
-  - "echo 'Building...'"
-  - "yarn build"
+language: node_js
+node_js: 7
+sudo: false
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.27.5
+  - export PATH=$HOME/.yarn/bin:$PATH
+cache:
+  yarn: true
+install:
+  - yarn install
+script:
+  - cd ./custom-bootstrap && yarn link && cd .. && yarn link 'fida-bootstrap'
+  - yarn build
 deploy:
+  skip_cleanup: true
   provider: firebase
   token:
-    secure: "OAawehJowciBRFOGPC7Wo4niXm65lIfnlKb/FByxe3CL4Uew6ZfuilC2BgX+CAulmchrloxHPla0a7sl+sXQ/xvlmihII9PoGjPhFasGIGGia7OsnsnREf22fiboVVznU32DfknbT3WMU9wJNT5xt2pMexdnjDnt97XA0VipBT9waxfbd3e+yAWtxj4XtNGfn3PAg2PVTnWf5bFrNNQQ3JEpfkCFWMf8elaUfImci8R8nWV30frbjEvhu9DS1wcablJ5xt9t2tCrP0D0XDS8hlyMaNKQIfFAmgkYX9Igu1O5uOEm77DSP15ekNNzKBYMfkjNKFFFP08kZwVWyvlFM3kTOLF+2vPNm+uedGsfxCeW+6oeHvRYpfQE3FSuPtGeat/4s9nFBOOKk/+lJcbMyRKf1WUTShT+o/s4OwlufUHCsnrwQa+z510JWJspdHx9BHJ7u2wGSCftVwRwBzhAY9ZmhYWv+VT3lQ3eFmkhR7grweTs7MycYcVXOuMb66w5lxHi5H/9FF36RIVoWNNl11sxP62i7RPEnOdYWw19aVbMO0PHlUjuBTRGua6292Qji7FtnXksrCDtyzHYV1tZt2TLu3m4nOP3K7W46P1z7Sb/wEf3cu0YzEdBH+8YEFoEFjzHdGBPf/oQwFyJoS+1dLbutCsgf8Bv3Gyv76hc8y0="
+    secure: "kRsjCrcEbM10Al1MJvi1pfCF3U/9Mv3ztYoOcVCpdeNjuN10Ekr2qWmYj8g+YD//PbnbTnPRSg63AZRVHeTWCs44RzXpv0BcHCugRO/LM4jzXB9AKSV2vdVZCdk/myuSaoOq8THiBKi9vi4XkaitryGfbLe/b/WgAsAph8Yr/iJoJq/j8C8KibGvhWCmPHsB7cwjSacqWoEjz89Qy0P3GXsKr1VYIXo6bPbG2htup6DroMz6KBWC6bF0I6KwFTqh5ehhtwIH6VGQ2QfEB7isCWG3z832bVkFH9sVF0X3+yiMRLP4ybPmJbg8Eq6xDSZyUkh6OUyXcNWbT1/VuMoyqrRrrH15xanlxHqpB/ocVkVezj6G8OQMYo4TsMsX6Fho2yLC/CJCAwluFQKmSJzMAEQVKhfO0/cYs7Jb6HALUBsd9ICLNF4AlwpqO21WKnZkP+qln4TDrBoD3JZoAKPsZUa7eZDYvacC4Fry0NjSCLscLt+GKoSk8McnN3ecxt5ZyYtOyjAT6cA8uPMXnSm3JRgr21T4WR5cKdUhKOzGmDoQkDR5jDM+iZmV04n6U7cSgPenfwPgA11xPyYAysB7Mv05cy/Xc26u5bNQTBphHKoM0eedzSLLIdsPbmNVPNwjTI4nJZx782T8RD6fo3kXZxtJPEo1SkaDXgohxVu7cTY="
