@@ -19,6 +19,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --setupTestFrameworkScriptFile=raf/polyfill",
+    "testci":
+      "node node_modules/jest/bin/jest.js --env=jsdom --setupTestFrameworkScriptFile=raf/polyfill --coverage --outputFile=reports/coverage.json --json",
     "eject": "react-scripts eject",
     "deploy": "firebase deploy"
   },

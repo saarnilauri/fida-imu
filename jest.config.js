@@ -13,6 +13,12 @@ module.exports = {
     'js',
     'jsx'
   ],
+  "transformIgnorePatterns": [
+    "node_modules/(?!(jest-)?react-native|react-navigation)"
+  ],
+  coverageReporters: [
+    "lcov"
+  ],
   'moduleDirectories': [
     'node_modules',
     'src/frontend',
