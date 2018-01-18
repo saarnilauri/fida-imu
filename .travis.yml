@@ -9,7 +9,7 @@ cache:
 install:
   - yarn install
 script:
-  - echo "script"
+  - cd ./custom-bootstrap && yarn link && cd .. && yarn link 'fida-bootstrap'
   - yarn build
 deploy:
   skip_cleanup: true
