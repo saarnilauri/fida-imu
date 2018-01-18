@@ -34,4 +34,8 @@ const withAuthorization = condition => Component => {
   return compose(withRouter, connect(mapStateToProps))(WithAuthorization)
 }
 
+withAuthorization.propTypes = {
+  condition: PropTypes.func,
+}
+
 export default withAuthorization
