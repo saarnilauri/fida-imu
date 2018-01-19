@@ -1,18 +1,26 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
-
+import { Button, Alert } from 'reactstrap'
 import { SignUpLink } from '../SignUp'
 import { PasswordForgetLink } from '../PasswordForget'
 import { auth } from '../../firebase'
 import * as routes from '../../constants/routes'
+import PageTitle from '../PageTitle'
+import PageWrapper from '../PageWrapper'
+import Card from '../Card'
+import FormElement from '../FormElement'
 
 const SignInPage = ({ history }) => (
   <div>
-    <h1>SignIn</h1>
-    <SignInForm history={history} />
-    <PasswordForgetLink />
-    <SignUpLink />
+    <PageTitle title="Sign In" />
+    <PageWrapper>
+      <Card title="Sign In with your email and password">
+        <SignInForm history={history} />
+        <PasswordForgetLink />
+        <SignUpLink />
+      </Card>
+    </PageWrapper>
   </div>
 )
 
@@ -61,24 +69,31 @@ class SignInForm extends Component {
     const isInvalid = password === '' || email === ''
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
+      <form onSubmit={this.onSubmit} className="py-2">
+        {error && <Alert color="danger">{error.message}</Alert>}
+        <FormElement
+          className="py-2"
           value={email}
+          name="email"
+          id="email"
+          label="Email"
           onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
           type="text"
           placeholder="Email Address"
         />
-        <input
+        <FormElement
+          className="py-2"
+          name="password"
+          id="password"
+          label="Password"
           value={password}
           onChange={event => this.setState(updateByPropertyName('password', event.target.value))}
           type="password"
           placeholder="Password"
         />
-        <button disabled={isInvalid} type="submit">
+        <Button disabled={isInvalid} type="submit">
           Sign In
-        </button>
-
-        {error && <p>{error.message}</p>}
+        </Button>
       </form>
     )
   }
