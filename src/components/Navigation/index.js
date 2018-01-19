@@ -1,28 +1,38 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-
+import { Nav, NavItem, NavLink } from 'reactstrap'
+import FontAwesome from 'react-fontawesome'
 import SignOutButton from '../SignOut'
 import * as routes from '../../constants/routes'
+
+const NavElement = ({ link, label, icon }) => (
+  <NavItem>
+    <NavLink href={link}>
+      {icon && <FontAwesome name={icon} />}&nbsp;
+      {label}
+    </NavLink>
+  </NavItem>
+)
+
+NavElement.propTypes = {
+  link: PropTypes.string,
+  label: PropTypes.string,
+  icon: PropTypes.string,
+}
 
 const Navigation = ({ authUser }) => <div>{authUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
 
 const NavigationAuth = () => (
-  <ul>
-    <li>
-      <Link to={routes.LANDING}>Landing</Link>
-    </li>
-    <li>
-      <Link to={routes.HOME}>Home</Link>
-    </li>
-    <li>
-      <Link to={routes.ACCOUNT}>Account</Link>
-    </li>
-    <li>
+  <Nav className="ml-auto" navbar>
+    <NavElement link={routes.LANDING} label="Landing" />
+    <NavElement link={routes.HOME} label="Home" />
+    <NavElement link={routes.ACCOUNT} label="Account" icon="user-circle" />
+    <NavItem>
       <SignOutButton />
-    </li>
-  </ul>
+    </NavItem>
+  </Nav>
 )
 
 Navigation.propTypes = {
@@ -30,14 +40,10 @@ Navigation.propTypes = {
 }
 
 const NavigationNonAuth = () => (
-  <ul>
-    <li>
-      <Link to={routes.LANDING}>Landing</Link>
-    </li>
-    <li>
-      <Link to={routes.SIGN_IN}>Sign In</Link>
-    </li>
-  </ul>
+  <Nav className="ml-auto" navbar>
+    <NavElement link={routes.LANDING} label="Landing" />
+    <NavElement link={routes.SIGN_IN} label="Sign In" icon="user-circle" />
+  </Nav>
 )
 
 const mapStateToProps = state => ({
