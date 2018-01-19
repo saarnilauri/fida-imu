@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Header from '../Header'
+import Footer from '../Footer'
 import LandingPage from '../Landing'
 import SignUpPage from '../SignUp'
 import SignInPage from '../SignIn'
@@ -22,6 +23,7 @@ const App = () => (
       <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />} />
       <Route exact path={routes.HOME} component={() => <HomePage />} />
       <Route exact path={routes.ACCOUNT} component={() => <AccountPage />} />
+      <Footer />
     </div>
   </Router>
 )
