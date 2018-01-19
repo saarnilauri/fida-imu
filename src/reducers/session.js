@@ -1,11 +1,12 @@
+import _ from 'lodash'
+
 const INITIAL_STATE = {
   authUser: null,
 }
 
-const applySetAuthUser = (state, action) => ({
-  ...state,
+const applySetAuthUser = (state, action) => (_.assign(state, {
   authUser: action.authUser,
-})
+}))
 
 function sessionReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
