@@ -5,6 +5,7 @@
   "dependencies": {
     "bootstrap": "4.0.0-beta.3",
     "firebase": "^4.8.2",
+    "lodash": "^4.17.4",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -19,13 +20,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --setupTestFrameworkScriptFile=raf/polyfill",
-    "testci": "node node_modules/jest/bin/jest.js --env=jsdom --setupTestFrameworkScriptFile=raf/polyfill --coverage",
+    "testci": "node node_modules/.bin/jest --env=jsdom --setupTestFrameworkScriptFile=raf/polyfill --coverage",
     "eject": "react-scripts eject",
     "deploy": "firebase deploy"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
