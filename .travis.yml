@@ -1,3 +1,5 @@
+notifications:
+  email: false
 env:
   global: "CC_TEST_REPORTER_ID=a6f83b299881f117f61a5e18857dc3c3e6ad8e8c1c8460d982cceffd03025d61"
 language: node_js
