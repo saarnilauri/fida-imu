@@ -22,7 +22,9 @@ NavElement.propTypes = {
   icon: PropTypes.string,
 }
 
-const Navigation = ({ authUser }) => <div>{authUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
+const Navigation = ({ authUser }) => (
+  <div>{authUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
+)
 
 const NavigationAuth = () => (
   <Nav className="ml-auto" navbar>

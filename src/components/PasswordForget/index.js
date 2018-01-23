@@ -1,12 +1,26 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { Button, Alert } from 'reactstrap'
 import { auth } from '../../firebase'
 import * as routes from '../../constants/routes'
+import PageTitle from '../PageTitle'
+import PageWrapper from '../PageWrapper'
+import Card from '../Card'
+import FormElement from '../FormElement'
+
 
 const PasswordForgetPage = () => (
   <div>
-    <h1>PasswordForget</h1>
-    <PasswordForgetForm />
+    <PageTitle title="Password recovery" />
+    <PageWrapper>
+      <Card title="Have you forgot your password?">
+        <p>
+          No worries.
+          Please fill in the form bellow to start recovering your email.
+        </p>
+        <PasswordForgetForm />
+      </Card>
+    </PageWrapper>
   </div>
 )
 
@@ -47,18 +61,23 @@ class PasswordForgetForm extends Component {
     const isInvalid = email === ''
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          value={this.state.email}
-          onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
+      <form onSubmit={this.onSubmit} >
+        {error && <Alert color="danger">{error.message}</Alert>}
+        <FormElement
+          className="py-2"
+          value={email}
+          name="email"
+          id="email"
+          label="Email address"
+          onChange={event =>
+            this.setState(updateByPropertyName('email', event.target.value))
+          }
           type="text"
-          placeholder="Email Address"
+          placeholder=""
         />
-        <button disabled={isInvalid} type="submit">
+        <Button disabled={isInvalid} type="submit">
           Reset My Password
-        </button>
-
-        {error && <p>{error.message}</p>}
+        </Button>
       </form>
     )
   }

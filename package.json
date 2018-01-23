@@ -15,6 +15,7 @@
     "reactstrap": "next",
     "recompose": "^0.26.0",
     "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
     "webfontloader": "^1.6.28"
   },
   "scripts": {
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",

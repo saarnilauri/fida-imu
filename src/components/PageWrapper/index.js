@@ -14,7 +14,7 @@ class PageWrapper extends Component {
 }
 
 PageWrapper.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.array,
 }
 
 export default PageWrapper

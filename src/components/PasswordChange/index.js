@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
+import { Button, Alert } from 'reactstrap'
 import { auth } from '../../firebase'
+import FormElement from '../FormElement'
+
 
 const updateByPropertyName = (propertyName, value) => () => ({
   [propertyName]: value,
@@ -40,23 +43,30 @@ class PasswordChangeForm extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <input
+        {error && <Alert color="danger">{error.message}</Alert>}
+        <FormElement
+          className=""
+          name="passwordOne"
+          id="passwordOne"
+          label="Password"
           value={passwordOne}
           onChange={event => this.setState(updateByPropertyName('passwordOne', event.target.value))}
           type="password"
-          placeholder="New Password"
+          placeholder=""
         />
-        <input
+        <FormElement
+          className="py-2"
+          name="passwordTwo"
+          id="passwordTwo"
+          label="Confirm Password"
           value={passwordTwo}
           onChange={event => this.setState(updateByPropertyName('passwordTwo', event.target.value))}
           type="password"
-          placeholder="Confirm New Password"
+          placeholder=""
         />
-        <button disabled={isInvalid} type="submit">
-          Reset My Password
-        </button>
-
-        {error && <p>{error.message}</p>}
+        <Button disabled={isInvalid} type="submit">
+          Reset your password
+        </Button>
       </form>
     )
   }
