@@ -2,16 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
-
-import { PasswordForgetForm } from '../PasswordForget'
 import PasswordChangeForm from '../PasswordChange'
 import withAuthorization from '../Session/withAuthorization'
+import PageTitle from '../PageTitle'
+import PageWrapper from '../PageWrapper'
+import Card from '../Card'
 
 const AccountPage = ({ authUser }) => (
   <div>
-    <h1>Account: {authUser.email}</h1>
-    <PasswordForgetForm />
-    <PasswordChangeForm />
+    <PageTitle title="User account" />
+    <PageWrapper>
+      <Card title={`Account details for ${authUser.email}`}>
+        <PasswordChangeForm />
+      </Card>
+    </PageWrapper>
   </div>
 )
 
@@ -25,4 +29,7 @@ const mapStateToProps = state => ({
 
 const authCondition = authUser => !!authUser
 
-export default compose(withAuthorization(authCondition), connect(mapStateToProps))(AccountPage)
+export default compose(
+  withAuthorization(authCondition),
+  connect(mapStateToProps),
+)(AccountPage)

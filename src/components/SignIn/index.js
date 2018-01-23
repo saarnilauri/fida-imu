@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { Button, Alert } from 'reactstrap'
+import FontAwesome from 'react-fontawesome'
 import { SignUpLink } from '../SignUp'
 import { PasswordForgetLink } from '../PasswordForget'
 import { auth } from '../../firebase'
@@ -77,7 +78,9 @@ class SignInForm extends Component {
           name="email"
           id="email"
           label="Email"
-          onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
+          onChange={event =>
+            this.setState(updateByPropertyName('email', event.target.value))
+          }
           type="text"
           placeholder="Email Address"
         />
@@ -87,12 +90,14 @@ class SignInForm extends Component {
           id="password"
           label="Password"
           value={password}
-          onChange={event => this.setState(updateByPropertyName('password', event.target.value))}
+          onChange={event =>
+            this.setState(updateByPropertyName('password', event.target.value))
+          }
           type="password"
           placeholder="Password"
         />
         <Button disabled={isInvalid} type="submit">
-          Sign In
+          <FontAwesome name="sign-in" /> Sign In
         </Button>
       </form>
     )
