@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
-
 import withAuthorization from '../Session/withAuthorization'
 import { db } from '../../firebase'
+import PageWrapper from '../PageWrapper'
+import PageTitle from '../PageTitle'
 
 class HomePage extends Component {
   componentDidMount() {
@@ -18,10 +19,11 @@ class HomePage extends Component {
 
     return (
       <div>
-        <h1>Home</h1>
-        <p>The Home Page is accessible by every signed in user.</p>
-
-        {!!users && <UserList users={users} />}
+        <PageTitle title="Home" />
+        <PageWrapper>
+          <p>The Home Page is accessible by every signed in user.</p>
+          {!!users && <UserList users={users} />}
+        </PageWrapper>
       </div>
     )
   }
@@ -29,20 +31,21 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   onSetUsers: PropTypes.func,
-  users: PropTypes.array,
+  users: PropTypes.object,
 }
 
 const UserList = ({ users }) => (
   <div>
     <h2>List of Usernames of Users</h2>
     <p>(Saved on Sign Up in Firebase Database)</p>
-
-    {Object.keys(users).map(key => <div key={key}>{users[key].username}</div>)}
+    <ul>
+      {Object.keys(users).map(key => <li key={key}>{users[key].username}</li>)}
+    </ul>
   </div>
 )
 
 UserList.propTypes = {
-  users: PropTypes.array,
+  users: PropTypes.object,
 }
 
 const mapStateToProps = state => ({
@@ -55,4 +58,7 @@ const mapDispatchToProps = dispatch => ({
 
 const authCondition = authUser => !!authUser
 
-export default compose(withAuthorization(authCondition), connect(mapStateToProps, mapDispatchToProps))(HomePage)
+export default compose(
+  withAuthorization(authCondition),
+  connect(mapStateToProps, mapDispatchToProps),
+)(HomePage)

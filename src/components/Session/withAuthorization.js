@@ -24,7 +24,7 @@ const withAuthorization = condition => Component => {
 
   WithAuthorization.propTypes = {
     authUser: PropTypes.object,
-    history: PropTypes.array,
+    history: PropTypes.object,
   }
 
   const mapStateToProps = state => ({
