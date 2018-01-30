@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-class PageWrapper extends Component {
+class Card extends Component {
   render() {
     return (
       <div className="card">
@@ -12,9 +12,9 @@ class PageWrapper extends Component {
   }
 }
 
-PageWrapper.propTypes = {
+Card.propTypes = {
   title: PropTypes.string,
-  children: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 }
 
-export default PageWrapper
+export default Card

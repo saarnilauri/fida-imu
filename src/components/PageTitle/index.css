@@ -1,3 +1,6 @@
-.bg-secondary h1 {
+.bg-secondary h1,
+.bg-secondary h2,
+.bg-secondary h3 {
   color: #fff;
+  margin: 0;
 }

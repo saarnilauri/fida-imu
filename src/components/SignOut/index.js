@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome'
 import { auth } from '../../firebase'
 
 const SignOutButton = () => (
-  <Button type="button" onClick={auth.doSignOut}>
+  <Button type="button" size="sm" onClick={auth.doSignOut}>
     <FontAwesome name="sign-out" /> Sign Out
   </Button>
 )

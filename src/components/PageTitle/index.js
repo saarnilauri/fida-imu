@@ -4,11 +4,11 @@ import './index.css'
 
 const PageTitle = ({ title }) => {
   return (
-    <div className="py-2 bg-secondary">
-      <div className="container py-2">
+    <div className="py-1 bg-secondary">
+      <div className="container py-1">
         <div className="row">
           <div className="col-md-12 text-lg-left text-center align-self-center">
-            <h1 className="display-4">{title}</h1>
+            <h3 className="">{title}</h3>
           </div>
         </div>
       </div>
