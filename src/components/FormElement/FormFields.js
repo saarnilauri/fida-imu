@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import FormElement from './index'
 
 const propTypes = {
@@ -7,28 +8,37 @@ const propTypes = {
   onChange: PropTypes.func,
 }
 
-export const UsernameField = ({ onChange, value }) => (
+const Field = ({ id, ...props }) => (
   <FormElement
+    {...props}
+    name={id}
+    id={id}
+    label={props.label ? props.label : _.capitalize(id)}
+  />
+)
+
+Field.propTypes = {
+  id: PropTypes.string,
+  label: PropTypes.string,
+}
+
+export const UsernameField = ({ onChange, value }) => (
+  <Field
     className=""
-    name="username"
     id="username"
-    label="Username"
     value={value}
     onChange={onChange}
     type="text"
-    placeholder=""
   />
 )
 
 UsernameField.propTypes = propTypes
 
 export const EmailField = ({ onChange, value }) => (
-  <FormElement
+  <Field
     className="py-2"
     value={value}
-    name="email"
     id="email"
-    label="Email"
     onChange={onChange}
     type="text"
     placeholder="Email Address"
@@ -38,11 +48,9 @@ export const EmailField = ({ onChange, value }) => (
 EmailField.propTypes = propTypes
 
 export const PasswordField = ({ onChange, value }) => (
-  <FormElement
+  <Field
     className="py-2"
-    name="password"
     id="password"
-    label="Password"
     value={value}
     onChange={onChange}
     type="password"
@@ -59,21 +67,18 @@ export const PasswordConfirmField = ({
   passwordTwo,
 }) => (
   <div>
-    <FormElement
+    <Field
       className=""
-      name="passwordOne"
       id="passwordOne"
-      label="Password"
       value={passwordOne}
       onChange={onChangeOne}
       type="password"
       placeholder=""
     />
-    <FormElement
+    <Field
       className="py-2"
-      name="passwordTwo"
       id="passwordTwo"
-      label="Confirm Password"
+      label="Confirm password"
       value={passwordTwo}
       onChange={onChangeTwo}
       type="password"

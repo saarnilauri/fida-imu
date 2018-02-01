@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import Loader from '../Loader'
 import './withDelay.css'
 
-// This function takes a component...
 function withDelay(WrappedComponent, delay) {
-  // ...and returns another component...
   return class extends Component {
     constructor(props) {
       super(props)
@@ -13,7 +11,6 @@ function withDelay(WrappedComponent, delay) {
     }
 
     componentDidMount() {
-      // ... that takes care of the subscription...
       setTimeout(this.handleChange, delay)
     }
 
@@ -31,9 +28,6 @@ function withDelay(WrappedComponent, delay) {
           </div>
         </div>
       )
-      // component
-      // ... and renders the wrapped component with the fresh data!
-      // Notice that we pass through any additional props
     }
   }
 }
