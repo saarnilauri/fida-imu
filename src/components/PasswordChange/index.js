@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { Button, Alert } from 'reactstrap'
 import { auth } from '../../firebase'
-import FormElement from '../FormElement'
-
-
-const updateByPropertyName = (propertyName, value) => () => ({
-  [propertyName]: value,
-})
+import {
+  PasswordConfirmField,
+  setStateValue,
+  updateByPropertyName,
+} from '../FormElement/FormFields'
 
 const INITIAL_STATE = {
   passwordOne: '',
@@ -44,25 +43,11 @@ class PasswordChangeForm extends Component {
     return (
       <form onSubmit={this.onSubmit}>
         {error && <Alert color="danger">{error.message}</Alert>}
-        <FormElement
-          className=""
-          name="passwordOne"
-          id="passwordOne"
-          label="Password"
-          value={passwordOne}
-          onChange={event => this.setState(updateByPropertyName('passwordOne', event.target.value))}
-          type="password"
-          placeholder=""
-        />
-        <FormElement
-          className="py-2"
-          name="passwordTwo"
-          id="passwordTwo"
-          label="Confirm Password"
-          value={passwordTwo}
-          onChange={event => this.setState(updateByPropertyName('passwordTwo', event.target.value))}
-          type="password"
-          placeholder=""
+        <PasswordConfirmField
+          passwordOne={passwordOne}
+          onChangeOne={setStateValue('passwordOne', this)}
+          passwordTwo={passwordTwo}
+          onChangeTwo={setStateValue('passwordTwo', this)}
         />
         <Button disabled={isInvalid} type="submit">
           Reset your password

@@ -4,15 +4,15 @@ import { connect } from 'react-redux'
 import { Button, Alert } from 'reactstrap'
 import { toast } from 'react-toastify'
 import { db } from '../../firebase'
-import FormElement from '../FormElement'
+import {
+  UsernameField,
+  updateByPropertyName,
+  setStateValue,
+} from '../FormElement/FormFields'
 import FormContent from '../FormContent'
 import Editor from '../Editor'
 import Loader from '../Loader'
 import FidaToast from '../FidaToast'
-
-const updateByPropertyName = (propertyName, value) => () => ({
-  [propertyName]: value,
-})
 
 const INITIAL_STATE = {
   username: '',
@@ -63,16 +63,12 @@ class UserProfileForm extends Component {
     const { username, email, description } = this.state
     const descriptionHtml = description ? description.toString('html') : ''
 
-    // console.log(username, email, description, descriptionHtml)
     db
       .writeUserData(this.props.authUser.uid, username, email, descriptionHtml)
       .then(() => {
-        // toast('Profile updated.')
         toast.success('Profile updated!', {
           position: toast.POSITION.TOP_CENTER,
         })
-        // this.setState(updateByPropertyName('notice', 'Updated.'))
-        // this.setState(updateByPropertyName('descriptionHtml', descriptionHtml))
       })
       .catch(error => {
         this.setState(updateByPropertyName('error', error))
@@ -94,28 +90,10 @@ class UserProfileForm extends Component {
                 <Alert color="danger">{error.message}</Alert>
               </div>
             )}
-            {
-              //   notice && (
-              //   <div className="py-2">
-              //     <Toast message={notice} />
-              //   </div>
-              // )
-            }
-            <FormElement
-              className=""
-              name="username"
-              id="username"
-              label="Username"
+            <UsernameField
               value={username}
-              onChange={event =>
-                this.setState(
-                  updateByPropertyName('username', event.target.value),
-                )
-              }
-              type="text"
-              placeholder=""
+              onChange={setStateValue('username', this)}
             />
-
             <div>
               <FormContent label="Profile description" className="py-2">
                 <Editor onChange={this.onChange} content={descriptionHtml} />

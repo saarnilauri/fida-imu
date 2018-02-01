@@ -7,7 +7,13 @@ import * as routes from '../../constants/routes'
 import PageTitle from '../PageTitle'
 import PageWrapper from '../PageWrapper'
 import Card from '../Card'
-import FormElement from '../FormElement'
+import {
+  UsernameField,
+  EmailField,
+  PasswordConfirmField,
+  setStateValue,
+  updateByPropertyName,
+} from '../FormElement/FormFields'
 
 const SignUpPage = ({ history }) => (
   <div>
@@ -23,10 +29,6 @@ const SignUpPage = ({ history }) => (
 SignUpPage.propTypes = {
   history: PropTypes.array,
 }
-
-const updateByPropertyName = (propertyName, value) => () => ({
-  [propertyName]: value,
-})
 
 const INITIAL_STATE = {
   username: '',
@@ -70,11 +72,12 @@ class SignUpForm extends Component {
   }
 
   render() {
-    const {
-      username, email, passwordOne, passwordTwo, error,
-    } = this.state
-
-    const isInvalid = passwordOne !== passwordTwo || passwordOne === '' || username === '' || email === ''
+    const { username, email, passwordOne, passwordTwo, error } = this.state
+    const isInvalid =
+      passwordOne !== passwordTwo ||
+      passwordOne === '' ||
+      username === '' ||
+      email === ''
 
     return (
       <form onSubmit={this.onSubmit}>
@@ -83,45 +86,16 @@ class SignUpForm extends Component {
             <Alert color="danger">{error.message}</Alert>
           </div>
         )}
-        <FormElement
-          className=""
+        <UsernameField
           value={username}
-          name="username"
-          id="username"
-          label="Full Name"
-          onChange={event => this.setState(updateByPropertyName('username', event.target.value))}
-          type="text"
-          placeholder=""
+          onChange={setStateValue('username', this)}
         />
-        <FormElement
-          className="py-2"
-          value={email}
-          name="email"
-          id="email"
-          label="Email"
-          onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
-          type="text"
-          placeholder="name@example.com"
-        />
-        <FormElement
-          className=""
-          name="passwordOne"
-          id="passwordOne"
-          label="Password"
-          value={passwordOne}
-          onChange={event => this.setState(updateByPropertyName('passwordOne', event.target.value))}
-          type="password"
-          placeholder=""
-        />
-        <FormElement
-          className="py-2"
-          name="passwordTwo"
-          id="passwordTwo"
-          label="Confirm Password"
-          value={passwordTwo}
-          onChange={event => this.setState(updateByPropertyName('passwordTwo', event.target.value))}
-          type="password"
-          placeholder=""
+        <EmailField value={email} onChange={setStateValue('email', this)} />
+        <PasswordConfirmField
+          passwordOne={passwordOne}
+          onChangeOne={setStateValue('passwordOne', this)}
+          passwordTwo={passwordTwo}
+          onChangeTwo={setStateValue('passwordTwo', this)}
         />
         <Button disabled={isInvalid} type="submit">
           Sign Up
