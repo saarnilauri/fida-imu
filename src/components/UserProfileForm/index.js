@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Button, Alert } from 'reactstrap'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { db } from '../../firebase'
-import { TOAST_SHORT } from '../../constants/ui.setup'
 import FormElement from '../FormElement'
 import FormContent from '../FormContent'
 import Editor from '../Editor'
 import Loader from '../Loader'
+import FidaToast from '../FidaToast'
 
 const updateByPropertyName = (propertyName, value) => () => ({
   [propertyName]: value,
@@ -47,6 +47,9 @@ class UserProfileForm extends Component {
         })
         .catch(err => {
           this.setState(updateByPropertyName('error', err))
+          toast.error('Error occured!', {
+            position: toast.POSITION.TOP_CENTER,
+          })
         })
     }
   }
@@ -65,7 +68,7 @@ class UserProfileForm extends Component {
       .writeUserData(this.props.authUser.uid, username, email, descriptionHtml)
       .then(() => {
         // toast('Profile updated.')
-        toast.success('Profile updated !', {
+        toast.success('Profile updated!', {
           position: toast.POSITION.TOP_CENTER,
         })
         // this.setState(updateByPropertyName('notice', 'Updated.'))
@@ -121,13 +124,9 @@ class UserProfileForm extends Component {
                 Save your profile
               </Button>
             </div>
-            <ToastContainer
-              autoClose={TOAST_SHORT}
-              hideProgressBar
-              style={{ backgroudColor: 'red' }}
-            />
           </form>
         )}
+        <FidaToast />
       </div>
     )
   }
