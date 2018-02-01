@@ -4,15 +4,15 @@ import { connect } from 'react-redux'
 import { Button, Alert } from 'reactstrap'
 import { toast } from 'react-toastify'
 import { db } from '../../firebase'
-import { UsernameField } from '../FormElement/FormFields'
+import {
+  UsernameField,
+  updateByPropertyName,
+  setStateValue,
+} from '../FormElement/FormFields'
 import FormContent from '../FormContent'
 import Editor from '../Editor'
 import Loader from '../Loader'
 import FidaToast from '../FidaToast'
-
-const updateByPropertyName = (propertyName, value) => () => ({
-  [propertyName]: value,
-})
 
 const INITIAL_STATE = {
   username: '',
@@ -92,11 +92,7 @@ class UserProfileForm extends Component {
             )}
             <UsernameField
               value={username}
-              onChange={event =>
-                this.setState(
-                  updateByPropertyName('username', event.target.value),
-                )
-              }
+              onChange={setStateValue('username', this)}
             />
             <div>
               <FormContent label="Profile description" className="py-2">

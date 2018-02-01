@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Button, Alert } from 'reactstrap'
 import { auth } from '../../firebase'
-import { PasswordConfirmField } from '../FormElement/FormFields'
-
-const updateByPropertyName = (propertyName, value) => () => ({
-  [propertyName]: value,
-})
+import {
+  PasswordConfirmField,
+  setStateValue,
+  updateByPropertyName,
+} from '../FormElement/FormFields'
 
 const INITIAL_STATE = {
   passwordOne: '',
@@ -45,17 +45,9 @@ class PasswordChangeForm extends Component {
         {error && <Alert color="danger">{error.message}</Alert>}
         <PasswordConfirmField
           passwordOne={passwordOne}
-          onChangeOne={event =>
-            this.setState(
-              updateByPropertyName('passwordOne', event.target.value),
-            )
-          }
+          onChangeOne={setStateValue('passwordOne', this)}
           passwordTwo={passwordTwo}
-          onChangeTwo={event =>
-            this.setState(
-              updateByPropertyName('passwordTwo', event.target.value),
-            )
-          }
+          onChangeTwo={setStateValue('passwordTwo', this)}
         />
         <Button disabled={isInvalid} type="submit">
           Reset your password

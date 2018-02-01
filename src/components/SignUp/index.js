@@ -11,6 +11,8 @@ import {
   UsernameField,
   EmailField,
   PasswordConfirmField,
+  setStateValue,
+  updateByPropertyName,
 } from '../FormElement/FormFields'
 
 const SignUpPage = ({ history }) => (
@@ -27,10 +29,6 @@ const SignUpPage = ({ history }) => (
 SignUpPage.propTypes = {
   history: PropTypes.array,
 }
-
-const updateByPropertyName = (propertyName, value) => () => ({
-  [propertyName]: value,
-})
 
 const INITIAL_STATE = {
   username: '',
@@ -75,7 +73,6 @@ class SignUpForm extends Component {
 
   render() {
     const { username, email, passwordOne, passwordTwo, error } = this.state
-
     const isInvalid =
       passwordOne !== passwordTwo ||
       passwordOne === '' ||
@@ -91,29 +88,14 @@ class SignUpForm extends Component {
         )}
         <UsernameField
           value={username}
-          onChange={event =>
-            this.setState(updateByPropertyName('username', event.target.value))
-          }
+          onChange={setStateValue('username', this)}
         />
-        <EmailField
-          value={email}
-          onChange={event =>
-            this.setState(updateByPropertyName('email', event.target.value))
-          }
-        />
+        <EmailField value={email} onChange={setStateValue('email', this)} />
         <PasswordConfirmField
           passwordOne={passwordOne}
-          onChangeOne={event =>
-            this.setState(
-              updateByPropertyName('passwordOne', event.target.value),
-            )
-          }
+          onChangeOne={setStateValue('passwordOne', this)}
           passwordTwo={passwordTwo}
-          onChangeTwo={event =>
-            this.setState(
-              updateByPropertyName('passwordTwo', event.target.value),
-            )
-          }
+          onChangeTwo={setStateValue('passwordTwo', this)}
         />
         <Button disabled={isInvalid} type="submit">
           Sign Up
