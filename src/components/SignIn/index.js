@@ -10,7 +10,7 @@ import * as routes from '../../constants/routes'
 import PageTitle from '../PageTitle'
 import PageWrapper from '../PageWrapper'
 import Card from '../Card'
-import FormElement from '../FormElement'
+import { EmailField, PasswordField } from '../FormElement/FormFields'
 
 const SignInPage = ({ history }) => (
   <div>
@@ -72,29 +72,17 @@ class SignInForm extends Component {
     return (
       <form onSubmit={this.onSubmit} className="py-2">
         {error && <Alert color="danger">{error.message}</Alert>}
-        <FormElement
-          className="py-2"
+        <EmailField
           value={email}
-          name="email"
-          id="email"
-          label="Email"
           onChange={event =>
             this.setState(updateByPropertyName('email', event.target.value))
           }
-          type="text"
-          placeholder="Email Address"
         />
-        <FormElement
-          className="py-2"
-          name="password"
-          id="password"
-          label="Password"
+        <PasswordField
           value={password}
           onChange={event =>
             this.setState(updateByPropertyName('password', event.target.value))
           }
-          type="password"
-          placeholder="Password"
         />
         <Button disabled={isInvalid} type="submit">
           <FontAwesome name="sign-in" /> Sign In
