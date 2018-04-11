@@ -6,6 +6,10 @@ import { firebase } from '../../firebase'
 
 const withAuthentication = Component => {
   class WithAuthentication extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state = { ready: false }
+    }
     componentDidMount() {
       const { onSetAuthUser } = this.props
 
@@ -15,11 +19,12 @@ const withAuthentication = Component => {
         } else {
           onSetAuthUser(null)
         }
+        this.setState({ ready: true })
       })
     }
 
     render() {
-      return <Component />
+      return <Component ready={this.state.ready} />
     }
   }
 
