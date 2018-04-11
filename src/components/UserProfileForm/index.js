@@ -60,11 +60,18 @@ class UserProfileForm extends Component {
 
   onSubmit = event => {
     event.preventDefault()
-    const { username, email, description } = this.state
-    const descriptionHtml = description ? description.toString('html') : ''
+    const { username, email, description, descriptionHtml } = this.state
+    const updatedDescriptionHtml = description
+      ? description.toString('html')
+      : descriptionHtml
 
     db
-      .writeUserData(this.props.authUser.uid, username, email, descriptionHtml)
+      .writeUserData(
+        this.props.authUser.uid,
+        username,
+        email,
+        updatedDescriptionHtml,
+      )
       .then(() => {
         toast.success('Profile updated!', {
           position: toast.POSITION.TOP_CENTER,
