@@ -64,6 +64,7 @@ export const PasswordConfirmField = ({ onChangeOne, passwordOne, onChangeTwo, pa
     <Field
       className=""
       id="passwordOne"
+      label="Password"
       value={passwordOne}
       onChange={onChangeOne}
       type="password"

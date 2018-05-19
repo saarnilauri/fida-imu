@@ -44,7 +44,7 @@ PasswordField.propTypes = propTypes
 
 export const PasswordConfirmField = ({ onChangeOne, passwordOne, onChangeTwo, passwordTwo }) => (
   <div>
-    <Field className="" id="passwordOne" value={passwordOne} onChange={onChangeOne} type="password" placeholder="" />
+    <Field className="" label="Password" id="passwordOne" value={passwordOne} onChange={onChangeOne} type="password" placeholder="" />
     <Field
       className="py-2"
       id="passwordTwo"
