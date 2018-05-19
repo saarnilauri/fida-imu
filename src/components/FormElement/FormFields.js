@@ -8,13 +8,6 @@ const propTypes = {
   onChange: PropTypes.func,
 }
 
-export const updateByPropertyName = (propertyName, value) => () => ({
-  [propertyName]: value,
-})
-
-export const setStateValue = (propertyName, componentThis) => {
-  return event => componentThis.setState(updateByPropertyName(propertyName, event.target.value))
-}
 const Field = ({ id, ...props }) => (
   <FormElement {...props} name={id} id={id} label={props.label ? props.label : _.capitalize(id)} />
 )
@@ -43,8 +36,16 @@ export const PasswordField = ({ onChange, value }) => (
 PasswordField.propTypes = propTypes
 
 export const PasswordConfirmField = ({ onChangeOne, passwordOne, onChangeTwo, passwordTwo }) => (
-  <div>
-    <Field className="" label="Password" id="passwordOne" value={passwordOne} onChange={onChangeOne} type="password" placeholder="" />
+  <React.Fragment>
+    <Field
+      className=""
+      label="Password"
+      id="passwordOne"
+      value={passwordOne}
+      onChange={onChangeOne}
+      type="password"
+      placeholder=""
+    />
     <Field
       className="py-2"
       id="passwordTwo"
@@ -54,7 +55,7 @@ export const PasswordConfirmField = ({ onChangeOne, passwordOne, onChangeTwo, pa
       type="password"
       placeholder=""
     />
-  </div>
+  </React.Fragment>
 )
 
 PasswordConfirmField.propTypes = {

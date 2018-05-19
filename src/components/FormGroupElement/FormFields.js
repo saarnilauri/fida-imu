@@ -8,14 +8,6 @@ const propTypes = {
   onChange: PropTypes.func,
 }
 
-export const updateByPropertyName = (propertyName, value) => () => ({
-  [propertyName]: value,
-})
-
-export const setStateValue = (propertyName, componentThis) => {
-  return event => componentThis.setState(updateByPropertyName(propertyName, event.target.value))
-}
-
 const Field = ({ id, ...props }) => (
   <FormElement {...props} name={id} id={id} label={props.label ? props.label : _.capitalize(id)} />
 )
@@ -26,7 +18,15 @@ Field.propTypes = {
 }
 
 export const UsernameField = ({ onChange, value }) => (
-  <Field className="" id="username" value={value} onChange={onChange} type="text" icon="user" />
+  <Field
+    className=""
+    id="username"
+    placeholder="Display name"
+    value={value}
+    onChange={onChange}
+    type="text"
+    icon="user"
+  />
 )
 
 UsernameField.propTypes = propTypes
@@ -68,7 +68,7 @@ export const PasswordConfirmField = ({ onChangeOne, passwordOne, onChangeTwo, pa
       value={passwordOne}
       onChange={onChangeOne}
       type="password"
-      placeholder=""
+      placeholder="Password"
       icon="lock"
     />
     <Field
@@ -78,7 +78,7 @@ export const PasswordConfirmField = ({ onChangeOne, passwordOne, onChangeTwo, pa
       value={passwordTwo}
       onChange={onChangeTwo}
       type="password"
-      placeholder=""
+      placeholder="Confirm password"
       icon="lock"
     />
   </div>

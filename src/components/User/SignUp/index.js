@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
 import { Alert, Button, Card, CardBody } from 'reactstrap'
+import { auth, db } from '../../../firebase'
 import * as routes from '../../../constants/routes'
+import { updateByPropertyName, setStateValue } from '../../../constants/utils'
 import PageWrapper from '../PageWrapper'
 import logo from '../../../assets/img/brand/fida_logo.svg'
-import { UsernameField, EmailField, PasswordConfirmField, setStateValue } from '../../FormGroupElement/FormFields'
+import { UsernameField, EmailField, PasswordConfirmField } from '../../FormGroupElement/FormFields'
 
 const SignUpPage = ({ history }) => (
   <PageWrapper>
@@ -28,7 +30,7 @@ const SignUpPage = ({ history }) => (
 )
 
 SignUpPage.propTypes = {
-  history: PropTypes.array,
+  history: PropTypes.object,
 }
 
 const INITIAL_STATE = {
@@ -50,7 +52,7 @@ class SignUpForm extends Component {
     const { username, email, passwordOne } = this.state
 
     const { history } = this.props
-    /*
+
     auth
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
@@ -68,7 +70,7 @@ class SignUpForm extends Component {
       .catch(error => {
         this.setState(updateByPropertyName('error', error))
       })
-      */
+
     event.preventDefault()
   }
 
@@ -100,7 +102,7 @@ class SignUpForm extends Component {
 }
 
 SignUpForm.propTypes = {
-  history: PropTypes.array,
+  history: PropTypes.object,
 }
 
 const SignUpLink = () => (

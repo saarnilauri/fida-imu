@@ -9945,6 +9945,10 @@ body {
 .sidebar-minimized .sidebar .nav-link {
   background: #3a322f; }
 
+.sidebar .nav-item.admin,
+.sidebar .nav-title.admin {
+  background: #2c2623; }
+
 .small-h1 {
   font-size: 1.5rem; }
 
@@ -9953,6 +9957,12 @@ body {
 
 .app-header .navbar-nav {
   padding-right: 2em; }
+
+label {
+  font-weight: 700; }
+
+.form-check label {
+  font-weight: 400; }
 
 html body .app.flex-row.align-items-center {
   height: 100vh; }

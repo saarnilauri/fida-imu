@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom'
 import { Button, Alert, CardBody, Card, Col, Row } from 'reactstrap'
 import { auth } from '../../../firebase'
 import * as routes from '../../../constants/routes'
+import { updateByPropertyName, setStateValue } from '../../../constants/utils'
 import PageWrapper from '../PageWrapper'
-import { EmailField, setStateValue } from '../../FormElement/FormFields'
+import { EmailField } from '../../FormElement/FormFields'
 
 import logo from '../../../assets/img/brand/fida_logo.svg'
 
@@ -28,10 +29,6 @@ const PasswordForgetPage = () => (
     </Card>
   </PageWrapper>
 )
-
-const updateByPropertyName = (propertyName, value) => () => ({
-  [propertyName]: value,
-})
 
 const INITIAL_STATE = {
   email: '',

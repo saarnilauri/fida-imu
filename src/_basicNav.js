@@ -1,38 +1,24 @@
-import basicNavigation from './_basicNav'
-
 export default {
   items: [
-    ...basicNavigation.items,
+    {
+      name: 'Results chain',
+      url: '/results-chain',
+      icon: 'icon-calculator',
+    },
+    {
+      name: 'reports',
+      url: '/my-reports',
+      icon: 'fa fa-files-o',
+    },
     {
       title: true,
-      name: 'Admin area',
-      class: 'admin',
+      name: 'More',
     },
     {
-      name: 'Results chains',
-      url: '/results-chains',
-      icon: 'fa fa-table',
-      class: 'admin',
+      name: 'Account',
+      url: '/account',
+      icon: 'icon-user',
     },
-    {
-      name: 'Indicator bank',
-      url: '/indicatorbank',
-      icon: 'fa fa-tasks',
-      class: 'admin',
-    },
-    {
-      name: 'Users',
-      url: '/users',
-      icon: 'fa fa-group',
-      class: 'admin',
-    },
-    {
-      name: 'Settings',
-      url: '/settings',
-      icon: 'icon-settings',
-      class: 'admin',
-    },
-
     /* {
       name: 'Typography',
       url: '/theme/typography',

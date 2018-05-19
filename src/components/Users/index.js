@@ -8,7 +8,7 @@ import { db } from '../../firebase'
 import PageWrapper from '../PageWrapper'
 import PageTitle from '../PageTitle'
 
-class HomePage extends Component {
+class UsersPage extends Component {
   componentDidMount() {
     const { onSetUsers } = this.props
 
@@ -20,13 +20,10 @@ class HomePage extends Component {
 
     return (
       <div>
-        <PageTitle title="Home" />
+        <PageTitle title="Users" />
         <PageWrapper>
           <Card className="p-4">
-            <CardBody>
-              <p>The Home Page is accessible by every signed in user.</p>
-              {!!users && <UserList users={users} />}
-            </CardBody>
+            <CardBody>{!!users && <UserList users={users} />}</CardBody>
           </Card>
         </PageWrapper>
       </div>
@@ -34,7 +31,7 @@ class HomePage extends Component {
   }
 }
 
-HomePage.propTypes = {
+UsersPage.propTypes = {
   onSetUsers: PropTypes.func,
   users: PropTypes.object,
 }
@@ -42,7 +39,6 @@ HomePage.propTypes = {
 const UserList = ({ users }) => (
   <div>
     <h2>List of Usernames of Users</h2>
-    <p>(Saved on Sign Up in Firebase Database)</p>
     <ul>{Object.keys(users).map(key => <li key={key}>{users[key].username}</li>)}</ul>
   </div>
 )
@@ -61,4 +57,4 @@ const mapDispatchToProps = dispatch => ({
 
 const authCondition = authUser => !!authUser
 
-export default compose(withAuthorization(authCondition), connect(mapStateToProps, mapDispatchToProps))(HomePage)
+export default compose(withAuthorization(authCondition), connect(mapStateToProps, mapDispatchToProps))(UsersPage)

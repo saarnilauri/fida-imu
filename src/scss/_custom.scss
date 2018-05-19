@@ -6,6 +6,15 @@
   background: $gray-800;
 }
 
+.sidebar {
+  .nav-item,
+  .nav-title {
+    &.admin {
+      background: $gray-900;
+    }
+  }
+}
+
 .small-h1 {
   font-size: 1.5rem;
 }
@@ -15,4 +24,14 @@
 
 .app-header .navbar-nav {
   padding-right: 2em;
+}
+
+label {
+  font-weight: 700;
+}
+
+.form-check {
+  label {
+    font-weight: 400;
+  }
 }
