@@ -8,7 +8,7 @@ const withAuthentication = Component => {
   class WithAuthentication extends React.Component {
     constructor(props) {
       super(props)
-      this.state = { ready: false }
+      this.state = { ready: false, user: null }
     }
     componentDidMount() {
       const { onSetAuthUser } = this.props
@@ -19,12 +19,12 @@ const withAuthentication = Component => {
         } else {
           onSetAuthUser(null)
         }
-        this.setState({ ready: true })
+        this.setState(() => ({ ready: true, user: authUser }))
       })
     }
 
     render() {
-      return <Component ready={this.state.ready} />
+      return <Component ready={this.state.ready} user={this.state.user} />
     }
   }
 

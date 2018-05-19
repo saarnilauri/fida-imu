@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
+import { Card, CardBody } from 'reactstrap'
 import withAuthorization from '../Session/withAuthorization'
 import { db } from '../../firebase'
 import PageWrapper from '../PageWrapper'
@@ -21,8 +22,12 @@ class HomePage extends Component {
       <div>
         <PageTitle title="Home" />
         <PageWrapper>
-          <p>The Home Page is accessible by every signed in user.</p>
-          {!!users && <UserList users={users} />}
+          <Card className="p-4">
+            <CardBody>
+              <p>The Home Page is accessible by every signed in user.</p>
+              {!!users && <UserList users={users} />}
+            </CardBody>
+          </Card>
         </PageWrapper>
       </div>
     )
@@ -38,9 +43,7 @@ const UserList = ({ users }) => (
   <div>
     <h2>List of Usernames of Users</h2>
     <p>(Saved on Sign Up in Firebase Database)</p>
-    <ul>
-      {Object.keys(users).map(key => <li key={key}>{users[key].username}</li>)}
-    </ul>
+    <ul>{Object.keys(users).map(key => <li key={key}>{users[key].username}</li>)}</ul>
   </div>
 )
 
@@ -58,7 +61,4 @@ const mapDispatchToProps = dispatch => ({
 
 const authCondition = authUser => !!authUser
 
-export default compose(
-  withAuthorization(authCondition),
-  connect(mapStateToProps, mapDispatchToProps),
-)(HomePage)
+export default compose(withAuthorization(authCondition), connect(mapStateToProps, mapDispatchToProps))(HomePage)

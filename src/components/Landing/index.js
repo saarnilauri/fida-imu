@@ -1,20 +1,20 @@
 import React from 'react'
+import { Card, CardBody } from 'reactstrap'
 import PageTitle from '../PageTitle'
+import PageWrapper from '../PageWrapper'
 
 const LandingPage = () => (
-  <div className="">
+  <React.Fragment>
     <PageTitle title="Fida IMU Key Indicator Reports" />
-    <div className="py-4 container">
-      <div className="row py-2">
-        <div className="col-md-12">
-          <div>
-            <h2>Welcome</h2>
-            <p>The Landing Page is open to everyone, even though the user isn{'\''}t signed in.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <PageWrapper>
+      <Card className="p-4">
+        <CardBody>
+          <h2>Welcome</h2>
+          <p>This reporting tool aims to help missionaries and the people in Fida headquarters.</p>
+        </CardBody>
+      </Card>
+    </PageWrapper>
+  </React.Fragment>
 )
 
 export default LandingPage

@@ -25,26 +25,34 @@ Field.propTypes = {
 }
 
 export const UsernameField = ({ onChange, value }) => (
-  <Field className="" id="username" value={value} onChange={onChange} type="text" />
+  <Field className="" id="username" value={value} onChange={onChange} type="text" icon="user" />
 )
 
 UsernameField.propTypes = propTypes
 
 export const EmailField = ({ onChange, value }) => (
-  <Field className="py-2" value={value} id="email" onChange={onChange} type="text" placeholder="Email Address" />
+  <Field className="py-2" value={value} id="email" onChange={onChange} type="text" placeholder="Email Address" icon="envelope" />
 )
 
 EmailField.propTypes = propTypes
 
 export const PasswordField = ({ onChange, value }) => (
-  <Field className="py-2" id="password" value={value} onChange={onChange} type="password" placeholder="Password" />
+  <Field className="py-2" id="password" value={value} onChange={onChange} type="password" placeholder="Password" icon="lock" />
 )
 
 PasswordField.propTypes = propTypes
 
 export const PasswordConfirmField = ({ onChangeOne, passwordOne, onChangeTwo, passwordTwo }) => (
   <div>
-    <Field className="" id="passwordOne" value={passwordOne} onChange={onChangeOne} type="password" placeholder="" />
+    <Field 
+      className="" 
+      id="passwordOne" 
+      value={passwordOne} 
+      onChange={onChangeOne} 
+      type="password" 
+      placeholder="" 
+      icon="lock"
+    />
     <Field
       className="py-2"
       id="passwordTwo"
@@ -53,6 +61,7 @@ export const PasswordConfirmField = ({ onChangeOne, passwordOne, onChangeTwo, pa
       onChange={onChangeTwo}
       type="password"
       placeholder=""
+      icon="lock"
     />
   </div>
 )

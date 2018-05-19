@@ -1,12 +1,11 @@
 import React from 'react'
-import { Button } from 'reactstrap'
 import FontAwesome from 'react-fontawesome'
 import { auth } from '../../firebase'
 
 const SignOutButton = () => (
-  <Button type="button" size="sm" onClick={auth.doSignOut}>
+  <a href="/" onClick={auth.doSignOut}>
     <FontAwesome name="sign-out" /> Sign Out
-  </Button>
+  </a>
 )
 
 export default SignOutButton
