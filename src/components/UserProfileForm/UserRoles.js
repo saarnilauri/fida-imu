@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Col, FormGroup, Label } from 'reactstrap'
 import Checkbox from '../Checkbox'
 
-const roles = ['missionary', 'admin', 'joti']
+const roles = ['missionary', 'admin', 'joti', 'communications', 'partner', 'church', 'church']
 
 const UserRoles = props => (
   <FormGroup>
