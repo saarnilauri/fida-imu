@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FormGroup, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap'
 import FontAwesome from 'react-fontawesome'
+import { formElementProptypes } from '../FormElement'
 
 const FormElement = ({ id, mb, icon, name, placeholder, value, type, className, onChange }) => (
   <FormGroup className={className}>
@@ -16,16 +17,6 @@ const FormElement = ({ id, mb, icon, name, placeholder, value, type, className, 
   </FormGroup>
 )
 
-FormElement.propTypes = {
-  id: PropTypes.string,
-  mb: PropTypes.string,
-  icon: PropTypes.string,
-  name: PropTypes.string,
-  placeholder: PropTypes.string,
-  value: PropTypes.string,
-  type: PropTypes.string,
-  className: PropTypes.string,
-  onChange: PropTypes.func,
-}
+FormElement.propTypes = Object.assign({ icon: PropTypes.string }, formElementProptypes)
 
 export default FormElement

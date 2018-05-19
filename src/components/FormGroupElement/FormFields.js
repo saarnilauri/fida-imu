@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Field } from '../FormElement/FormFields'
+import _ from 'lodash'
+import FormElement from '../FormGroupElement'
 
 const propTypes = {
   value: PropTypes.string,
@@ -13,6 +14,15 @@ export const updateByPropertyName = (propertyName, value) => () => ({
 
 export const setStateValue = (propertyName, componentThis) => {
   return event => componentThis.setState(updateByPropertyName(propertyName, event.target.value))
+}
+
+const Field = ({ id, ...props }) => (
+  <FormElement {...props} name={id} id={id} label={props.label ? props.label : _.capitalize(id)} />
+)
+
+Field.propTypes = {
+  id: PropTypes.string,
+  label: PropTypes.string,
 }
 
 export const UsernameField = ({ onChange, value }) => (
