@@ -1,21 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import {
-  AppFooter,
-  AppHeader,
-  AppSidebar,
-  AppSidebarFooter,
-  AppSidebarForm,
-  AppSidebarHeader,
-  AppSidebarMinimizer,
-  AppSidebarNav,
-} from '@coreui/react'
+import { AppFooter, AppHeader } from '@coreui/react'
 // sidebar nav config
-import navigation from '../../_nav'
 import routes from '../../routes'
 import Footer from './Footer'
 import Header from './Header'
+import Sidebar from './Sidebar'
+import FidaToast from '../FidaToast'
 
 class Layout extends Component {
   static propTypes = {
@@ -24,6 +16,7 @@ class Layout extends Component {
 
   render() {
     const { user } = this.props
+    // console.log(user)
     const view =
       user !== null ? (
         <div className="app">
@@ -31,13 +24,7 @@ class Layout extends Component {
             <Header {...this.props} />
           </AppHeader>
           <div className="app-body">
-            <AppSidebar fixed display="lg">
-              <AppSidebarHeader />
-              <AppSidebarForm />
-              <AppSidebarNav navConfig={navigation} {...this.props} />
-              <AppSidebarFooter />
-              <AppSidebarMinimizer />
-            </AppSidebar>
+            <Sidebar />
             <main className="main">
               <Switch>
                 {routes.map(route => {
@@ -57,6 +44,7 @@ class Layout extends Component {
           <AppFooter>
             <Footer />
           </AppFooter>
+          <FidaToast />
         </div>
       ) : (
         <Redirect to="/login" />

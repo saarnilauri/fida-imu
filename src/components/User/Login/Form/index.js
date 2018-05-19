@@ -11,7 +11,7 @@ const LoginForm = props => (
     <PasswordField mb="4" value={props.password} onChange={props.onChangePassword} />
     <Row>
       <Col xs={props.forgotPasswordRoute ? '6' : '12'}>
-        <Button primary disabled={props.isInvalid} type="submit">
+        <Button color="secondary" disabled={props.isInvalid} type="submit">
           <FontAwesome name="sign-in" /> Sign In
         </Button>
       </Col>

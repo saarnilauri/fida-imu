@@ -4,7 +4,7 @@ import { Card, CardBody, Alert } from 'reactstrap'
 import { withRouter } from 'react-router-dom'
 import { auth } from '../../../firebase'
 import * as routes from '../../../constants/routes'
-import { setStateValue } from '../../FormGroupElement/FormFields'
+import { updateByPropertyName, setStateValue } from '../../../constants/utils'
 import LoginForm from './Form'
 import PageWrapper from '../PageWrapper'
 import logo from '../../../assets/img/brand/fida_logo.svg'
@@ -32,12 +32,8 @@ const SignInPage = ({ history }) => (
 )
 
 SignInPage.propTypes = {
-  history: PropTypes.array,
+  history: PropTypes.object,
 }
-
-const updateByPropertyName = (propertyName, value) => () => ({
-  [propertyName]: value,
-})
 
 const INITIAL_STATE = {
   email: '',
@@ -94,7 +90,7 @@ class SignInForm extends Component {
 }
 
 SignInForm.propTypes = {
-  history: PropTypes.array,
+  history: PropTypes.object,
 }
 
 export default withRouter(SignInPage)

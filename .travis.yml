@@ -1,7 +1,8 @@
 notifications:
   email: false
 env:
-  global: "CC_TEST_REPORTER_ID=a6f83b299881f117f61a5e18857dc3c3e6ad8e8c1c8460d982cceffd03025d61"
+  global: "CC_TEST_REPORTER_ID=ac6fc9fc89dd17739f1be0994221f61248d30385f0d89d57381c0916bf97456a"
+  
 language: node_js
 node_js: 7
 sudo: false

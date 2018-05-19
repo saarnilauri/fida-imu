@@ -1,33 +1,36 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
-import { Alert, Button } from 'reactstrap'
-import { auth, db } from '../../firebase'
-import * as routes from '../../constants/routes'
-import PageTitle from '../PageTitle'
+import { Alert, Button, Card, CardBody } from 'reactstrap'
+import { auth, db } from '../../../firebase'
+import * as routes from '../../../constants/routes'
+import { updateByPropertyName, setStateValue } from '../../../constants/utils'
 import PageWrapper from '../PageWrapper'
-import Card from '../Card'
-import {
-  UsernameField,
-  EmailField,
-  PasswordConfirmField,
-  setStateValue,
-  updateByPropertyName,
-} from '../FormElement/FormFields'
+import logo from '../../../assets/img/brand/fida_logo.svg'
+import { UsernameField, EmailField, PasswordConfirmField } from '../../FormGroupElement/FormFields'
 
 const SignUpPage = ({ history }) => (
-  <div>
-    <PageTitle title="Sign Up" />
-    <PageWrapper>
-      <Card title="Sign Up with your email and password">
+  <PageWrapper>
+    <Card className="p-4">
+      <CardBody>
+        <h1 className="small-h1">Sign up to IMU reporting</h1>
         <SignUpForm history={history} />
-      </Card>
-    </PageWrapper>
-  </div>
+      </CardBody>
+    </Card>
+    <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: `${44}%` }}>
+      <CardBody className="text-center">
+        <div className="flex-row align-items-center">
+          <div>
+            <img alt="Fida" src={logo} width="120" height="120" />
+          </div>
+        </div>
+      </CardBody>
+    </Card>
+  </PageWrapper>
 )
 
 SignUpPage.propTypes = {
-  history: PropTypes.array,
+  history: PropTypes.object,
 }
 
 const INITIAL_STATE = {
@@ -73,11 +76,7 @@ class SignUpForm extends Component {
 
   render() {
     const { username, email, passwordOne, passwordTwo, error } = this.state
-    const isInvalid =
-      passwordOne !== passwordTwo ||
-      passwordOne === '' ||
-      username === '' ||
-      email === ''
+    const isInvalid = passwordOne !== passwordTwo || passwordOne === '' || username === '' || email === ''
 
     return (
       <form onSubmit={this.onSubmit}>
@@ -86,10 +85,7 @@ class SignUpForm extends Component {
             <Alert color="danger">{error.message}</Alert>
           </div>
         )}
-        <UsernameField
-          value={username}
-          onChange={setStateValue('username', this)}
-        />
+        <UsernameField value={username} onChange={setStateValue('username', this)} />
         <EmailField value={email} onChange={setStateValue('email', this)} />
         <PasswordConfirmField
           passwordOne={passwordOne}
@@ -106,7 +102,7 @@ class SignUpForm extends Component {
 }
 
 SignUpForm.propTypes = {
-  history: PropTypes.array,
+  history: PropTypes.object,
 }
 
 const SignUpLink = () => (
