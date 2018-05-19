@@ -9,7 +9,7 @@ const FormElement = ({ id, label, name, placeholder, value, type, className, onC
   </FormGroup>
 )
 
-FormElement.propTypes = {
+export const formElementProptypes = {
   id: PropTypes.string,
   label: PropTypes.string,
   name: PropTypes.string,
@@ -19,5 +19,7 @@ FormElement.propTypes = {
   className: PropTypes.string,
   onChange: PropTypes.func,
 }
+
+FormElement.propTypes = formElementProptypes
 
 export default FormElement

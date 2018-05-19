@@ -66,7 +66,7 @@ class SignInForm extends Component {
       })
       .catch(error => {
         this.setState(updateByPropertyName('error', error))
-        this.setState(updateByPropertyName('loading', true))
+        this.setState(updateByPropertyName('loading', false))
       })
 
     event.preventDefault()
@@ -100,5 +100,3 @@ SignInForm.propTypes = {
 export default withRouter(SignInPage)
 
 export { SignInForm }
-
-// export default Login

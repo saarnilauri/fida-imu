@@ -15,7 +15,6 @@ export const updateByPropertyName = (propertyName, value) => () => ({
 export const setStateValue = (propertyName, componentThis) => {
   return event => componentThis.setState(updateByPropertyName(propertyName, event.target.value))
 }
-
 const Field = ({ id, ...props }) => (
   <FormElement {...props} name={id} id={id} label={props.label ? props.label : _.capitalize(id)} />
 )
@@ -24,8 +23,6 @@ Field.propTypes = {
   id: PropTypes.string,
   label: PropTypes.string,
 }
-
-export { Field }
 
 export const UsernameField = ({ onChange, value }) => (
   <Field className="" id="username" value={value} onChange={onChange} type="text" />
