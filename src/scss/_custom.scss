@@ -53,3 +53,24 @@ label {
     }
   }
 }
+
+.ql-bubble .ql-tooltip {
+  z-index: 10000;
+}
+
+.quill .ql-container .ql-snow {
+  height: 250px !important;
+  overflow-y: auto;
+}
+
+.ql-snow.ql-toolbar button,
+.ql-snow .ql-toolbar button {
+  width: 25px !important;
+  height: 20px;
+}
+
+.ql-container.ql-snow {
+  border: 0 !important;
+  height: 250px !important;
+  overflow-y: auto;
+}

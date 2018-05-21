@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
-import { Row } from 'reactstrap'
+import { Button, Col, Row } from 'reactstrap'
 
 import ResultsChainColumn from '../Column'
+import ResultsChainProperties from '../Properties'
 import PageTitle from '../../PageTitle'
 import PageWrapper from '../../PageWrapper'
 import IndicatorList from '../../IndicatorList'
+import QuillEditor from '../../QuillEditor'
 
 import { updateByPropertyName } from '../../../constants/utils'
 
@@ -14,55 +16,6 @@ const Empty = () => (
     <p style={{ color: '#fff' }}>-</p>
   </React.Fragment>
 )
-
-const Editor = () => (
-  <React.Fragment>
-    <h2>Test paragraph</h2>
-    <p>Test paragraph</p>
-    <ul>
-      <li>Activity number 1</li>
-      <li>Activity num 2</li>
-      <li>Activity num 3</li>
-      <li>Activity num 4</li>
-    </ul>
-  </React.Fragment>
-)
-
-const Editor3 = () => (
-  <React.Fragment>
-    <h2>Test paragraph</h2>
-    <p>Test paragraph</p>
-    <ul>
-      <li>Assuption number 1</li>
-      <li>Assuption num 2</li>
-      <li>Assuption num 3</li>
-      <li>Assuption num 4</li>
-      <li>Assuption num 5</li>
-    </ul>
-    <ul>
-      <li>Assuption number 1</li>
-      <li>Assuption num 2</li>
-      <li>Assuption num 3</li>
-      <li>Assuption num 4</li>
-      <li>Assuption num 5</li>
-    </ul>
-  </React.Fragment>
-)
-
-const Editor4 = () => (
-  <React.Fragment>
-    <h2>Test paragraph</h2>
-    <p>Test paragraph</p>
-    <ul>
-      <li>Assuption number 1</li>
-      <li>Assuption num 2</li>
-    </ul>
-    <ul>
-      <li>Assuption num 5</li>
-    </ul>
-  </React.Fragment>
-)
-
 class ResultsChainContainer extends Component {
   constructor(props) {
     super(props)
@@ -79,6 +32,7 @@ class ResultsChainContainer extends Component {
       impactTop: 1,
       impactMid: 1,
       impactBot: 1,
+      editMode: true,
     }
   }
 
@@ -142,71 +96,148 @@ class ResultsChainContainer extends Component {
     return highestValue
   }
 
+  handleEditorChange = (value, editorName) => {
+    this.setState(updateByPropertyName(editorName, value))
+  }
+
+  toggleEditMode = () => {
+    this.setState(prevState => ({
+      editMode: !prevState.editMode,
+    }))
+  }
+
   render() {
     return (
       <React.Fragment>
         <PageTitle title="Results chain" />
         <PageWrapper>
-          <div className="results-chain">
-            <Row className="no-gutters row-eq-height">
-              <ResultsChainColumn
-                title="Activities"
-                topContent={<Editor />}
-                topContentHeight={this.getHighestValue('Top')}
-                onResizeTopContent={this.onResizeActivityTop}
-                onResizeMidContent={this.onResizeActivityMid}
-                onResizeBotContent={this.onResizeActivityBot}
-                midTitle="Indicators"
-                midContent={<Empty />}
-                midContentHeight={this.getHighestValue('Mid')}
-                botContent={<Editor3 />}
-                botContentHeight={this.getHighestValue('Bot')}
-              />
-              <ResultsChainColumn
-                title="Output"
-                topContent={<Editor />}
-                bgClass="bg-info"
-                topContentHeight={this.getHighestValue('Top')}
-                onResizeTopContent={this.onResizeOutputTop}
-                onResizeMidContent={this.onResizeOutputMid}
-                onResizeBotContent={this.onResizeOutputBot}
-                midTitle="Indicators"
-                midContent={<IndicatorList />}
-                midContentHeight={this.getHighestValue('Mid')}
-                botContent={<Editor4 />}
-                botContentHeight={this.getHighestValue('Bot')}
-              />
-              <ResultsChainColumn
-                title="Outcome"
-                topContent={<Editor />}
-                bgClass="bg-success"
-                topContentHeight={this.getHighestValue('Top')}
-                onResizeTopContent={this.onResizeOutcomeTop}
-                onResizeMidContent={this.onResizeOutcomeMid}
-                onResizeBotContent={this.onResizeOutcomeBot}
-                midTitle="Indicators"
-                midContent={<IndicatorList />}
-                midContentHeight={this.getHighestValue('Mid')}
-                botContent={<Editor4 />}
-                botContentHeight={this.getHighestValue('Bot')}
-              />
-              <ResultsChainColumn
-                title="Impact"
-                topContent={<Editor />}
-                bgClass="bg-yellow"
-                noArrow
-                topContentHeight={this.getHighestValue('Top')}
-                onResizeTopContent={this.onResizeImpactTop}
-                onResizeMidContent={this.onResizeImpactMid}
-                onResizeBotContent={this.onResizeImpactBot}
-                midTitle="Indicators"
-                midContent={<IndicatorList />}
-                midContentHeight={this.getHighestValue('Mid')}
-                botContent={<Editor4 />}
-                botContentHeight={this.getHighestValue('Bot')}
-              />
-            </Row>
-          </div>
+          <Button onClick={this.toggleEditMode}>Toggle edit mode</Button>
+          <Row>
+            <Col md="9">
+              <div className="results-chain">
+                <Row className="no-gutters">
+                  {/* Activities */}
+
+                  <ResultsChainColumn
+                    title="Activities"
+                    topContent={
+                      <QuillEditor
+                        editMode={this.state.editMode}
+                        name="activityTopEditor"
+                        onChange={this.handleEditorChange}
+                      />
+                    }
+                    topContentHeight={this.getHighestValue('Top')}
+                    onResizeTopContent={this.onResizeActivityTop}
+                    onResizeMidContent={this.onResizeActivityMid}
+                    onResizeBotContent={this.onResizeActivityBot}
+                    midTitle="Indicators"
+                    midContent={<Empty />}
+                    midContentHeight={this.getHighestValue('Mid')}
+                    botContent={
+                      <QuillEditor
+                        editMode={this.state.editMode}
+                        name="activityBotEditor"
+                        onChange={this.handleEditorChange}
+                      />
+                    }
+                    botContentHeight={this.getHighestValue('Bot')}
+                  />
+
+                  {/* Output */}
+
+                  <ResultsChainColumn
+                    title="Output"
+                    topContent={
+                      <QuillEditor
+                        editMode={this.state.editMode}
+                        name="outputTopEditor"
+                        onChange={this.handleEditorChange}
+                      />
+                    }
+                    bgClass="bg-info"
+                    topContentHeight={this.getHighestValue('Top')}
+                    onResizeTopContent={this.onResizeOutputTop}
+                    onResizeMidContent={this.onResizeOutputMid}
+                    onResizeBotContent={this.onResizeOutputBot}
+                    midTitle="Indicators"
+                    midContent={<IndicatorList />}
+                    midContentHeight={this.getHighestValue('Mid')}
+                    botContent={
+                      <QuillEditor
+                        editMode={this.state.editMode}
+                        name="activityBotEditor"
+                        onChange={this.handleEditorChange}
+                      />
+                    }
+                    botContentHeight={this.getHighestValue('Bot')}
+                  />
+
+                  {/* Outcome */}
+
+                  <ResultsChainColumn
+                    title="Outcome"
+                    topContent={
+                      <QuillEditor
+                        editMode={this.state.editMode}
+                        name="outcomeTopEditor"
+                        onChange={this.handleEditorChange}
+                      />
+                    }
+                    bgClass="bg-success"
+                    topContentHeight={this.getHighestValue('Top')}
+                    onResizeTopContent={this.onResizeOutcomeTop}
+                    onResizeMidContent={this.onResizeOutcomeMid}
+                    onResizeBotContent={this.onResizeOutcomeBot}
+                    midTitle="Indicators"
+                    midContent={<IndicatorList />}
+                    midContentHeight={this.getHighestValue('Mid')}
+                    botContent={
+                      <QuillEditor
+                        editMode={this.state.editMode}
+                        name="OutcomeBotEditor"
+                        onChange={this.handleEditorChange}
+                      />
+                    }
+                    botContentHeight={this.getHighestValue('Bot')}
+                  />
+
+                  {/* Impact */}
+
+                  <ResultsChainColumn
+                    title="Impact"
+                    topContent={
+                      <QuillEditor
+                        editMode={this.state.editMode}
+                        name="impactTopEditor"
+                        onChange={this.handleEditorChange}
+                      />
+                    }
+                    bgClass="bg-yellow"
+                    noArrow
+                    topContentHeight={this.getHighestValue('Top')}
+                    onResizeTopContent={this.onResizeImpactTop}
+                    onResizeMidContent={this.onResizeImpactMid}
+                    onResizeBotContent={this.onResizeImpactBot}
+                    midTitle="Indicators"
+                    midContent={<IndicatorList />}
+                    midContentHeight={this.getHighestValue('Mid')}
+                    botContent={
+                      <QuillEditor
+                        editMode={this.state.editMode}
+                        name="impactBotEditor"
+                        onChange={this.handleEditorChange}
+                      />
+                    }
+                    botContentHeight={this.getHighestValue('Bot')}
+                  />
+                </Row>
+              </div>
+            </Col>
+            <Col md="3">
+              <ResultsChainProperties />
+            </Col>
+          </Row>
         </PageWrapper>
       </React.Fragment>
     )
