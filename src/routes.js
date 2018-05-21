@@ -20,12 +20,18 @@ const AccountPage = Loadable({
   loading: Loading,
 })
 
+const ResultsChain = Loadable({
+  loader: () => import('./components/ResultsChain/Container'),
+  loading: Loading,
+})
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Landing', component: LandingPage },
   { path: '/users', name: 'Home', component: Users },
   { path: '/landing', name: 'Landing', component: LandingPage },
   { path: '/account', name: 'Account', component: AccountPage },
+  { path: '/results-chain', name: 'Results chain', component: ResultsChain },
 ]
 
 export default routes
