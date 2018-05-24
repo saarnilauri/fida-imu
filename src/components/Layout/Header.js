@@ -6,6 +6,7 @@ import { AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/re
 import logo from '../../assets/img/brand/fida_logo.svg'
 import userIcon from '../../assets/img/user.svg'
 import SignOutButton from '../SignOut'
+import Notifications from '../Notifications'
 
 const propTypes = {
   children: PropTypes.node,
@@ -33,6 +34,7 @@ class Header extends Component {
             <NavLink href="/">Home</NavLink>
           </NavItem>
         </Nav>
+        <Notifications />
         <Nav className="ml-auto" navbar>
           <AppHeaderDropdown direction="down">
             <DropdownToggle nav>
