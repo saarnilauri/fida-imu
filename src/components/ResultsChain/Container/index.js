@@ -1,15 +1,27 @@
 import React, { Component } from 'react'
-// import PropTypes from 'prop-types'
-import { Button, Col, Row } from 'reactstrap'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { Button, Col, Row, Input, Label, FormGroup } from 'reactstrap'
+import Fontawesome from 'react-fontawesome'
 
-import ResultsChainColumn from '../Column'
+import ColumnWrapper from '../Column/Wrapper'
 import ResultsChainProperties from '../Properties'
 import PageTitle from '../../PageTitle'
 import PageWrapper from '../../PageWrapper'
-import IndicatorList from '../../IndicatorList'
-import QuillEditor from '../../QuillEditor'
+import IndicatorList from '../../IndicatorList' // TODO: replace the mock with a real component
+import CenteredLoader from '../../CenteredLoader'
 
-import { updateByPropertyName } from '../../../constants/utils'
+import { updateByPropertyName, findUserItems } from '../../../constants/utils'
+import {
+  addResultsChainToFirebase,
+  loadResultsChains,
+  updateResultsChainToFirebase,
+} from '../../../reducers/resultschain'
+
+const getSchemaKeys = (state, schema) =>
+  Object.keys(state).filter(key => {
+    return key.indexOf('Editor') !== -1 || schema.indexOf(key) !== -1
+  })
 
 const Empty = () => (
   <React.Fragment>
@@ -17,8 +29,22 @@ const Empty = () => (
   </React.Fragment>
 )
 class ResultsChainContainer extends Component {
+  static propTypes = {
+    addResultsChainToFirebase: PropTypes.func.isRequired,
+    updateResultsChainToFirebase: PropTypes.func.isRequired,
+    loadResultsChains: PropTypes.func.isRequired,
+    authUser: PropTypes.object.isRequired,
+    userResultsChains: PropTypes.array,
+    ready: PropTypes.bool,
+  }
+
   constructor(props) {
     super(props)
+
+    this.schema = ['title', 'country', 'selectedComponent']
+
+    this.save = this.save.bind(this)
+
     this.state = {
       activititesTop: 1,
       activititesBot: 1,
@@ -32,19 +58,27 @@ class ResultsChainContainer extends Component {
       impactTop: 1,
       impactMid: 1,
       impactBot: 1,
-      editMode: true,
+      editMode: false,
+      userHasSelected: false,
     }
   }
 
-  onResizeActivityTop = measures => {
+  componentDidMount() {
+    // console.log(this.props)
+    if (!this.props.ready) {
+      this.props.loadResultsChains()
+    }
+  }
+
+  onResizeActivitiesTop = measures => {
     this.setState(updateByPropertyName('activititesTop', measures.bounds.height))
   }
 
-  onResizeActivityMid = measures => {
+  onResizeActivitiesMid = measures => {
     this.setState(updateByPropertyName('activititesMid', measures.bounds.height))
   }
 
-  onResizeActivityBot = measures => {
+  onResizeActivitiesBot = measures => {
     this.setState(updateByPropertyName('activititesBot', measures.bounds.height))
   }
 
@@ -96,8 +130,32 @@ class ResultsChainContainer extends Component {
     return highestValue
   }
 
+  setPropertiesValues = key => event => {
+    this.setState(updateByPropertyName(key, event.target.value))
+  }
+
   handleEditorChange = (value, editorName) => {
     this.setState(updateByPropertyName(editorName, value))
+  }
+
+  save() {
+    const cleanProps = getSchemaKeys(this.state, this.schema)
+    let data = {}
+
+    cleanProps.forEach(key => {
+      data[key] = this.state[key]
+    })
+
+    data = {
+      ...data,
+      users: [this.props.authUser.uid],
+    }
+
+    if (this.state.uid) {
+      this.props.updateResultsChainToFirebase(this.state.uid, data)
+    } else {
+      this.props.addResultsChainToFirebase(data)
+    }
   }
 
   toggleEditMode = () => {
@@ -106,142 +164,177 @@ class ResultsChainContainer extends Component {
     }))
   }
 
+  selectRS = event => {
+    const selValue = event.target.value
+    this.setState(() => ({
+      editMode: false,
+    }))
+    getSchemaKeys(this.state, this.schema).forEach(key => {
+      this.setState(updateByPropertyName(key, ''))
+    })
+
+    if (selValue !== '__null' && selValue !== '__new') {
+      const active = this.props.userResultsChains.find(item => {
+        return item.uid === selValue
+      })
+      Object.keys(active).forEach(key => {
+        // console.log(key)
+        this.setState(updateByPropertyName(key, active[key]))
+      })
+    } else {
+      this.setState(() => ({ uid: '', editMode: true }))
+    }
+    this.setState(updateByPropertyName('userHasSelected', true))
+    event.preventDefault()
+  }
+
   render() {
-    return (
+    // const { loadedResultsChain } = this.state
+    // const userChains = findUserItems(this.props.resultsChainCollection, this.props.authUser.uid)
+
+    const view = this.props.ready ? (
       <React.Fragment>
         <PageTitle title="Results chain" />
         <PageWrapper>
-          <Button onClick={this.toggleEditMode}>Toggle edit mode</Button>
-          <Row>
-            <Col md="9">
-              <div className="results-chain">
-                <Row className="no-gutters">
-                  {/* Activities */}
-
-                  <ResultsChainColumn
-                    title="Activities"
-                    topContent={
-                      <QuillEditor
-                        editMode={this.state.editMode}
-                        name="activityTopEditor"
-                        onChange={this.handleEditorChange}
-                      />
-                    }
-                    topContentHeight={this.getHighestValue('Top')}
-                    onResizeTopContent={this.onResizeActivityTop}
-                    onResizeMidContent={this.onResizeActivityMid}
-                    onResizeBotContent={this.onResizeActivityBot}
-                    midTitle="Indicators"
-                    midContent={<Empty />}
-                    midContentHeight={this.getHighestValue('Mid')}
-                    botContent={
-                      <QuillEditor
-                        editMode={this.state.editMode}
-                        name="activityBotEditor"
-                        onChange={this.handleEditorChange}
-                      />
-                    }
-                    botContentHeight={this.getHighestValue('Bot')}
-                  />
-
-                  {/* Output */}
-
-                  <ResultsChainColumn
-                    title="Output"
-                    topContent={
-                      <QuillEditor
-                        editMode={this.state.editMode}
-                        name="outputTopEditor"
-                        onChange={this.handleEditorChange}
-                      />
-                    }
-                    bgClass="bg-info"
-                    topContentHeight={this.getHighestValue('Top')}
-                    onResizeTopContent={this.onResizeOutputTop}
-                    onResizeMidContent={this.onResizeOutputMid}
-                    onResizeBotContent={this.onResizeOutputBot}
-                    midTitle="Indicators"
-                    midContent={<IndicatorList />}
-                    midContentHeight={this.getHighestValue('Mid')}
-                    botContent={
-                      <QuillEditor
-                        editMode={this.state.editMode}
-                        name="activityBotEditor"
-                        onChange={this.handleEditorChange}
-                      />
-                    }
-                    botContentHeight={this.getHighestValue('Bot')}
-                  />
-
-                  {/* Outcome */}
-
-                  <ResultsChainColumn
-                    title="Outcome"
-                    topContent={
-                      <QuillEditor
-                        editMode={this.state.editMode}
-                        name="outcomeTopEditor"
-                        onChange={this.handleEditorChange}
-                      />
-                    }
-                    bgClass="bg-success"
-                    topContentHeight={this.getHighestValue('Top')}
-                    onResizeTopContent={this.onResizeOutcomeTop}
-                    onResizeMidContent={this.onResizeOutcomeMid}
-                    onResizeBotContent={this.onResizeOutcomeBot}
-                    midTitle="Indicators"
-                    midContent={<IndicatorList />}
-                    midContentHeight={this.getHighestValue('Mid')}
-                    botContent={
-                      <QuillEditor
-                        editMode={this.state.editMode}
-                        name="OutcomeBotEditor"
-                        onChange={this.handleEditorChange}
-                      />
-                    }
-                    botContentHeight={this.getHighestValue('Bot')}
-                  />
-
-                  {/* Impact */}
-
-                  <ResultsChainColumn
-                    title="Impact"
-                    topContent={
-                      <QuillEditor
-                        editMode={this.state.editMode}
-                        name="impactTopEditor"
-                        onChange={this.handleEditorChange}
-                      />
-                    }
-                    bgClass="bg-yellow"
-                    noArrow
-                    topContentHeight={this.getHighestValue('Top')}
-                    onResizeTopContent={this.onResizeImpactTop}
-                    onResizeMidContent={this.onResizeImpactMid}
-                    onResizeBotContent={this.onResizeImpactBot}
-                    midTitle="Indicators"
-                    midContent={<IndicatorList />}
-                    midContentHeight={this.getHighestValue('Mid')}
-                    botContent={
-                      <QuillEditor
-                        editMode={this.state.editMode}
-                        name="impactBotEditor"
-                        onChange={this.handleEditorChange}
-                      />
-                    }
-                    botContentHeight={this.getHighestValue('Bot')}
-                  />
-                </Row>
-              </div>
+          <Row className="py-2">
+            <Col md="4">
+              <FormGroup inline>
+                <Label>Select results chain: </Label>
+                <Input type="select" name="select" id="exampleSelect" onChange={this.selectRS}>
+                  <option value="__null">Select...</option>
+                  <option value="__new">New results chain</option>
+                  {this.props.userResultsChains.map(item => (
+                    <option key={Math.random() * 1000000} value={item.uid}>
+                      {item.title}
+                    </option>
+                  ))}
+                </Input>
+              </FormGroup>
             </Col>
-            <Col md="3">
-              <ResultsChainProperties />
-            </Col>
+            {this.state.userHasSelected && (
+              <Col md="8" className="text-right">
+                <Button color="secondary" size="sm" onClick={this.toggleEditMode}>
+                  <Fontawesome name={!this.state.editMode ? 'cog' : 'eye'} /> {!this.state.editMode ? 'Edit' : 'View'}{' '}
+                  results chain
+                </Button>
+              </Col>
+            )}
           </Row>
+          {this.state.userHasSelected && (
+            <Row>
+              <Col md={this.state.editMode ? '9' : '12'}>
+                <div className="results-chain">
+                  <Row className="no-gutters">
+                    {/* Activities */}
+                    <ColumnWrapper
+                      title="Activities"
+                      editMode={this.state.editMode}
+                      topEditorValue={this.state.activityTopEditor}
+                      topEditorName="activityTopEditor"
+                      onChange={this.handleEditorChange}
+                      topContentHeight={this.getHighestValue('Top')}
+                      onResizeTop={this.onResizeActivitiesTop}
+                      onResizeMid={this.onResizeActivitiesMid}
+                      onResizeBot={this.onResizeActivitiesBot}
+                      midContent={<Empty />}
+                      midContentHeight={this.getHighestValue('Mid')}
+                      botEditorName="activityBotEditor"
+                      botEditorValue={this.state.activityBotEditor}
+                      botContentHeight={this.getHighestValue('Bot')}
+                    />
+                    {/* Output */}
+                    <ColumnWrapper
+                      title="Output"
+                      bgClass="bg-info"
+                      editMode={this.state.editMode}
+                      topEditorValue={this.state.outputTopEditor}
+                      topEditorName="outputTopEditor"
+                      onChange={this.handleEditorChange}
+                      topContentHeight={this.getHighestValue('Top')}
+                      onResizeTop={this.onResizeOutputTop}
+                      onResizeMid={this.onResizeOutputMid}
+                      onResizeBot={this.onResizeOutputBot}
+                      midContent={<IndicatorList />}
+                      midContentHeight={this.getHighestValue('Mid')}
+                      botEditorName="outputBotEditor"
+                      botEditorValue={this.state.outputBotEditor}
+                      botContentHeight={this.getHighestValue('Bot')}
+                    />
+
+                    {/* Outcome */}
+                    <ColumnWrapper
+                      title="Outcome"
+                      bgClass="bg-success"
+                      editMode={this.state.editMode}
+                      topEditorValue={this.state.outcomeTopEditor}
+                      topEditorName="outcomeTopEditor"
+                      onChange={this.handleEditorChange}
+                      topContentHeight={this.getHighestValue('Top')}
+                      onResizeTop={this.onResizeOutcomeTop}
+                      onResizeMid={this.onResizeOutcomeMid}
+                      onResizeBot={this.onResizeOutcomeBot}
+                      midContent={<IndicatorList />}
+                      midContentHeight={this.getHighestValue('Mid')}
+                      botEditorName="outcomeBotEditor"
+                      botEditorValue={this.state.outcomeBotEditor}
+                      botContentHeight={this.getHighestValue('Bot')}
+                    />
+
+                    {/* Impact */}
+                    <ColumnWrapper
+                      title="Impact"
+                      bgClass="bg-orange"
+                      editMode={this.state.editMode}
+                      topEditorValue={this.state.impactTopEditor}
+                      topEditorName="impactTopEditor"
+                      onChange={this.handleEditorChange}
+                      topContentHeight={this.getHighestValue('Top')}
+                      onResizeTop={this.onResizeImpactTop}
+                      onResizeMid={this.onResizeImpactMid}
+                      onResizeBot={this.onResizeImpactBot}
+                      midContent={<IndicatorList />}
+                      midContentHeight={this.getHighestValue('Mid')}
+                      botEditorName="impactBotEditor"
+                      botEditorValue={this.state.impactBotEditor}
+                      botContentHeight={this.getHighestValue('Bot')}
+                    />
+                  </Row>
+                </div>
+              </Col>
+              {this.state.editMode && (
+                <Col md="3">
+                  <ResultsChainProperties
+                    onSubmit={this.save}
+                    title={this.state.title}
+                    country={this.state.country}
+                    selectedComponent={this.state.selectedComponent}
+                    setParentStateValue={this.setPropertiesValues}
+                  />
+                </Col>
+              )}
+            </Row>
+          )}
         </PageWrapper>
       </React.Fragment>
+    ) : (
+      <div>
+        <CenteredLoader />
+      </div>
     )
+    return view
   }
 }
 
-export default ResultsChainContainer
+const mapDispatchToProps = dispatch => ({
+  addResultsChainToFirebase: resultsChain => dispatch(addResultsChainToFirebase(resultsChain)),
+  updateResultsChainToFirebase: (uid, resultsChain) => dispatch(updateResultsChainToFirebase(uid, resultsChain)),
+  loadResultsChains: () => dispatch(loadResultsChains()),
+})
+
+const mapStateToProps = state => ({
+  authUser: state.sessionState.authUser,
+  userResultsChains: findUserItems(state.resultsChainState.resultsChainCollection, state.sessionState.authUser.uid),
+  ready: state.resultsChainState.collectionReady,
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResultsChainContainer)

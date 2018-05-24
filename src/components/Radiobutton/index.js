@@ -11,16 +11,6 @@ class Radiobutton extends Component {
     }
   }
 
-  toggleRadiobuttonChange = () => {
-    const { handleRadiobuttonChange, label } = this.props
-
-    /* this.setState(({ isChecked }) => ({
-      isChecked: !isChecked,
-    })) */
-
-    handleRadiobuttonChange(label)
-  }
-
   render() {
     const { label, name } = this.props
     const { isChecked } = this.state
@@ -34,7 +24,7 @@ class Radiobutton extends Component {
           id={`checkbox_${label}`}
           name={name}
           value={label}
-          onChange={this.toggleRadiobuttonChange}
+          onChange={this.props.onChange}
         />
         <Label check className="form-check-label" htmlFor={`checkbox_${label}`}>
           {label}
@@ -48,7 +38,7 @@ Radiobutton.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   isChecked: PropTypes.bool,
-  handleRadiobuttonChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 }
 
 export default Radiobutton

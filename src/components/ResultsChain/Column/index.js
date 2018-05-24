@@ -12,20 +12,20 @@ const ResultsChainColumn = props => (
           {props.title} {!props.noArrow && <FontAwesome name="arrow-right" />}
         </CardHeader>
         <CardBody>
-          <ItemToMeasure contentHeight={props.topContentHeight} onResize={props.onResizeTopContent}>
+          <ItemToMeasure contentHeight={props.topContentHeight} onResize={props.onResizeTop}>
             {props.topContent}
           </ItemToMeasure>
         </CardBody>
-        <CardHeader className="bg-primary text-left">{props.midTitle}</CardHeader>
+        <CardHeader className="bg-light text-left text-dark">{props.midTitle}</CardHeader>
         <CardBody className="small-padding">
-          <ItemToMeasure contentHeight={props.midContentHeight} onResize={props.onResizeMidContent}>
+          <ItemToMeasure contentHeight={props.midContentHeight} onResize={props.onResizeMid}>
             {props.midContent}
           </ItemToMeasure>
         </CardBody>
         <CardHeader className="bg-secondary text-white text-left">{props.botTitle}</CardHeader>
         <CardBody>
           <div style={{ height: props.botContentHeight }}>
-            <ItemToMeasure contentHeight={props.botContentHeight} onResize={props.onResizeBotContent}>
+            <ItemToMeasure contentHeight={props.botContentHeight} onResize={props.onResizeBot}>
               {props.botContent}
             </ItemToMeasure>
           </div>
@@ -46,15 +46,15 @@ ResultsChainColumn.propTypes = {
   title: PropTypes.string.isRequired,
   noArrow: PropTypes.bool,
   topContentHeight: PropTypes.number.isRequired,
-  onResizeTopContent: PropTypes.func.isRequired,
+  onResizeTop: PropTypes.func.isRequired,
   topContent: PropTypes.object.isRequired,
   midTitle: PropTypes.string.isRequired,
   midContentHeight: PropTypes.number.isRequired,
-  onResizeMidContent: PropTypes.func.isRequired,
+  onResizeMid: PropTypes.func.isRequired,
   midContent: PropTypes.object.isRequired,
   botTitle: PropTypes.string,
   botContentHeight: PropTypes.number.isRequired,
-  onResizeBotContent: PropTypes.func.isRequired,
+  onResizeBot: PropTypes.func.isRequired,
   botContent: PropTypes.object.isRequired,
 }
 

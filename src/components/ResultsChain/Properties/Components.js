@@ -16,7 +16,8 @@ const Components = props => (
           name="components"
           isChecked={props.selected === comp}
           label={comp}
-          handleRadiobuttonChange={props.handleRadiobuttonChange}
+          value={comp}
+          onChange={props.onChangeComponent}
           key={Math.random() * 10000}
         />
       ))}
@@ -25,7 +26,7 @@ const Components = props => (
 )
 
 Components.propTypes = {
-  handleRadiobuttonChange: PropTypes.func.isRequired,
+  onChangeComponent: PropTypes.func.isRequired,
   selected: PropTypes.string,
 }
 

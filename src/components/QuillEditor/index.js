@@ -42,14 +42,14 @@ class QuillEditor extends Component {
           <ReactQuill
             theme="snow"
             placeholder="Start adding content..."
-            value={this.state.text}
+            defaultValue={this.props.defaultValue}
             onChange={this.handleChange}
             modules={this.modules}
             formats={this.formats}
           />
         </div>
       ) : (
-        <div dangerouslySetInnerHTML={{ __html: this.state.text }} />
+        <div dangerouslySetInnerHTML={{ __html: this.state.text ? this.state.text : this.props.defaultValue }} />
       )
 
     return view
