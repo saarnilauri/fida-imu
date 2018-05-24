@@ -11,12 +11,13 @@ export const findUserItems = (collection, uid = null) => {
 
   if (uid && collection) {
     Object.keys(collection).forEach(key => {
-      if (
-        collection[key].users &&
-        collection[key].users.find(item => {
+      const userItems = collection[key].users
+        ? collection[key].users.find(item => {
           return item === uid
-        }).length > 0
-      ) {
+        })
+        : []
+
+      if (userItems && userItems.length > 0) {
         items.push({ uid: key, ...collection[key] })
       }
     })
