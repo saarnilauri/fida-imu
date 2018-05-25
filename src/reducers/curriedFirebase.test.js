@@ -2,16 +2,26 @@ import configureStore from 'redux-mock-store'
 import firebasemock from 'firebase-mock'
 import thunk from 'redux-thunk'
 import {
+  applyReady,
+  getApplyEntityToState,
+  getApplyEntityCollectionToState,
   getWordForms,
   getInitialState,
   getAddEntityActionCreator,
   getAddEntitiesActionCreator,
   getEntityCollectionNotReadyActionCreator,
   getEntityCollectionIsReadyActionCreator,
+  getLoadOneEntityActionCreator,
 } from './curriedFirebase'
 
-const getFirebase = () => new firebasemock.MockFirebase()
+const firebaseMock = new firebasemock.MockFirebase()
 
+firebaseMock.ref = () => {
+  return new firebasemock.MockFirebase()
+}
+
+const getFirebase = () => firebaseMock
+// firebasemock.override()
 const middlewares = [thunk.withExtraArgument(getFirebase)]
 const mockStore = configureStore(middlewares)
 
@@ -109,6 +119,47 @@ describe('curriedFirebase', () => {
     const actions = store.getActions()
     const expectedPayload = { type: 'RESULTSCHAINS_COLLECTION_IS_READY' }
     expect(actions).toEqual([expectedPayload])
-    console.log(store.getState())
+  })
+
+  it('No error when dispatch load action', () => {
+    // Initialize mockstore with empty state
+    const initialState = getInitialState('resultschain')
+    const store = mockStore(initialState)
+
+    const loadOneEntity = getLoadOneEntityActionCreator('resultschain')
+
+    // Dispatch the action
+    expect(store.dispatch).not.toThrow(new Error())
+
+    store.dispatch(loadOneEntity('test-uid'))
+  })
+
+  it('applyReady return a new valid state', () => {
+    expect(applyReady(getInitialState('test'), { payload: true })).toEqual({
+      collectionReady: true,
+      test: null,
+      testsCollection: [],
+    })
+    expect(applyReady({}, { payload: false })).toEqual({ collectionReady: false })
+  })
+
+  it('getApplyEntityToState return a new valid state', () => {
+    expect(getApplyEntityToState('test')(getInitialState('test'), { payload: { title: 'test' } })).toEqual({
+      collectionReady: false,
+      test: { title: 'test' },
+      testsCollection: [],
+    })
+  })
+
+  it('getApplyEntityCollectionToState return a new valid state', () => {
+    expect(
+      getApplyEntityCollectionToState('test')(getInitialState('test'), {
+        payload: [{ title: 'test' }, { title: 'test2' }],
+      }),
+    ).toEqual({
+      collectionReady: false,
+      test: null,
+      testsCollection: [{ title: 'test' }, { title: 'test2' }],
+    })
   })
 })
