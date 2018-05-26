@@ -1,16 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Col, FormGroup, Label } from 'reactstrap'
+import { FormGroup, Label } from 'reactstrap'
+import Fontawesome from 'react-fontawesome'
 import Radiobutton from '../../Radiobutton'
 
 const components = ['istuta', 'moninkertaista', 'uudista']
 
 const Components = props => (
   <FormGroup>
-    <Col md="12">
-      <Label>Strategic components</Label>
-    </Col>
-    <Col md="12">
+    <Label>
+      <Fontawesome name="cube" /> Strategic components
+    </Label>
+    <div>
       {components.map(comp => (
         <Radiobutton
           name="components"
@@ -21,7 +22,7 @@ const Components = props => (
           key={Math.random() * 10000}
         />
       ))}
-    </Col>
+    </div>
   </FormGroup>
 )
 

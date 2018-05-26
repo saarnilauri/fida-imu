@@ -12,7 +12,7 @@ import FormElement from '../../FormGroupElement'
 import Modal from '../../Modal'
 import PageTitle from '../../PageTitle'
 import PageWrapper from '../../PageWrapper'
-import { updateByPropertyName } from '../../../constants/utils'
+import { updateByPropertyName, collectionToArray } from '../../../constants/utils'
 
 import {
   getAddEntityToFirebaseActionCreator,
@@ -255,8 +255,6 @@ const mapDispatchToProps = dispatch => ({
   removeCountry: uid => dispatch(removeCountry(uid, 'Country removed...')),
   loadCountries: () => dispatch(loadCountries('Countries loaded...')),
 })
-
-const collectionToArray = collection => Object.keys(collection).map(uid => ({ ...collection[uid], uid }))
 
 const mapStateToProps = state => ({
   authUser: state.sessionState.authUser,

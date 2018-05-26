@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Button, Alert } from 'reactstrap'
+import { Button, Alert, Label } from 'reactstrap'
 import { toast } from 'react-toastify'
+import Fontawesome from 'react-fontawesome'
 import { db } from '../../firebase'
 import { updateByPropertyName, setStateValue } from '../../constants/utils'
 import { UsernameField } from '../FormElement/FormFields'
 import FormContent from '../FormContent'
+import CountrySelect from '../Country/Select'
 import Editor from '../Editor'
 import Loader from '../Loader'
 import UserRoles from './UserRoles'
@@ -18,6 +20,7 @@ const INITIAL_STATE = {
   roles: {},
   isLoaded: false,
   notice: null,
+  countries: false,
 }
 
 class UserProfileForm extends Component {
@@ -29,6 +32,7 @@ class UserProfileForm extends Component {
   constructor(props) {
     super(props)
     this.onChange = this.onChange.bind(this)
+    this.handleSelectCountriesChange = this.handleSelectCountriesChange.bind(this)
     // this.onSetRoleValue = this.onSetRoleValue.bind(this)
     this.state = { ...INITIAL_STATE }
   }
@@ -75,22 +79,26 @@ class UserProfileForm extends Component {
 
     // console.log(roles)
 
-    const { username, email, description, descriptionHtml } = this.state
+    const { username, email, description, descriptionHtml, countries } = this.state
     const updatedDescriptionHtml = description ? description.toString('html') : descriptionHtml
 
     db
-      .writeUserData(this.props.authUser.uid, username, email, updatedDescriptionHtml, roles)
+      .writeUserData(this.props.authUser.uid, username, email, updatedDescriptionHtml, roles, countries)
       .then(() => {
         toast.success('Profile updated!', {
           position: toast.POSITION.TOP_CENTER,
         })
-        this.props.onGetUserProfile({ username, email, descriptionHtml: updatedDescriptionHtml, roles })
+        this.props.onGetUserProfile({ username, email, descriptionHtml: updatedDescriptionHtml, roles, countries })
       })
       .catch(error => {
         this.setState(updateByPropertyName('error', error))
       })
 
     event.preventDefault()
+  }
+
+  handleSelectCountriesChange(countries) {
+    this.setState(() => ({ countries }))
   }
 
   toggleCheckbox = label => {
@@ -102,7 +110,7 @@ class UserProfileForm extends Component {
   }
 
   render() {
-    const { username, descriptionHtml, error, isLoaded, roles } = this.state
+    const { username, descriptionHtml, error, isLoaded, roles, countries } = this.state
 
     const isInvalid = username === ''
 
@@ -122,6 +130,12 @@ class UserProfileForm extends Component {
                 <Editor onChange={this.onChange} content={descriptionHtml} />
               </FormContent>
               <UserRoles roles={roles} handleCheckboxChange={this.toggleCheckbox} />
+              <div className="py-2">
+                <Label for="123">
+                  <Fontawesome name="globe" /> Coutries
+                </Label>
+                <CountrySelect value={countries} onChange={this.handleSelectCountriesChange} />
+              </div>
               <Button disabled={isInvalid} type="submit">
                 Save your profile
               </Button>
