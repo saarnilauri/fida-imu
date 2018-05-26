@@ -1,25 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Card = (props) => (
-
-      <div className="card">
-        <div className={`${props.headerClass} card-header`}>{props.title}</div>
-        <div className="card-body" style={props.noPadding ? { padding: 0 } : null}>
-          {props.children}
-        </div>
-      </div>
-    )
+const Card = props => (
+  <div className="card">
+    <div className={`${props.headerClass} card-header`}>{props.title}</div>
+    <div className="card-body" style={props.noPadding ? { padding: 0 } : null}>
+      {props.children}
+    </div>
+  </div>
+)
 
 Card.defaultProps = {
   noPadding: false,
 }
 
 Card.propTypes = {
-  title: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),
   headerClass: PropTypes.string,
   noPadding: PropTypes.bool,
-  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),
+  title: PropTypes.string,
 }
 
 export default Card
