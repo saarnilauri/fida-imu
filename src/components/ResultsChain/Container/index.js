@@ -41,7 +41,7 @@ class ResultsChainContainer extends Component {
   constructor(props) {
     super(props)
 
-    this.schema = ['title', 'country', 'selectedComponent']
+    this.schema = ['title', 'selectedComponent', 'countries']
 
     this.save = this.save.bind(this)
 
@@ -61,6 +61,8 @@ class ResultsChainContainer extends Component {
       editMode: false,
       userHasSelected: false,
     }
+
+    this.handleSelectCountriesChange = this.handleSelectCountriesChange.bind(this)
   }
 
   componentDidMount() {
@@ -138,6 +140,10 @@ class ResultsChainContainer extends Component {
     this.setState(updateByPropertyName(editorName, value))
   }
 
+  handleSelectCountriesChange(countries) {
+    this.setState(() => ({ countries }))
+  }
+
   save() {
     const cleanProps = getSchemaKeys(this.state, this.schema)
     let data = {}
@@ -150,6 +156,8 @@ class ResultsChainContainer extends Component {
       ...data,
       users: [this.props.authUser.uid],
     }
+
+    // console.log(data)
 
     if (this.state.uid) {
       this.props.updateResultsChainToFirebase(this.state.uid, data)
@@ -306,9 +314,10 @@ class ResultsChainContainer extends Component {
                   <ResultsChainProperties
                     onSubmit={this.save}
                     title={this.state.title}
-                    country={this.state.country}
                     selectedComponent={this.state.selectedComponent}
                     setParentStateValue={this.setPropertiesValues}
+                    handleSelectCountriesChange={this.handleSelectCountriesChange}
+                    countries={this.state.countries}
                   />
                 </Col>
               )}

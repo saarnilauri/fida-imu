@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Card, CardBody, CardHeader, Alert, Button } from 'reactstrap'
+import { Card, CardBody, CardHeader, Alert, Button, Label } from 'reactstrap'
+import Fontawesome from 'react-fontawesome'
 import FormElement from '../../FormGroupElement'
+import CountrySelect from '../../Country/Select'
 import Components from './Components'
 
 class ResultsChainProperties extends Component {
   static propTypes = {
-    title: PropTypes.string,
-    country: PropTypes.string,
+    countries: PropTypes.array,
+    handleSelectCountriesChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-    setParentStateValue: PropTypes.func.isRequired,
     selectedComponent: PropTypes.string,
+    setParentStateValue: PropTypes.func.isRequired,
+    title: PropTypes.string,
   }
   constructor(props) {
     super(props)
@@ -23,7 +26,7 @@ class ResultsChainProperties extends Component {
   }
 
   render() {
-    const { title, country } = this.props
+    const { title, countries } = this.props
     const error = null
     return (
       <Card>
@@ -43,18 +46,16 @@ class ResultsChainProperties extends Component {
               placeholder="Result chain title"
               icon="table"
             />
-            <FormElement
-              onChange={this.props.setParentStateValue('country')}
-              value={country}
-              name="country"
-              id="country"
-              placeholder="Country"
-              icon="map"
-            />
             <Components
               selected={this.props.selectedComponent}
               onChangeComponent={this.props.setParentStateValue('selectedComponent')}
             />
+            <div className="py-2">
+              <Label for="123">
+                <Fontawesome name="globe" /> Coutries
+              </Label>
+              <CountrySelect value={countries} onChange={this.props.handleSelectCountriesChange} />
+            </div>
             <Button type="submit">Save</Button>
           </form>
         </CardBody>
