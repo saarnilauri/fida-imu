@@ -25,6 +25,11 @@ const ResultsChain = Loadable({
   loading: Loading,
 })
 
+const CountryList = Loadable({
+  loader: () => import('./components/Country/List'),
+  loading: Loading,
+})
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Landing', component: LandingPage },
@@ -32,6 +37,7 @@ const routes = [
   { path: '/landing', name: 'Landing', component: LandingPage },
   { path: '/account', name: 'Account', component: AccountPage },
   { path: '/results-chain', name: 'Results chain', component: ResultsChain },
+  { path: '/countries', name: 'Countries', component: CountryList },
 ]
 
 export default routes

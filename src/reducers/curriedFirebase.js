@@ -1,19 +1,14 @@
 import pluralize from 'pluralize'
-import _ from 'lodash'
+import upperCase from 'lodash/upperCase'
 import { sendNotification } from './notifications'
 
 export function getWordForms(word) {
   return {
     normal: word,
     prular: pluralize(word),
-    allCaps: _.upperCase(word),
-    allCapsPrular: _.upperCase(pluralize(word)),
+    allCaps: upperCase(word),
+    allCapsPrular: upperCase(pluralize(word)),
   }
-}
-
-const withWordForms = (entity, wrappedFunction) => {
-  const wordForms = getWordForms(entityName)
-  return wrappedFunction(wordForms)
 }
 
 export function getInitialState(entityName) {
@@ -72,14 +67,17 @@ export const getLoadEntityCollectionActionCreator = entity => (message = `${enti
   getFirebase,
 ) => {
   const wordForms = getWordForms(entity)
-  dispatch(getEntityCollectionNotReadyActionCreator(entity))
+  const notReady = getEntityCollectionNotReadyActionCreator(entity)
+  dispatch(notReady())
   const firebase = getFirebase()
   firebase
     .ref(wordForms.prular)
     .once('value')
     .then(snap => {
-      dispatch(getAddEntitiesActionCreator(entity)(snap.val()))
-      dispatch(getEntityCollectionIsReadyActionCreator(entity))
+      const addEntities = getAddEntitiesActionCreator(entity)
+      const isReady = getEntityCollectionIsReadyActionCreator(entity)
+      dispatch(addEntities(snap.val()))
+      dispatch(isReady())
       dispatch(sendNotification(message))
     })
 }
@@ -99,7 +97,7 @@ export const getUpdateEntityToFirebaseActionCreator = entity => (uid, updatedEnt
   getFirebase,
 ) => {
   const firebase = getFirebase()
-  firebase.set(`resultschains/${uid}`, updatedEntity).then(() => {
+  firebase.set(`resultschains/${uid}`, updatedEntity).then(snap => {
     dispatch(getAddEntityActionCreator(entity)({ ...updatedEntity, uid: snap.key }))
     dispatch(getLoadEntityCollectionActionCreator(entity)(`${entity} updated...`))
   })

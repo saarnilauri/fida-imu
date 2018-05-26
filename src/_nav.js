@@ -27,6 +27,12 @@ export default {
       class: 'admin',
     },
     {
+      name: 'Countries',
+      url: '/countries',
+      icon: 'fa fa-map-marker',
+      class: 'admin',
+    },
+    {
       name: 'Settings',
       url: '/settings',
       icon: 'icon-settings',
