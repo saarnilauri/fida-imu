@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
+import capitalize from 'lodash/capitalize'
 import FormElement from '../FormGroupElement'
 
 const propTypes = {
@@ -9,7 +9,7 @@ const propTypes = {
 }
 
 const Field = ({ id, ...props }) => (
-  <FormElement {...props} name={id} id={id} label={props.label ? props.label : _.capitalize(id)} />
+  <FormElement {...props} name={id} id={id} label={props.label ? props.label : capitalize(id)} />
 )
 
 Field.propTypes = {

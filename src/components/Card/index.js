@@ -1,20 +1,24 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-class Card extends Component {
-  render() {
-    return (
-      <div className="card">
-        <div className="card-header">{this.props.title}</div>
-        <div className="card-body">{this.props.children}</div>
-      </div>
-    )
-  }
+const Card = props => (
+  <div className="card">
+    <div className={`${props.headerClass} card-header`}>{props.title}</div>
+    <div className="card-body" style={props.noPadding ? { padding: 0 } : null}>
+      {props.children}
+    </div>
+  </div>
+)
+
+Card.defaultProps = {
+  noPadding: false,
 }
 
 Card.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),
+  headerClass: PropTypes.string,
+  noPadding: PropTypes.bool,
   title: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 }
 
 export default Card
