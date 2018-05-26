@@ -82,25 +82,45 @@ export const getLoadEntityCollectionActionCreator = entity => (message = `${enti
     })
 }
 
-export const getAddEntityToFirebaseActionCreator = entity => newEntity => (dispatch, getState, getFirebase) => {
-  const wordForms = getWordForms(entity)
-  const firebase = getFirebase()
-  firebase.push(wordForms.prular, newEntity).then(snap => {
-    dispatch(getAddEntityActionCreator(entity)({ ...newEntity, uid: snap.key }))
-    dispatch(getLoadEntityCollectionActionCreator(entity)(`${entity} updated...`))
-  })
-}
-
-export const getUpdateEntityToFirebaseActionCreator = entity => (uid, updatedEntity) => (
+export const getAddEntityToFirebaseActionCreator = entity => (newEntity, message) => (
   dispatch,
   getState,
   getFirebase,
 ) => {
+  const wordForms = getWordForms(entity)
   const firebase = getFirebase()
-  firebase.set(`resultschains/${uid}`, updatedEntity).then(snap => {
-    dispatch(getAddEntityActionCreator(entity)({ ...updatedEntity, uid: snap.key }))
-    dispatch(getLoadEntityCollectionActionCreator(entity)(`${entity} updated...`))
+  firebase.push(wordForms.prular, newEntity).then(snap => {
+    dispatch(getAddEntityActionCreator(entity)({ ...newEntity, uid: snap.key }))
+    dispatch(getLoadEntityCollectionActionCreator(entity)(message))
   })
+}
+
+export const getUpdateEntityToFirebaseActionCreator = entity => (uid, updatedEntity, message) => (
+  dispatch,
+  getState,
+  getFirebase,
+) => {
+  const wordForms = getWordForms(entity)
+  const firebase = getFirebase()
+  firebase.set(`${wordForms.prular}/${uid}`, updatedEntity).then(() => {
+    dispatch(getLoadEntityCollectionActionCreator(entity)(message))
+  })
+}
+
+export const getRemoveEntityFromFirebaseActionCreator = entity => (uid, message) => (
+  dispatch,
+  getState,
+  getFirebase,
+) => {
+  const wordForms = getWordForms(entity)
+  const firebase = getFirebase()
+  firebase
+    .ref(wordForms.prular)
+    .child(uid)
+    .remove()
+    .then(() => {
+      dispatch(getLoadEntityCollectionActionCreator(entity)(message))
+    })
 }
 
 export const getApplyEntityToState = entity => (state, action) => {
