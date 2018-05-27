@@ -1,19 +1,20 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Alert, Button, Col, Row } from 'reactstrap'
-import Fontawesome from 'react-fontawesome'
+import { Col, Row } from 'reactstrap'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 
 import Card from '../../Card'
 import CenteredLoader from '../../CenteredLoader'
-import FormElement from '../../FormGroupElement'
 import Modal from '../../Modal'
 import PageTitle from '../../PageTitle'
 import PageWrapper from '../../PageWrapper'
-import { updateByPropertyName, collectionToArray } from '../../../constants/utils'
+import FlagIcon from '../../FlagIcon'
+import EditAndRemove from '../../ButtonGroup/EditAndRemove'
+import CountryListForm from './Form'
 
+import { updateByPropertyName, collectionToArray } from '../../../constants/utils'
 import {
   getAddEntityToFirebaseActionCreator,
   getLoadEntityCollectionActionCreator,
@@ -64,6 +65,39 @@ class CountryList extends Component {
 
     this.removeCountry = this.removeCountry.bind(this)
     this.cancelRemove = this.cancelRemove.bind(this)
+
+    this.tableColumns = [
+      {
+        id: 'flag',
+        width: 30,
+        accessor: d => <FlagIcon code={d.code} />,
+      },
+      {
+        Header: 'Name',
+        accessor: 'name',
+      },
+      {
+        Header: 'Area',
+        accessor: 'area',
+      },
+      {
+        Header: 'Actions',
+        id: 'edit',
+        width: 100,
+        accessor: d => (
+          <EditAndRemove
+            onClickEdit={() => this.editCountry(d.uid)}
+            onClickRemove={() => this.promptRemoveCountry(d.uid)}
+          />
+        ),
+      },
+    ]
+    this.tableSort = [
+      {
+        id: 'name',
+        desc: false,
+      },
+    ]
   }
 
   componentDidMount() {
@@ -132,42 +166,8 @@ class CountryList extends Component {
               <Card title="Country list" noPadding>
                 <ReactTable
                   data={data}
-                  columns={[
-                    {
-                      id: 'flag',
-                      width: 30,
-                      accessor: d => <span className={`flag-icon flag-icon-${d.code} text-center`} />,
-                    },
-                    {
-                      Header: 'Name',
-                      accessor: 'name',
-                    },
-                    {
-                      Header: 'Area',
-                      accessor: 'area',
-                    },
-                    {
-                      Header: 'Actions',
-                      id: 'edit',
-                      width: 100,
-                      accessor: d => (
-                        <React.Fragment>
-                          <Button color="link" onClick={() => this.editCountry(d.uid)}>
-                            <Fontawesome name="pencil" />
-                          </Button>{' '}
-                          <Button color="link" onClick={() => this.promptRemoveCountry(d.uid)}>
-                            <Fontawesome name="trash" />
-                          </Button>
-                        </React.Fragment>
-                      ),
-                    },
-                  ]}
-                  defaultSorted={[
-                    {
-                      id: 'name',
-                      desc: false,
-                    },
-                  ]}
+                  columns={this.tableColumns}
+                  defaultSorted={this.tableSort}
                   defaultPageSize={10}
                   className="-striped -highlight"
                 />
@@ -178,45 +178,18 @@ class CountryList extends Component {
                 title={editMode ? 'Edit country' : 'Add new country'}
                 headerClass={editMode ? 'bg-secondary text-white' : ''}
               >
-                <form onSubmit={this.onSubmit}>
-                  {error && (
-                    <div className="py-2">
-                      <Alert color="danger">{error.message}</Alert>
-                    </div>
-                  )}
-                  <FormElement
-                    onChange={event => this.setState(updateByPropertyName('name', event.target.value))}
-                    value={name}
-                    name="name"
-                    id="name"
-                    placeholder="Country name"
-                    icon="map-marker"
-                  />
-                  <FormElement
-                    onChange={event => this.setState(updateByPropertyName('area', event.target.value))}
-                    value={area}
-                    name="area"
-                    id="area"
-                    placeholder="Region"
-                    icon="map"
-                  />
-                  <FormElement
-                    onChange={event => this.setState(updateByPropertyName('code', event.target.value))}
-                    value={code}
-                    name="code"
-                    id="code"
-                    placeholder="Country code (ie. fi)"
-                    icon="globe"
-                  />
-                  <Button size="sm" type="submit">
-                    {editMode ? 'Save' : 'Add'}
-                  </Button>{' '}
-                  {editMode && (
-                    <Button size="sm" color="light" type="button" onClick={this.cancelEdit}>
-                      Cancel
-                    </Button>
-                  )}
-                </form>
+                <CountryListForm
+                  onSubmit={this.onSubmit}
+                  error={error}
+                  onNameChange={event => this.setState(updateByPropertyName('name', event.target.value))}
+                  onCodeChange={event => this.setState(updateByPropertyName('code', event.target.value))}
+                  onAreaChange={event => this.setState(updateByPropertyName('area', event.target.value))}
+                  name={name}
+                  area={area}
+                  code={code}
+                  editMode={editMode}
+                  cancelEdit={this.cancelEdit}
+                />
               </Card>
             </Col>
           </Row>
