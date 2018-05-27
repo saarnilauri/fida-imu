@@ -23,10 +23,6 @@ export default function withCountries(WrappedComponent) {
 
   // ...and returns another component...
   class WithCountries extends Component {
-    static propTypes = {
-      loadCountries: PropTypes.func,
-      ready: PropTypes.bool,
-    }
     componentDidMount() {
       if (!this.props.ready) {
         this.props.loadCountries()
@@ -38,6 +34,11 @@ export default function withCountries(WrappedComponent) {
 
       return ready ? <WrappedComponent {...this.props} /> : null
     }
+  }
+
+  WithCountries.propTypes = {
+    loadCountries: PropTypes.func,
+    ready: PropTypes.bool,
   }
 
   return connect(mapStateToProps, mapDispatchToProps)(WithCountries)

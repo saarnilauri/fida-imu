@@ -3,18 +3,10 @@ import PropTypes from 'prop-types'
 import { Card, CardBody, CardHeader, Alert, Button, Label } from 'reactstrap'
 import Fontawesome from 'react-fontawesome'
 import FormElement from '../../FormGroupElement'
-import CountrySelect from '../../Country/Select'
+import CountrySelection from '../../Country/Select'
 import Components from './Components'
 
 class ResultsChainProperties extends Component {
-  static propTypes = {
-    countries: PropTypes.array,
-    handleSelectCountriesChange: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-    selectedComponent: PropTypes.string,
-    setParentStateValue: PropTypes.func.isRequired,
-    title: PropTypes.string,
-  }
   constructor(props) {
     super(props)
     this.onSubmit = this.onSubmit.bind(this)
@@ -26,7 +18,7 @@ class ResultsChainProperties extends Component {
   }
 
   render() {
-    const { title, countries } = this.props
+    const { title, countries, handleSelectCountriesChange, selectedComponent } = this.props
     const error = null
     return (
       <Card>
@@ -47,14 +39,14 @@ class ResultsChainProperties extends Component {
               icon="table"
             />
             <Components
-              selected={this.props.selectedComponent}
+              selected={selectedComponent}
               onChangeComponent={this.props.setParentStateValue('selectedComponent')}
             />
             <div className="py-2">
               <Label for="123">
                 <Fontawesome name="globe" /> Coutries
               </Label>
-              <CountrySelect value={countries} onChange={this.props.handleSelectCountriesChange} />
+              <CountrySelection value={countries} onChange={handleSelectCountriesChange} />
             </div>
             <Button type="submit">Save</Button>
           </form>
@@ -62,6 +54,15 @@ class ResultsChainProperties extends Component {
       </Card>
     )
   }
+}
+
+ResultsChainProperties.propTypes = {
+  countries: PropTypes.array,
+  handleSelectCountriesChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  selectedComponent: PropTypes.string,
+  setParentStateValue: PropTypes.func.isRequired,
+  title: PropTypes.string,
 }
 
 export default ResultsChainProperties

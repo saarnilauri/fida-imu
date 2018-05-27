@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Alert } from 'reactstrap'
 import { auth } from '../../firebase'
-import {
-  PasswordConfirmField,
-  setStateValue,
-  updateByPropertyName,
-} from '../FormElement/FormFields'
+import { PasswordConfirmField } from '../FormElement/FormFields'
+import { setStateValue, updateByPropertyName } from '../../constants/utils'
 
 const INITIAL_STATE = {
   passwordOne: '',
@@ -18,9 +15,10 @@ class PasswordChangeForm extends Component {
     super(props)
 
     this.state = { ...INITIAL_STATE }
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
-  onSubmit = event => {
+  onSubmit(event) {
     const { passwordOne } = this.state
 
     auth

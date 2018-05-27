@@ -6,26 +6,20 @@ import * as routes from '../../constants/routes'
 import PageTitle from '../PageTitle'
 import PageWrapper from '../PageWrapper'
 import Card from '../Card'
-import { EmailField, setStateValue } from '../FormElement/FormFields'
+import { EmailField } from '../FormElement/FormFields'
+import { setStateValue, updateByPropertyName } from '../../constants/utils'
 
 const PasswordForgetPage = () => (
   <div>
     <PageTitle title="Password recovery" />
     <PageWrapper>
       <Card title="Have you forgot your password?">
-        <p>
-          No worries. PsetStateValuelease fill in the form bellow to start
-          recovering your email.
-        </p>
+        <p>No worries. PsetStateValuelease fill in the form bellow to start recovering your email.</p>
         <PasswordForgetForm />
       </Card>
     </PageWrapper>
   </div>
 )
-
-const updateByPropertyName = (propertyName, value) => () => ({
-  [propertyName]: value,
-})
 
 const INITIAL_STATE = {
   email: '',
@@ -37,9 +31,10 @@ class PasswordForgetForm extends Component {
     super(props)
 
     this.state = { ...INITIAL_STATE }
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
-  onSubmit = event => {
+  onSubmit(event) {
     const { email } = this.state
 
     auth
