@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormGroup, Label } from 'reactstrap'
+import uuid from 'uuid'
 import Checkbox from '../Checkbox'
 
 const roles = ['missionary', 'admin', 'joti', 'communications', 'partner', 'church', 'church']
@@ -16,12 +17,16 @@ const UserRoles = props => (
           isChecked={props.roles[role]}
           label={role}
           handleCheckboxChange={props.handleCheckboxChange}
-          key={Math.random() * 10000}
+          key={uuid()}
         />
       ))}
     </div>
   </FormGroup>
 )
+
+UserRoles.defaultProps = {
+  roles: {},
+}
 
 UserRoles.propTypes = {
   handleCheckboxChange: PropTypes.func.isRequired,

@@ -32,4 +32,6 @@ CountrySelect.propTypes = {
   value: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),
 }
 
+export { CountrySelect }
+
 export default withCountries(CountrySelect)

@@ -197,9 +197,6 @@ class ResultsChainContainer extends Component {
   }
 
   render() {
-    // const { loadedResultsChain } = this.state
-    // const userChains = findUserItems(this.props.resultsChainCollection, this.props.authUser.uid)
-
     const view = this.props.ready ? (
       <React.Fragment>
         <PageTitle title="Results chain" />
@@ -222,7 +219,9 @@ class ResultsChainContainer extends Component {
             {this.state.userHasSelected && (
               <Col md="8" className="text-right">
                 <Button color="secondary" size="sm" onClick={this.toggleEditMode}>
-                  <Fontawesome name={!this.state.editMode ? 'cog' : 'eye'} /> {!this.state.editMode ? 'Edit' : 'View'}{' '}
+                  <Fontawesome
+                    name={!this.state.editMode ? 'cog' : 'eye'}
+                  /> {!this.state.editMode ? 'Edit' : 'View'}{' '}
                   results chain
                 </Button>
               </Col>
@@ -235,89 +234,94 @@ class ResultsChainContainer extends Component {
                   <Row className="no-gutters">
                     {/* Activities */}
                     <ColumnWrapper
-                      title="Activities"
-                      editMode={this.state.editMode}
-                      topEditorValue={this.state.activityTopEditor}
-                      topEditorName="activityTopEditor"
-                      onChange={this.handleEditorChange}
-                      topContentHeight={this.getHighestValue('Top')}
-                      onResizeTop={this.onResizeActivitiesTop}
-                      onResizeMid={this.onResizeActivitiesMid}
-                      onResizeBot={this.onResizeActivitiesBot}
-                      midContent={<Empty />}
-                      midContentHeight={this.getHighestValue('Mid')}
+                      botContentHeight={this.getHighestValue('Bot')}
                       botEditorName="activityBotEditor"
                       botEditorValue={this.state.activityBotEditor}
-                      botContentHeight={this.getHighestValue('Bot')}
-                    />
+                      editMode={this.state.editMode}
+                      midContentHeight={this.getHighestValue('Mid')}
+                      onChange={this.handleEditorChange}
+                      onResizeBot={this.onResizeActivitiesBot}
+                      onResizeMid={this.onResizeActivitiesMid}
+                      onResizeTop={this.onResizeActivitiesTop}
+                      title="Activities"
+                      topContentHeight={this.getHighestValue('Top')}
+                      topEditorName="activityTopEditor"
+                      topEditorValue={this.state.activityTopEditor}
+                    >
+                      <Empty />
+                    </ColumnWrapper>
                     {/* Output */}
                     <ColumnWrapper
-                      title="Output"
                       bgClass="bg-info"
-                      editMode={this.state.editMode}
-                      topEditorValue={this.state.outputTopEditor}
-                      topEditorName="outputTopEditor"
-                      onChange={this.handleEditorChange}
-                      topContentHeight={this.getHighestValue('Top')}
-                      onResizeTop={this.onResizeOutputTop}
-                      onResizeMid={this.onResizeOutputMid}
-                      onResizeBot={this.onResizeOutputBot}
-                      midContent={<IndicatorList />}
-                      midContentHeight={this.getHighestValue('Mid')}
+                      botContentHeight={this.getHighestValue('Bot')}
                       botEditorName="outputBotEditor"
                       botEditorValue={this.state.outputBotEditor}
-                      botContentHeight={this.getHighestValue('Bot')}
-                    />
+                      editMode={this.state.editMode}
+                      midContent={<IndicatorList />}
+                      midContentHeight={this.getHighestValue('Mid')}
+                      onChange={this.handleEditorChange}
+                      onResizeBot={this.onResizeOutputBot}
+                      onResizeMid={this.onResizeOutputMid}
+                      onResizeTop={this.onResizeOutputTop}
+                      title="Output"
+                      topContentHeight={this.getHighestValue('Top')}
+                      topEditorName="outputTopEditor"
+                      topEditorValue={this.state.outputTopEditor}
+                    >
+                      <IndicatorList />
+                    </ColumnWrapper>
 
                     {/* Outcome */}
                     <ColumnWrapper
-                      title="Outcome"
                       bgClass="bg-success"
-                      editMode={this.state.editMode}
-                      topEditorValue={this.state.outcomeTopEditor}
-                      topEditorName="outcomeTopEditor"
-                      onChange={this.handleEditorChange}
-                      topContentHeight={this.getHighestValue('Top')}
-                      onResizeTop={this.onResizeOutcomeTop}
-                      onResizeMid={this.onResizeOutcomeMid}
-                      onResizeBot={this.onResizeOutcomeBot}
-                      midContent={<IndicatorList />}
-                      midContentHeight={this.getHighestValue('Mid')}
+                      botContentHeight={this.getHighestValue('Bot')}
                       botEditorName="outcomeBotEditor"
                       botEditorValue={this.state.outcomeBotEditor}
-                      botContentHeight={this.getHighestValue('Bot')}
-                    />
+                      editMode={this.state.editMode}
+                      midContentHeight={this.getHighestValue('Mid')}
+                      onChange={this.handleEditorChange}
+                      onResizeBot={this.onResizeOutcomeBot}
+                      onResizeMid={this.onResizeOutcomeMid}
+                      onResizeTop={this.onResizeOutcomeTop}
+                      title="Outcome"
+                      topContentHeight={this.getHighestValue('Top')}
+                      topEditorName="outcomeTopEditor"
+                      topEditorValue={this.state.outcomeTopEditor}
+                    >
+                      <IndicatorList />
+                    </ColumnWrapper>
 
                     {/* Impact */}
                     <ColumnWrapper
-                      title="Impact"
                       bgClass="bg-orange"
-                      editMode={this.state.editMode}
-                      topEditorValue={this.state.impactTopEditor}
-                      topEditorName="impactTopEditor"
-                      onChange={this.handleEditorChange}
-                      topContentHeight={this.getHighestValue('Top')}
-                      onResizeTop={this.onResizeImpactTop}
-                      onResizeMid={this.onResizeImpactMid}
-                      onResizeBot={this.onResizeImpactBot}
-                      midContent={<IndicatorList />}
-                      midContentHeight={this.getHighestValue('Mid')}
+                      botContentHeight={this.getHighestValue('Bot')}
                       botEditorName="impactBotEditor"
                       botEditorValue={this.state.impactBotEditor}
-                      botContentHeight={this.getHighestValue('Bot')}
-                    />
+                      editMode={this.state.editMode}
+                      midContentHeight={this.getHighestValue('Mid')}
+                      onChange={this.handleEditorChange}
+                      onResizeBot={this.onResizeImpactBot}
+                      onResizeMid={this.onResizeImpactMid}
+                      onResizeTop={this.onResizeImpactTop}
+                      title="Impact"
+                      topContentHeight={this.getHighestValue('Top')}
+                      topEditorName="impactTopEditor"
+                      topEditorValue={this.state.impactTopEditor}
+                    >
+                      <IndicatorList />
+                    </ColumnWrapper>
                   </Row>
                 </div>
               </Col>
               {this.state.editMode && (
                 <Col md="3">
                   <ResultsChainProperties
+                    countries={this.state.countries}
+                    handleSelectCountriesChange={this.handleSelectCountriesChange}
                     onSubmit={this.save}
-                    title={this.state.title}
                     selectedComponent={this.state.selectedComponent}
                     setParentStateValue={this.setPropertiesValues}
-                    handleSelectCountriesChange={this.handleSelectCountriesChange}
-                    countries={this.state.countries}
+                    title={this.state.title}
                   />
                 </Col>
               )}

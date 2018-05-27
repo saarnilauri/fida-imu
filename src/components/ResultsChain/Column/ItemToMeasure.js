@@ -4,12 +4,6 @@ import Measure from 'react-measure'
 // import { updateByPropertyName } from '../../../constants/utils'
 
 class ItemToMeasure extends Component {
-  static propTypes = {
-    onResize: PropTypes.func.isRequired,
-    contentHeight: PropTypes.number,
-    children: PropTypes.object,
-  }
-
   constructor(props) {
     super(props)
     this.onResize = this.onResize.bind(this)
@@ -30,6 +24,12 @@ class ItemToMeasure extends Component {
       </div>
     )
   }
+}
+
+ItemToMeasure.propTypes = {
+  onResize: PropTypes.func.isRequired,
+  contentHeight: PropTypes.number,
+  children: PropTypes.object,
 }
 
 export default ItemToMeasure

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormGroup, Label } from 'reactstrap'
+import uuid from 'uuid'
 import Fontawesome from 'react-fontawesome'
 import Radiobutton from '../../Radiobutton'
 
@@ -19,7 +20,7 @@ const Components = props => (
           label={comp}
           value={comp}
           onChange={props.onChangeComponent}
-          key={Math.random() * 10000}
+          key={uuid()}
         />
       ))}
     </div>

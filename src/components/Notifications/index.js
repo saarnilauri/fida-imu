@@ -4,10 +4,6 @@ import { connect } from 'react-redux'
 import Fontawesome from 'react-fontawesome'
 
 class Notifications extends Component {
-  static propTypes = {
-    notification: PropTypes.string,
-    cleanNotification: PropTypes.func,
-  }
   componentDidUpdate() {
     if (this.props.notification !== '') {
       this.props.cleanNotification()
@@ -32,6 +28,11 @@ class Notifications extends Component {
   }
 }
 
+Notifications.propTypes = {
+  notification: PropTypes.string,
+  cleanNotification: PropTypes.func,
+}
+
 const mapStateToProps = state => ({
   notification: state.notificationState.notification,
 })
@@ -44,5 +45,7 @@ const mapDispatchToProps = dispatch => ({
     setTimeout(clear, 5000)
   },
 })
+
+export { Notifications }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications)

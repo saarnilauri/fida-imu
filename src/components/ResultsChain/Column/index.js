@@ -13,20 +13,20 @@ const ResultsChainColumn = props => (
         </CardHeader>
         <CardBody>
           <ItemToMeasure contentHeight={props.topContentHeight} onResize={props.onResizeTop}>
-            {props.topContent}
+            {props.children[0]}
           </ItemToMeasure>
         </CardBody>
         <CardHeader className="bg-light text-left text-dark">{props.midTitle}</CardHeader>
         <CardBody className="small-padding">
           <ItemToMeasure contentHeight={props.midContentHeight} onResize={props.onResizeMid}>
-            {props.midContent}
+            {props.children[1]}
           </ItemToMeasure>
         </CardBody>
         <CardHeader className="bg-secondary text-white text-left">{props.botTitle}</CardHeader>
         <CardBody>
           <div style={{ height: props.botContentHeight }}>
             <ItemToMeasure contentHeight={props.botContentHeight} onResize={props.onResizeBot}>
-              {props.botContent}
+              {props.children[2]}
             </ItemToMeasure>
           </div>
         </CardBody>
@@ -43,19 +43,17 @@ ResultsChainColumn.defaultProps = {
 
 ResultsChainColumn.propTypes = {
   bgClass: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  noArrow: PropTypes.bool,
-  topContentHeight: PropTypes.number.isRequired,
-  onResizeTop: PropTypes.func.isRequired,
-  topContent: PropTypes.object.isRequired,
-  midTitle: PropTypes.string.isRequired,
-  midContentHeight: PropTypes.number.isRequired,
-  onResizeMid: PropTypes.func.isRequired,
-  midContent: PropTypes.object.isRequired,
-  botTitle: PropTypes.string,
   botContentHeight: PropTypes.number.isRequired,
+  botTitle: PropTypes.string,
+  children: PropTypes.array,
+  midContentHeight: PropTypes.number.isRequired,
+  midTitle: PropTypes.string.isRequired,
+  noArrow: PropTypes.bool,
   onResizeBot: PropTypes.func.isRequired,
-  botContent: PropTypes.object.isRequired,
+  onResizeMid: PropTypes.func.isRequired,
+  onResizeTop: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  topContentHeight: PropTypes.number.isRequired,
 }
 
 export default ResultsChainColumn

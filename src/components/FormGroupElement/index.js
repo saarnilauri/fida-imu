@@ -4,14 +4,17 @@ import { FormGroup, InputGroup, InputGroupAddon, InputGroupText, Input } from 'r
 import FontAwesome from 'react-fontawesome'
 import { formElementProptypes } from '../FormElement'
 
+// eslint-disable-next-line
 const FormElement = ({ id, mb, icon, name, placeholder, value, type, className, onChange }) => (
   <FormGroup className={className}>
     <InputGroup className={`mb-${mb}`}>
-      <InputGroupAddon addonType="prepend">
-        <InputGroupText>
-          <FontAwesome name={icon} />
-        </InputGroupText>
-      </InputGroupAddon>
+      {icon && (
+        <InputGroupAddon addonType="prepend">
+          <InputGroupText>
+            <FontAwesome name={icon} />
+          </InputGroupText>
+        </InputGroupAddon>
+      )}
       <Input type={type} value={value} onChange={onChange} name={name} id={id} placeholder={placeholder} />
     </InputGroup>
   </FormGroup>
