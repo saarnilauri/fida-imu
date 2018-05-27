@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { withFirebase } from 'react-redux-firebase'
 import { Button, Alert, Label } from 'reactstrap'
 import { toast } from 'react-toastify'
 import Fontawesome from 'react-fontawesome'
@@ -24,16 +26,10 @@ const INITIAL_STATE = {
 }
 
 class UserProfileForm extends Component {
-  static propTypes = {
-    authUser: PropTypes.object,
-    onGetUserProfile: PropTypes.func,
-  }
-
   constructor(props) {
     super(props)
     this.onChange = this.onChange.bind(this)
     this.handleSelectCountriesChange = this.handleSelectCountriesChange.bind(this)
-    // this.onSetRoleValue = this.onSetRoleValue.bind(this)
     this.state = { ...INITIAL_STATE }
   }
 
@@ -94,6 +90,14 @@ class UserProfileForm extends Component {
         this.setState(updateByPropertyName('error', error))
       })
 
+    const profile = {
+      username,
+      email,
+      updatedDescriptionHtml,
+      roles,
+      countries,
+    }
+    this.props.firebase.updateProfile(profile)
     event.preventDefault()
   }
 
@@ -147,12 +151,20 @@ class UserProfileForm extends Component {
   }
 }
 
+UserProfileForm.propTypes = {
+  authUser: PropTypes.object,
+  onGetUserProfile: PropTypes.func,
+  profile: PropTypes.object,
+  firebase: PropTypes.object,
+}
+
 const mapStateToProps = state => ({
   authUser: state.sessionState.authUser,
+  profile: state.firebase.profile,
 })
 
 const mapDispatchToProps = dispatch => ({
   onGetUserProfile: userProfile => dispatch({ type: 'SET_USER_PROFILE', userProfile }),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfileForm)
+export default compose(withFirebase, connect(mapStateToProps, mapDispatchToProps))(UserProfileForm)

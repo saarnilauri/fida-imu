@@ -2,13 +2,18 @@ import { db } from './firebase'
 
 // User API
 
-export const doCreateUser = (id, username, email, roles = { missionary: true }) =>
-  db.ref(`users/${id}`).set({
+export const doCreateUser = (id, username, email, roles = { missionary: true }) => {
+  const data = {
     username,
     email,
     roles,
+    countries: [],
+    isActive: false,
     descriptionHtml: '',
-  })
+  }
+  db.ref(`users/${id}`).set(data)
+  db.ref(`userProfiles/${id}`).set(data)
+}
 
 export const onceGetUsers = () => db.ref('users').once('value')
 export const onceGetUserNameById = id => db.ref(`users/${id}`).once('value').username

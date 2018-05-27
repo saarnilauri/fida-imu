@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { AppFooter, AppHeader } from '@coreui/react'
+import uuid from 'uuid'
 // sidebar nav config
 import routes from '../../routes'
 import Footer from './Footer'
@@ -30,7 +31,7 @@ class Layout extends Component {
                 {routes.map(route => {
                   return route.component ? (
                     <Route
-                      key={Math.random() * 1000}
+                      key={uuid()}
                       path={route.path}
                       exact={route.exact}
                       name={route.name}

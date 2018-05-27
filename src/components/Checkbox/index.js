@@ -23,9 +23,22 @@ class Checkbox extends Component {
   }
 
   render() {
-    const { label } = this.props
+    const { label, isSimple } = this.props
     const { isChecked } = this.state
 
+    if (isSimple) {
+      return (
+        <Input
+          className="form-check-input-list"
+          type="checkbox"
+          defaultChecked={isChecked}
+          id={`checkbox_${label}`}
+          name={`checkbox_${label}`}
+          value={label}
+          onChange={this.toggleCheckboxChange}
+        />
+      )
+    }
     return (
       <FormGroup check inline className="checkbox" key={Math.random() * 10000}>
         <Input
@@ -45,9 +58,14 @@ class Checkbox extends Component {
   }
 }
 
+Checkbox.defaultProps = {
+  isSimple: false,
+}
+
 Checkbox.propTypes = {
   label: PropTypes.string.isRequired,
   isChecked: PropTypes.bool,
+  isSimple: PropTypes.bool,
   handleCheckboxChange: PropTypes.func.isRequired,
 }
 

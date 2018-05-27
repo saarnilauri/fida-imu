@@ -33,5 +33,5 @@ CountrySelect.propTypes = {
 }
 
 export { CountrySelect }
-
-export default withCountries(CountrySelect)
+const enhanchedCountrySelect = withCountries(CountrySelect)
+export default enhanchedCountrySelect

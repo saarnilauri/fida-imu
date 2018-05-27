@@ -5,12 +5,10 @@ import resultsChainReducer from './resultschain'
 import notificationReducer from './notifications'
 import getEntityReducer from './curriedFirebase'
 
-import userReducer from './user'
-
 const rootReducer = combineReducers({
   firebase: firebaseReducer,
   sessionState: sessionReducer,
-  userState: userReducer,
+  userState: getEntityReducer('user'),
   notificationState: notificationReducer,
   resultsChainState: resultsChainReducer,
   countryState: getEntityReducer('country'),
