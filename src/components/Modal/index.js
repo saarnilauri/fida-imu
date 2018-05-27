@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
+import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
 import Fontawesome from 'react-fontawesome'
+import ButtonGroup from '../ButtonGroup'
 
 const ModalWrapper = props => (
   <Modal isOpen={props.isOpen} toggle={props.toggle} className={props.className}>
@@ -11,13 +12,22 @@ const ModalWrapper = props => (
     </ModalHeader>
     <ModalBody>{props.children}</ModalBody>
     <ModalFooter>
-      <Button color="primary" onClick={props.action}>
-        {props.actionBtnIcon && <Fontawesome name={props.actionBtnIcon} />} {` ${props.actionBtnTitle}`}
-      </Button>{' '}
-      <Button color="secondary" onClick={props.cancel}>
-        {props.cancelBtnIcon && <Fontawesome name={props.cancelBtnIcon} />}
-        {` ${props.cancelBtnTitle}`}
-      </Button>
+      <ButtonGroup
+        buttons={[
+          {
+            color: 'primary',
+            icon: props.actionBtnIcon,
+            onClick: props.action,
+            title: props.actionBtnTitle,
+          },
+          {
+            icon: props.cancelBtnIcon,
+            onClick: props.cancel,
+            color: 'secondary',
+            title: props.cancelBtnTitle,
+          },
+        ]}
+      />
     </ModalFooter>
   </Modal>
 )
@@ -26,6 +36,7 @@ ModalWrapper.propTypes = {
   action: PropTypes.func,
   actionBtnIcon: PropTypes.string,
   actionBtnTitle: PropTypes.string,
+  cancel: PropTypes.func,
   cancelBtnIcon: PropTypes.string,
   cancelBtnTitle: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),

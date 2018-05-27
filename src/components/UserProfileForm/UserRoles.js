@@ -1,16 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Col, FormGroup, Label } from 'reactstrap'
+import { FormGroup, Label } from 'reactstrap'
 import Checkbox from '../Checkbox'
 
 const roles = ['missionary', 'admin', 'joti', 'communications', 'partner', 'church', 'church']
 
 const UserRoles = props => (
   <FormGroup>
-    <Col md="3">
+    <div>
       <Label>User roles</Label>
-    </Col>
-    <Col md="9">
+    </div>
+    <div>
       {roles.map(role => (
         <Checkbox
           isChecked={props.roles[role]}
@@ -19,7 +19,7 @@ const UserRoles = props => (
           key={Math.random() * 10000}
         />
       ))}
-    </Col>
+    </div>
   </FormGroup>
 )
 
