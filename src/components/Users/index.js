@@ -48,11 +48,11 @@ UserList.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  users: state.userState.users,
+  users: state.userState.usersCollection,
 })
 
 const mapDispatchToProps = dispatch => ({
-  onSetUsers: users => dispatch({ type: 'USERS_SET', users }),
+  onSetUsers: users => dispatch({ type: 'USERS_SET', usersCollection: users }),
 })
 
 const authCondition = authUser => !!authUser

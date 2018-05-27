@@ -12,6 +12,7 @@ import {
   getEntityCollectionNotReadyActionCreator,
   getEntityCollectionIsReadyActionCreator,
   getLoadOneEntityActionCreator,
+  getMapDispatchToProps,
 } from './curriedFirebase'
 
 const firebaseMock = new firebasemock.MockFirebase()
@@ -30,24 +31,32 @@ describe('curriedFirebase', () => {
     expect(getWordForms('resultschain')).toEqual({
       normal: 'resultschain',
       prular: 'resultschains',
+      capitalized: 'Resultschain',
+      capitalizedPrular: 'Resultschains',
       allCaps: 'RESULTSCHAIN',
       allCapsPrular: 'RESULTSCHAINS',
     })
     expect(getWordForms('country')).toEqual({
       normal: 'country',
       prular: 'countries',
+      capitalized: 'Country',
+      capitalizedPrular: 'Countries',
       allCaps: 'COUNTRY',
       allCapsPrular: 'COUNTRIES',
     })
     expect(getWordForms('person')).toEqual({
       normal: 'person',
       prular: 'people',
+      capitalized: 'Person',
+      capitalizedPrular: 'People',
       allCaps: 'PERSON',
       allCapsPrular: 'PEOPLE',
     })
     expect(getWordForms('man')).toEqual({
       normal: 'man',
       prular: 'men',
+      capitalized: 'Man',
+      capitalizedPrular: 'Men',
       allCaps: 'MAN',
       allCapsPrular: 'MEN',
     })
@@ -161,5 +170,13 @@ describe('curriedFirebase', () => {
       test: null,
       testsCollection: [{ title: 'test' }, { title: 'test2' }],
     })
+  })
+
+  it('getMapDispatchToProps returns a map for dispatch to props', () => {
+    const map = getMapDispatchToProps('test')
+    expect(map).toEqual(expect.any(Function))
+    expect(Object.keys(map(() => {})).sort()).toEqual(
+      ['addTest', 'updateTest', 'removeTest', 'loadTests', 'loadTest'].sort(),
+    )
   })
 })

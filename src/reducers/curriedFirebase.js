@@ -1,20 +1,23 @@
 import pluralize from 'pluralize'
 import upperCase from 'lodash/upperCase'
+import capitalize from 'lodash/capitalize'
 import { sendNotification } from './notifications'
 
 export function getWordForms(word) {
   return {
     normal: word,
     prular: pluralize(word),
+    capitalized: capitalize(word),
+    capitalizedPrular: capitalize(pluralize(word)),
     allCaps: upperCase(word),
     allCapsPrular: upperCase(pluralize(word)),
   }
 }
 
-export function getInitialState(entityName) {
-  const wordForms = getWordForms(entityName)
+export function getInitialState(entity) {
+  const wordForms = getWordForms(entity)
   const INITIAL_STATE = { collectionReady: false }
-  INITIAL_STATE[entityName] = null
+  INITIAL_STATE[entity] = null
   INITIAL_STATE[`${wordForms.prular}Collection`] = []
   return INITIAL_STATE
 }
@@ -49,16 +52,27 @@ export const getEntityCollectionIsReadyActionCreator = entity => () => {
   }
 }
 
-export const getLoadOneEntityActionCreator = entity => uid => (dispatch, getState, getFirebase) => {
+export const getLoadOneEntityActionCreator = entity => (uid, message, addToStore = true) => (
+  dispatch,
+  getState,
+  getFirebase,
+) => {
   const wordForms = getWordForms(entity)
   const firebase = getFirebase()
-  firebase
-    .ref(`${wordForms.prular}/${uid}`)
-    .once('value')
-    .then(snap => {
-      dispatch(getAddEntityActionCreator(entity)(snap.val()))
-      dispatch(sendNotification('Result chain loaded...'))
-    })
+  const prom = new Promise((resolve, reject) => {
+    firebase
+      .ref(`${wordForms.prular}/${uid}`)
+      .once('value')
+      .then(snap => {
+        if (addToStore) {
+          dispatch(getAddEntityActionCreator(entity)(snap.val()))
+        }
+        dispatch(sendNotification(message))
+        resolve({ ...snap.val(), uid: snap.key })
+      })
+      .catch(error => reject(error))
+  })
+  return prom
 }
 
 export const getLoadEntityCollectionActionCreator = entity => (message = `${entity} loaded...`) => (
@@ -103,6 +117,9 @@ export const getUpdateEntityToFirebaseActionCreator = entity => (uid, updatedEnt
   const wordForms = getWordForms(entity)
   const firebase = getFirebase()
   firebase.set(`${wordForms.prular}/${uid}`, updatedEntity).then(() => {
+    if (entity === 'user') {
+      firebase.set(`userProfiles/${uid}`, updatedEntity).then(() => {})
+    }
     dispatch(getLoadEntityCollectionActionCreator(entity)(message))
   })
 }
@@ -144,6 +161,25 @@ export const applyReady = (state, action) => ({
   ...state,
   collectionReady: action.payload,
 })
+
+export const getMapDispatchToProps = entity => dispatch => {
+  const addEntity = getAddEntityToFirebaseActionCreator(entity)
+  const loadEntity = getLoadOneEntityActionCreator(entity)
+  const loadEntities = getLoadEntityCollectionActionCreator(entity)
+  const removeEntity = getRemoveEntityFromFirebaseActionCreator(entity)
+  const updateEntity = getUpdateEntityToFirebaseActionCreator(entity)
+  const wordForms = getWordForms(entity)
+
+  const map = {}
+  map[`add${wordForms.capitalized}`] = item => dispatch(addEntity(item, `${wordForms.capitalizedPrular} added...`))
+  map[`update${wordForms.capitalized}`] = (uid, item) =>
+    dispatch(updateEntity(uid, item, `${wordForms.capitalized} updated...`))
+  map[`remove${wordForms.capitalized}`] = uid => dispatch(removeEntity(uid, `${wordForms.capitalized} removed...`))
+  map[`load${wordForms.capitalizedPrular}`] = () => dispatch(loadEntities(`${wordForms.capitalizedPrular} loaded...`))
+  map[`load${wordForms.capitalized}`] = (uid, addToStore) =>
+    dispatch(loadEntity(uid, `${wordForms.capitalized} loaded...`, addToStore))
+  return map
+}
 
 const getEntityReducer = entity => (state = getInitialState(entity), action) => {
   const wordForms = getWordForms(entity)
