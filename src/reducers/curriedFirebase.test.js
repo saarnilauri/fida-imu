@@ -175,6 +175,8 @@ describe('curriedFirebase', () => {
   it('getMapDispatchToProps returns a map for dispatch to props', () => {
     const map = getMapDispatchToProps('test')
     expect(map).toEqual(expect.any(Function))
-    expect(Object.keys(map(() => {})).sort()).toEqual(['addTest', 'updateTest', 'removeTest', 'loadTests'].sort())
+    expect(Object.keys(map(() => {})).sort()).toEqual(
+      ['addTest', 'updateTest', 'removeTest', 'loadTests', 'loadTest'].sort(),
+    )
   })
 })
