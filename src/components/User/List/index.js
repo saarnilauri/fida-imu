@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { compose } from 'recompose'
+import { injectIntl } from 'react-intl'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 
@@ -15,25 +17,7 @@ class UserList extends Component {
 
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
 
-    this.tableColumns = [
-      { Header: 'User name', accessor: 'username' },
-      {
-        Header: 'Activated',
-        id: 'isActive',
-        width: 70,
-        accessor: d => (
-          <div style={{ textAlign: 'center' }}>
-            <Checkbox handleCheckboxChange={this.handleCheckboxChange} isChecked={d.isActive} isSimple label={d.uid} />
-          </div>
-        ),
-      },
-      { id: 'roles', Header: 'Roles', accessor: d => Object.keys(d.roles).join(', ') },
-    ]
-    this.tableSort = [
-      {
-        id: 'username',
-      },
-    ]
+    this.setTableSettings()
   }
 
   componentDidMount() {
@@ -42,13 +26,37 @@ class UserList extends Component {
     }
   }
 
+  setTableSettings() {
+    const { formatMessage } = this.props.intl
+    this.tableColumns = [
+      { Header: formatMessage({ id: 'user.list.table.header.username' }), accessor: 'username' },
+      {
+        Header: formatMessage({ id: 'user.list.table.header.activated' }),
+        id: 'isActive',
+        width: 70,
+        accessor: d => (
+          <div style={{ textAlign: 'center' }}>
+            <Checkbox handleCheckboxChange={this.handleCheckboxChange} isChecked={d.isActive} isSimple label={d.uid} />
+          </div>
+        ),
+      },
+      {
+        id: 'roles',
+        Header: formatMessage({ id: 'user.list.table.header.roles' }),
+        accessor: d => Object.keys(d.roles).join(', '),
+      },
+    ]
+    this.tableSort = [
+      {
+        id: 'username',
+      },
+    ]
+  }
+
   handleCheckboxChange(uid) {
     this.props.loadUser(uid, false).then(user => {
-      // console.log(user)
       const newUserState = { ...user, isActive: !user.isActive }
-      const { uid } = user
       delete newUserState.uid
-      // console.log(newUserState)
       this.props.updateUser(uid, newUserState)
     })
   }
@@ -77,6 +85,7 @@ UserList.defaultProps = { ready: false }
 UserList.propTypes = {
   data: PropTypes.array,
   ready: PropTypes.bool,
+  intl: PropTypes.object,
   loadUsers: PropTypes.func,
   loadUser: PropTypes.func,
   updateUser: PropTypes.func,
@@ -93,6 +102,6 @@ const mapStateToProps = state => ({
   activeUser: state.userState.user,
 })
 
-const EnhanchedUserList = connect(mapStateToProps, mapDispatchToProps)(UserList)
+const EnhanchedUserList = compose(injectIntl, connect(mapStateToProps, mapDispatchToProps))(UserList)
 
 export default EnhanchedUserList

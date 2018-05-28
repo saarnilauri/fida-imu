@@ -38,6 +38,7 @@ class UserProfileForm extends Component {
   }
 
   componentDidMount() {
+    const { formatMessage } = this.props
     if (this.props.authUser) {
       db
         .onceGetUserById(this.props.authUser.uid)
@@ -53,7 +54,7 @@ class UserProfileForm extends Component {
         })
         .catch(err => {
           this.setState(updateByPropertyName('error', err))
-          toast.error('Error occured!', {
+          toast.error(formatMessage({ id: 'error.occured' }), {
             position: toast.POSITION.TOP_CENTER,
           })
         })
@@ -65,6 +66,7 @@ class UserProfileForm extends Component {
   }
 
   onSubmit = event => {
+    const { formatMessage } = this.props
     let roles = {}
 
     this.selectedCheckboxes.forEach(item => {
@@ -73,15 +75,13 @@ class UserProfileForm extends Component {
       roles = Object.assign(roles, temp)
     })
 
-    // console.log(roles)
-
     const { username, email, description, descriptionHtml, countries } = this.state
     const updatedDescriptionHtml = description ? description.toString('html') : descriptionHtml
 
     db
       .writeUserData(this.props.authUser.uid, username, email, updatedDescriptionHtml, roles, countries)
       .then(() => {
-        toast.success('Profile updated!', {
+        toast.success(formatMessage({ id: 'account.page.progress.updated' }), {
           position: toast.POSITION.TOP_CENTER,
         })
         this.props.onGetUserProfile({ username, email, descriptionHtml: updatedDescriptionHtml, roles, countries })
@@ -114,6 +114,7 @@ class UserProfileForm extends Component {
   }
 
   render() {
+    const { formatMessage } = this.props
     const { username, descriptionHtml, error, isLoaded, roles, countries } = this.state
 
     const isInvalid = username === ''
@@ -130,18 +131,18 @@ class UserProfileForm extends Component {
             )}
             <UsernameField value={username} onChange={setStateValue('username', this)} />
             <div>
-              <FormContent label="Profile description" className="py-2">
+              <FormContent label={formatMessage({ id: 'account.page.profile_description' })} className="py-2">
                 <Editor onChange={this.onChange} content={descriptionHtml} />
               </FormContent>
               <UserRoles roles={roles} handleCheckboxChange={this.toggleCheckbox} />
               <div className="py-2">
                 <Label for="123">
-                  <Fontawesome name="globe" /> Coutries
+                  <Fontawesome name="globe" /> {formatMessage({ id: 'account.page.coutries' })}
                 </Label>
                 <CountrySelect value={countries} onChange={this.handleSelectCountriesChange} />
               </div>
               <Button disabled={isInvalid} type="submit">
-                Save your profile
+                {formatMessage({ id: 'actions.save' })}
               </Button>
             </div>
           </form>
@@ -154,8 +155,8 @@ class UserProfileForm extends Component {
 UserProfileForm.propTypes = {
   authUser: PropTypes.object,
   onGetUserProfile: PropTypes.func,
-  profile: PropTypes.object,
   firebase: PropTypes.object,
+  formatMessage: PropTypes.func,
 }
 
 const mapStateToProps = state => ({

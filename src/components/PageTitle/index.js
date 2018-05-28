@@ -17,7 +17,7 @@ const PageTitle = ({ title }) => {
 }
 
 PageTitle.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
 }
 
 export default PageTitle

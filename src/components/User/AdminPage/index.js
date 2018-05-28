@@ -1,28 +1,33 @@
-import React, { Component } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Col, Row } from 'reactstrap'
+import { injectIntl } from 'react-intl'
 
 import Card from '../../Card'
 import PageTitle from '../../PageTitle'
 import PageWrapper from '../../PageWrapper'
 import EnhanchedUserList from '../List'
 
-class UserAdminPage extends Component {
-  render() {
-    return (
-      <React.Fragment>
-        <PageTitle title="User administration" />
-        <PageWrapper>
-          <Row>
-            <Col sm="12" md="9">
-              <Card noPadding title="Users">
-                <EnhanchedUserList />
-              </Card>
-            </Col>
-          </Row>
-        </PageWrapper>
-      </React.Fragment>
-    )
-  }
+const UserAdminPage = props => {
+  const { formatMessage } = props.intl
+  return (
+    <React.Fragment>
+      <PageTitle title={formatMessage({ id: 'user.list.page.title' })} />
+      <PageWrapper>
+        <Row>
+          <Col sm="12" md="9">
+            <Card noPadding title={formatMessage({ id: 'user.list.page.subtitle' })}>
+              <EnhanchedUserList />
+            </Card>
+          </Col>
+        </Row>
+      </PageWrapper>
+    </React.Fragment>
+  )
 }
 
-export default UserAdminPage
+UserAdminPage.propTypes = {
+  intl: PropTypes.object,
+}
+
+export default injectIntl(UserAdminPage)

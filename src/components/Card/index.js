@@ -1,24 +1,28 @@
 import React from 'react'
+import { Card, CardHeader, CardBody } from 'reactstrap'
 import PropTypes from 'prop-types'
 
-const Card = props => (
-  <div className="card">
-    <div className={`${props.headerClass} card-header`}>{props.title}</div>
-    <div className="card-body" style={props.noPadding ? { padding: 0 } : null}>
+const CardWrapper = props => (
+  <Card>
+    {!props.titleIntheBody && <CardHeader className={props.headerClass}>{props.title}</CardHeader>}
+    <CardBody style={props.noPadding ? { padding: 0 } : null}>
+      {props.titleIntheBody && <h1 className={props.headerClass}>{props.title}</h1>}
       {props.children}
-    </div>
-  </div>
+    </CardBody>
+  </Card>
 )
 
-Card.defaultProps = {
+CardWrapper.defaultProps = {
   noPadding: false,
+  titleIntheBody: false,
 }
 
-Card.propTypes = {
+CardWrapper.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),
   headerClass: PropTypes.string,
   noPadding: PropTypes.bool,
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  titleIntheBody: PropTypes.bool,
 }
 
-export default Card
+export default CardWrapper

@@ -17,7 +17,6 @@ const withAuthentication = Component => {
         if (authUser) {
           onSetAuthUser(authUser)
           db.onceGetUserById(authUser.uid).then(snap => {
-            // console.log(snap.val(), authUser)
             onGetUserProfile(snap.val())
             this.setState(() => ({ ready: true, user: authUser }))
           })
