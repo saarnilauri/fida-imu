@@ -48,4 +48,6 @@ const mapDispatchToProps = dispatch => ({
 
 export { Notifications }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Notifications)
+const EnhachedNotification = connect(mapStateToProps, mapDispatchToProps)(Notifications)
+
+export default EnhachedNotification

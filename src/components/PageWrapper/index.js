@@ -1,17 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { Container, Col, Row } from 'reactstrap'
 import PropTypes from 'prop-types'
 
-class PageWrapper extends Component {
-  render() {
-    return (
-      <div className="py-2 container-fluid">
-        <div className="row py-2">
-          <div className="col-md-12">{this.props.children}</div>
-        </div>
-      </div>
-    )
-  }
-}
+const PageWrapper = props => (
+  <Container fluid className="py-2">
+    <Row className="py-2">
+      <Col md="12">{props.children}</Col>
+    </Row>
+  </Container>
+)
 
 PageWrapper.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),

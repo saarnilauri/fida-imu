@@ -24,7 +24,7 @@ const ResultsChain = Loadable({
 })
 
 const CountryList = Loadable({
-  loader: () => import('./components/Country/List'),
+  loader: () => import('./components/Country/List/Page'),
   loading: Loading,
 })
 

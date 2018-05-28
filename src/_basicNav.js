@@ -1,21 +1,21 @@
 export default {
   items: [
     {
-      name: 'Results chain',
+      name: 'app.navi.basic.results_chain',
       url: '/results-chain',
       icon: 'icon-calculator',
     },
     {
-      name: 'reports',
+      name: 'app.navi.basic.reports',
       url: '/my-reports',
       icon: 'fa fa-files-o',
     },
     {
       title: true,
-      name: 'More',
+      name: 'app.navi.basic.title.more',
     },
     {
-      name: 'Account',
+      name: 'app.navi.basic.account',
       url: '/account',
       icon: 'icon-user',
     },

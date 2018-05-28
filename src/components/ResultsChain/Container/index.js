@@ -66,7 +66,6 @@ class ResultsChainContainer extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props)
     if (!this.props.ready) {
       this.props.loadResultsChains()
     }
@@ -157,8 +156,6 @@ class ResultsChainContainer extends Component {
       users: [this.props.authUser.uid],
     }
 
-    // console.log(data)
-
     if (this.state.uid) {
       this.props.updateResultsChainToFirebase(this.state.uid, data)
     } else {
@@ -186,7 +183,6 @@ class ResultsChainContainer extends Component {
         return item.uid === selValue
       })
       Object.keys(active).forEach(key => {
-        // console.log(key)
         this.setState(updateByPropertyName(key, active[key]))
       })
     } else {
@@ -219,9 +215,7 @@ class ResultsChainContainer extends Component {
             {this.state.userHasSelected && (
               <Col md="8" className="text-right">
                 <Button color="secondary" size="sm" onClick={this.toggleEditMode}>
-                  <Fontawesome
-                    name={!this.state.editMode ? 'cog' : 'eye'}
-                  /> {!this.state.editMode ? 'Edit' : 'View'}{' '}
+                  <Fontawesome name={!this.state.editMode ? 'cog' : 'eye'} /> {!this.state.editMode ? 'Edit' : 'View'}{' '}
                   results chain
                 </Button>
               </Col>

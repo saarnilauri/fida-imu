@@ -2,22 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
-// import PasswordChangeForm from '../PasswordChange'
-import withAuthorization from '../Session/withAuthorization'
+import { injectIntl } from 'react-intl'
 import PageTitle from '../PageTitle'
 import PageWrapper from '../PageWrapper'
 import Card from '../Card'
 import UserProfileForm from '../UserProfileForm'
 
-const AccountPage = ({ authUser }) => (
+// authUser.email
+const AccountPage = props => (
   <div>
-    <PageTitle title="User account" />
+    <PageTitle title={props.intl.formatMessage({ id: 'account.page.title' })} />
     <PageWrapper>
-      <Card title={`Account details for ${authUser.email}`}>
-        {
-          // <PasswordChangeForm />
-        }
-        <UserProfileForm />
+      <Card title={props.intl.formatMessage({ id: 'account.page.subtitle' }, { name: props.authUser.email })}>
+        <UserProfileForm formatMessage={props.intl.formatMessage} />
       </Card>
     </PageWrapper>
   </div>
@@ -25,15 +22,11 @@ const AccountPage = ({ authUser }) => (
 
 AccountPage.propTypes = {
   authUser: PropTypes.object,
+  intl: PropTypes.object,
 }
 
 const mapStateToProps = state => ({
   authUser: state.sessionState.authUser,
 })
 
-const authCondition = authUser => !!authUser
-
-export default compose(
-  withAuthorization(authCondition),
-  connect(mapStateToProps),
-)(AccountPage)
+export default compose(injectIntl, connect(mapStateToProps))(AccountPage)

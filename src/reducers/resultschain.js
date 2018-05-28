@@ -49,7 +49,6 @@ export const loadResultsChains = (message = 'Result chains loaded...') => (dispa
 export const addResultsChainToFirebase = newResultsChain => (dispatch, getState, getFirebase) => {
   const firebase = getFirebase()
   firebase.push('resultschains', newResultsChain).then(snap => {
-    // console.log(snap)
     dispatch(addResultsChain({ ...newResultsChain, uid: snap.key }))
     dispatch(loadResultsChains('Result chain updated...'))
   })
@@ -58,7 +57,6 @@ export const addResultsChainToFirebase = newResultsChain => (dispatch, getState,
 export const updateResultsChainToFirebase = (uid, resultsChain) => (dispatch, getState, getFirebase) => {
   const firebase = getFirebase()
   firebase.set(`resultschains/${uid}`, resultsChain).then(() => {
-    // console.log(snap)
     dispatch(addResultsChain({ ...resultsChain, uid }))
     dispatch(loadResultsChains('Result chain updated...'))
   })

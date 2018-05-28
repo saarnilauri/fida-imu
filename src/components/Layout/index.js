@@ -17,7 +17,6 @@ class Layout extends Component {
 
   render() {
     const { user } = this.props
-    // console.log(user)
     const view =
       user !== null ? (
         <div className="app">

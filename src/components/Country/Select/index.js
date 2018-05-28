@@ -29,7 +29,7 @@ CountrySelect.defaultProps = {
 CountrySelect.propTypes = {
   data: PropTypes.array,
   onChange: PropTypes.func,
-  value: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),
+  value: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.array, PropTypes.string]),
 }
 
 export { CountrySelect }
