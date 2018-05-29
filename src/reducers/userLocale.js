@@ -12,7 +12,9 @@ const applySetLocale = (state, action) => ({
 const userLocaleReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case 'SET_LOCALE': {
-    localStorage.setItem('locale', action.payload)
+    if (localStorage) {
+      localStorage.setItem('locale', action.payload)
+    }
     return applySetLocale(state, action)
   }
   default:

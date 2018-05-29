@@ -1,3 +1,4 @@
+import 'jest-localstorage-mock'
 import userLocaleReducer, { setNavigatorLanguage, setLocaleLanguage } from './userLocale'
 
 describe('userLocale reducer', () => {
