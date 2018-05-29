@@ -19,6 +19,11 @@ export default {
       url: '/account',
       icon: 'icon-user',
     },
+    {
+      name: 'app.navi.basic.landing',
+      url: '/landing',
+      icon: 'icon-home',
+    },
     /* {
       name: 'Typography',
       url: '/theme/typography',

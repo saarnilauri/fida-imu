@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { injectIntl } from 'react-intl'
+import { Row, Col, Container } from 'reactstrap'
 import PageTitle from '../PageTitle'
-import PageWrapper from '../PageWrapper'
 import Card from '../Card'
 import UserProfileForm from '../UserProfileForm'
 
@@ -12,11 +12,15 @@ import UserProfileForm from '../UserProfileForm'
 const AccountPage = props => (
   <div>
     <PageTitle title={props.intl.formatMessage({ id: 'account.page.title' })} />
-    <PageWrapper>
-      <Card title={props.intl.formatMessage({ id: 'account.page.subtitle' }, { name: props.authUser.email })}>
-        <UserProfileForm formatMessage={props.intl.formatMessage} />
-      </Card>
-    </PageWrapper>
+    <Container fluid>
+      <Row className="full-height d-flex justify-content-left align-items-center py-4">
+        <Col md="6" className="fadeIn animated">
+          <Card title={props.intl.formatMessage({ id: 'account.page.subtitle' }, { name: props.authUser.email })}>
+            <UserProfileForm formatMessage={props.intl.formatMessage} />
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   </div>
 )
 

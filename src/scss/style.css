@@ -9974,6 +9974,15 @@ label {
 .results-chain .card-body :last-child {
   margin-bottom: 0; }
 
+.results-chain .card-header {
+  font-weight: 600; }
+
+.popover-body {
+  font-size: 1rem !important; }
+
+.popover-header {
+  font-size: 1.1rem !important; }
+
 .ql-bubble .ql-tooltip {
   z-index: 10000; }
 
@@ -10072,6 +10081,23 @@ label {
   font-size: 1.25rem; }
   .btn-help:hover {
     color: #ddd; }
+
+.landing-bg {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/fida-imu-dev.appspot.com/o/images%2Fbg-welcome.jpg?alt=media&token=44377540-2d47-4049-9b76-9496a3a21d8e");
+  background-size: cover;
+  height: 100%; }
+  .landing-bg .card {
+    background-color: rgba(255, 255, 255, 0.9); }
+    .landing-bg .card .lead {
+      font-size: 1.4rem; }
+
+.full-height {
+  height: 100%; }
+
+.text-large {
+  font-size: 2rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700; }
 
 html body .app.flex-row.align-items-center {
   height: 100vh; }

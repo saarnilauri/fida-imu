@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink } from 'reactstrap'
+import { Nav, NavItem, NavLink } from 'reactstrap'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
-import { AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react'
+import { AppNavbarBrand, AppSidebarToggler } from '@coreui/react'
 
 import logo from '../../assets/img/brand/fida_logo.svg'
-import userIcon from '../../assets/img/user.svg'
-import SignOutButton from '../SignOut'
 import EnhachedNotification from '../Notifications'
+import LanguageMenu from '../LanguageSwitch/Menu'
+import UserHeaderMenu from '../User/HeaderMenu'
 
 const propTypes = {
   children: PropTypes.node,
@@ -39,26 +39,8 @@ class Header extends Component {
         </Nav>
         <EnhachedNotification />
         <Nav className="ml-auto" navbar>
-          <AppHeaderDropdown direction="down">
-            <DropdownToggle nav>
-              <img src={userIcon} className="img-avatar" alt="" /> {this.props.user && this.props.user.email}
-            </DropdownToggle>
-            <DropdownMenu right style={{ right: 'auto' }}>
-              <DropdownItem header tag="div" className="text-center">
-                <strong>
-                  <FormattedMessage id="app.header.dropdown.accountHeader" />Account
-                </strong>
-              </DropdownItem>
-              <DropdownItem>
-                <a href="/#/account">
-                  <i className="fa fa-user" /> <FormattedMessage id="app.header.dropdown.profileLink" />
-                </a>
-              </DropdownItem>
-              <DropdownItem>
-                <SignOutButton />
-              </DropdownItem>
-            </DropdownMenu>
-          </AppHeaderDropdown>
+          <LanguageMenu />
+          <UserHeaderMenu user={this.props.user} />
         </Nav>
       </React.Fragment>
     )

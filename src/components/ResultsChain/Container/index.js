@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Col, Row } from 'reactstrap'
+import { Col, Row, Badge } from 'reactstrap'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { injectIntl } from 'react-intl'
@@ -13,6 +13,7 @@ import PageTitle from '../../PageTitle'
 import PageWrapper from '../../PageWrapper'
 import IndicatorList from '../../IndicatorList' // TODO: replace the mock with a real component
 import CenteredLoader from '../../CenteredLoader'
+import FlagIcon from '../../FlagIcon'
 
 import { findUserItems, getSchemaKeys, getWordForms, updateByPropertyName } from '../../../constants/utils'
 import {
@@ -151,7 +152,11 @@ class ResultsChainContainer extends Component {
     if (selValue !== '__null' && selValue !== '__new') {
       this.updateState(selValue)
     } else {
-      this.setState(() => ({ uid: '', editMode: true }))
+      const data = {}
+      getSchemaKeys(this.state, this.schema).forEach(key => {
+        data[key] = ''
+      })
+      this.setState(() => ({ ...data, uid: '', editMode: true }))
     }
     this.setState(updateByPropertyName('userHasSelected', true))
     event.preventDefault()
@@ -195,7 +200,28 @@ class ResultsChainContainer extends Component {
             <Row>
               <Col md={editMode ? '9' : '12'}>
                 <div className="results-chain">
-                  <h1 className="py-4">{this.state.title}</h1>
+                  <h1 className="py-4">
+                    {this.state.title}{' '}
+                    <Badge color="light">
+                      {this.state.selectedComponent && (
+                        <React.Fragment>
+                          <Badge color="primary">
+                            {formatMessage({ id: `components.radiolabel.${this.state.selectedComponent}` })}
+                          </Badge>
+                        </React.Fragment>
+                      )}
+                      {this.state.countries && (
+                        <React.Fragment>
+                          {' '}
+                          {this.state.countries.map(item => (
+                            <React.Fragment key={item.code}>
+                              <FlagIcon code={item.code} />{' '}
+                            </React.Fragment>
+                          ))}
+                        </React.Fragment>
+                      )}
+                    </Badge>
+                  </h1>
                   <Row className="no-gutters">
                     {this.cols.map(key => {
                       const wordForms = getWordForms(key)
