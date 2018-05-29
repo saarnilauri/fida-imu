@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FormattedMessage } from 'react-intl'
 import { Button, Col, Row } from 'reactstrap'
 import FontAwesome from 'react-fontawesome'
 import { Link } from 'react-router-dom'
@@ -12,13 +13,13 @@ const LoginForm = props => (
     <Row>
       <Col xs={props.forgotPasswordRoute ? '6' : '12'}>
         <Button color="secondary" disabled={props.isInvalid} type="submit">
-          <FontAwesome name="sign-in" /> Sign In
+          <FontAwesome name="sign-in" /> <FormattedMessage id="app.login.form.sign-in" />
         </Button>
       </Col>
       {props.forgotPasswordRoute && (
         <Col xs="6" className="text-right">
           <Link className="px-0" to={props.forgotPasswordRoute}>
-            Forgot Password?
+            <FormattedMessage id="app.login.form.forgot-pwd" />
           </Link>
         </Col>
       )}

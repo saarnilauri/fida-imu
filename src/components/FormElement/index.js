@@ -13,7 +13,7 @@ export const formElementProptypes = {
   id: PropTypes.string,
   label: PropTypes.string,
   name: PropTypes.string,
-  placeholder: PropTypes.string,
+  placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   value: PropTypes.string,
   type: PropTypes.string,
   className: PropTypes.string,

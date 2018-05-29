@@ -1,30 +1,50 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Card, CardBody, Alert } from 'reactstrap'
+import { Card, CardBody, Alert, Nav } from 'reactstrap'
 import { withRouter } from 'react-router-dom'
+import { FormattedMessage } from 'react-intl'
 import { auth } from '../../../firebase'
 import * as routes from '../../../constants/routes'
 import { updateByPropertyName, setStateValue } from '../../../constants/utils'
 import LoginForm from './Form'
 import PageWrapper from '../PageWrapper'
-import logo from '../../../assets/img/brand/fida_logo.svg'
+import LanguageMenu from '../../LanguageSwitch/Menu'
 
+export const LoginLangMenu = () => (
+  <div style={{ position: 'absolute', top: -10, right: 0 }}>
+    <Nav className="ml-auto align-right" navbar>
+      <LanguageMenu />
+    </Nav>
+  </div>
+)
 const SignInPage = ({ history }) => (
   <PageWrapper>
     <Card className="p-4">
-      <CardBody>
-        <h1 className="small-h1">Login to IMU reporting</h1>
-        <p className="text-muted">Sign In to your account</p>
+      <CardBody style={{ position: 'relative' }}>
+        <h1 className="small-h1">
+          <FormattedMessage id="app.login.header" />
+        </h1>
+        <p className="text-muted">
+          <FormattedMessage id="app.login.intro" />
+        </p>
         <SignInForm history={history} />
+        <LoginLangMenu />
       </CardBody>
     </Card>
-    <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: `${44}%` }}>
+    <Card className="text-white bg-primary py-5 d-md-down-none">
       <CardBody className="text-center">
         <div>
           <p>
-            <img alt="Fida" src={logo} width="60" height="60" />
+            <img
+              className="img-fluid rounded img-thumbnail"
+              alt="Fida"
+              style={{ maxWidth: 160 }}
+              src="https://goo.gl/bHV9uq"
+            />
           </p>
-          <p>This service is made to empower Fida personel working around the globe.</p>
+          <p>
+            <FormattedMessage id="app.login.copyright" />
+          </p>
         </div>
       </CardBody>
     </Card>

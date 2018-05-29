@@ -35,7 +35,7 @@ class Radiobutton extends Component {
 }
 
 Radiobutton.propTypes = {
-  fieldLabel: PropTypes.string.isRequired,
+  fieldLabel: PropTypes.string,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   isChecked: PropTypes.bool,
