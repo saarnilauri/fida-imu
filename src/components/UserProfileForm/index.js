@@ -10,7 +10,7 @@ import { db } from '../../firebase'
 import { updateByPropertyName, setStateValue } from '../../constants/utils'
 import { UsernameField } from '../FormElement/FormFields'
 import FormContent from '../FormContent'
-import CountrySelect from '../Country/Select'
+import EnhachedCountrySelect from '../Country/Select'
 import Editor from '../Editor'
 import Loader from '../Loader'
 import UserRoles from './UserRoles'
@@ -139,7 +139,7 @@ class UserProfileForm extends Component {
                 <Label for="123">
                   <Fontawesome name="globe" /> {formatMessage({ id: 'account.page.coutries' })}
                 </Label>
-                <CountrySelect value={countries} onChange={this.handleSelectCountriesChange} />
+                <EnhachedCountrySelect value={countries} onChange={this.handleSelectCountriesChange} />
               </div>
               <Button disabled={isInvalid} type="submit">
                 {formatMessage({ id: 'actions.save' })}

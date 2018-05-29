@@ -12,7 +12,7 @@ class Radiobutton extends Component {
   }
 
   render() {
-    const { label, name } = this.props
+    const { label, name, fieldLabel } = this.props
     const { isChecked } = this.state
 
     return (
@@ -27,7 +27,7 @@ class Radiobutton extends Component {
           onChange={this.props.onChange}
         />
         <Label check className="form-check-label" htmlFor={`checkbox_${label}`}>
-          {label}
+          {fieldLabel}
         </Label>
       </FormGroup>
     )

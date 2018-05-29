@@ -4,18 +4,18 @@ import ResultsChainColumn from '../Column'
 import QuillEditor from '../../QuillEditor'
 
 const ColumnWrapper = props => (
-  <ResultsChainColumn midTitle="Indicators" {...props}>
+  <ResultsChainColumn {...props}>
     <QuillEditor
       defaultValue={props.topEditorValue}
       editMode={props.editMode}
-      name={props.topEditorName}
+      name={`${props.sysName}TopEditor`}
       onChange={props.onChange}
     />
     {props.children}
     <QuillEditor
       defaultValue={props.botEditorValue}
       editMode={props.editMode}
-      name={props.botEditorName}
+      name={`${props.sysName}BotEditor`}
       onChange={props.onChange}
     />
   </ResultsChainColumn>
@@ -32,6 +32,7 @@ ColumnWrapper.propTypes = {
   onResizeBot: PropTypes.func,
   onResizeMid: PropTypes.func,
   onResizeTop: PropTypes.func,
+  sysName: PropTypes.string,
   title: PropTypes.string,
   topEditorName: PropTypes.string,
   topEditorValue: PropTypes.string,

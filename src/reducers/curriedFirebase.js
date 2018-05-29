@@ -1,18 +1,5 @@
-import pluralize from 'pluralize'
-import upperCase from 'lodash/upperCase'
-import capitalize from 'lodash/capitalize'
 import { sendNotification } from './notifications'
-
-export function getWordForms(word) {
-  return {
-    normal: word,
-    prular: pluralize(word),
-    capitalized: capitalize(word),
-    capitalizedPrular: capitalize(pluralize(word)),
-    allCaps: upperCase(word),
-    allCapsPrular: upperCase(pluralize(word)),
-  }
-}
+import { getWordForms } from '../constants/utils'
 
 export function getInitialState(entity) {
   const wordForms = getWordForms(entity)

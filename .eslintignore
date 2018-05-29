@@ -1,4 +1,9 @@
 package
+coverage
+node_modules
+public
+.vscode
 jest.config.js
 custom-bootstrap/gulpfile.js
 src/registerServiceWorker.js
+reports
