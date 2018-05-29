@@ -10067,5 +10067,11 @@ label {
   /* Fallback color for IE 8 */
   border-left: 1px solid rgba(255, 145, 0, 0.24) !important; }
 
+.btn-help {
+  color: #fff;
+  font-size: 1.25rem; }
+  .btn-help:hover {
+    color: #ddd; }
+
 html body .app.flex-row.align-items-center {
   height: 100vh; }

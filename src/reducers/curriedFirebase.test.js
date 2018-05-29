@@ -5,7 +5,6 @@ import {
   applyReady,
   getApplyEntityToState,
   getApplyEntityCollectionToState,
-  getWordForms,
   getInitialState,
   getAddEntityActionCreator,
   getAddEntitiesActionCreator,
@@ -27,41 +26,6 @@ const middlewares = [thunk.withExtraArgument(getFirebase)]
 const mockStore = configureStore(middlewares)
 
 describe('curriedFirebase', () => {
-  it('getWordForms returns valid word forms', () => {
-    expect(getWordForms('resultschain')).toEqual({
-      normal: 'resultschain',
-      prular: 'resultschains',
-      capitalized: 'Resultschain',
-      capitalizedPrular: 'Resultschains',
-      allCaps: 'RESULTSCHAIN',
-      allCapsPrular: 'RESULTSCHAINS',
-    })
-    expect(getWordForms('country')).toEqual({
-      normal: 'country',
-      prular: 'countries',
-      capitalized: 'Country',
-      capitalizedPrular: 'Countries',
-      allCaps: 'COUNTRY',
-      allCapsPrular: 'COUNTRIES',
-    })
-    expect(getWordForms('person')).toEqual({
-      normal: 'person',
-      prular: 'people',
-      capitalized: 'Person',
-      capitalizedPrular: 'People',
-      allCaps: 'PERSON',
-      allCapsPrular: 'PEOPLE',
-    })
-    expect(getWordForms('man')).toEqual({
-      normal: 'man',
-      prular: 'men',
-      capitalized: 'Man',
-      capitalizedPrular: 'Men',
-      allCaps: 'MAN',
-      allCapsPrular: 'MEN',
-    })
-  })
-
   it('getInitialState returns valid state object', () => {
     expect(getInitialState('resultschain')).toEqual({
       collectionReady: false,

@@ -8,7 +8,7 @@ class QuillEditor extends Component {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     editMode: PropTypes.bool,
-    defaultValue: PropTypes.oneOf([PropTypes.object, PropTypes.string]),
+    defaultValue: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   }
   static defaultProps = {
     editMode: true,

@@ -1,3 +1,7 @@
+import pluralize from 'pluralize'
+import upperCase from 'lodash/upperCase'
+import capitalize from 'lodash/capitalize'
+
 export const updateByPropertyName = (propertyName, value) => () => ({
   [propertyName]: value,
 })
@@ -35,3 +39,14 @@ export const getSchemaKeys = (state, schema) =>
   Object.keys(state).filter(key => {
     return key.indexOf('Editor') !== -1 || schema.indexOf(key) !== -1
   })
+
+export function getWordForms(word) {
+  return {
+    normal: word,
+    prular: pluralize(word),
+    capitalized: capitalize(word),
+    capitalizedPrular: capitalize(pluralize(word)),
+    allCaps: upperCase(word),
+    allCapsPrular: upperCase(pluralize(word)),
+  }
+}

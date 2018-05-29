@@ -1,4 +1,10 @@
-import { updateByPropertyName, findUserItems, collectionToArray, collectionToArrayWithLabelAndValue } from './utils'
+import {
+  updateByPropertyName,
+  findUserItems,
+  collectionToArray,
+  getWordForms,
+  collectionToArrayWithLabelAndValue,
+} from './utils'
 
 const mockCollection = {
   'item-1': {
@@ -44,5 +50,40 @@ describe('Util functions', () => {
     expect(results[0].label).toBe('item1name')
     expect(results[0].value).toBe('item-1')
     expect(results[0].key).toBe('item-1')
+  })
+
+  it('getWordForms returns valid word forms', () => {
+    expect(getWordForms('resultschain')).toEqual({
+      normal: 'resultschain',
+      prular: 'resultschains',
+      capitalized: 'Resultschain',
+      capitalizedPrular: 'Resultschains',
+      allCaps: 'RESULTSCHAIN',
+      allCapsPrular: 'RESULTSCHAINS',
+    })
+    expect(getWordForms('country')).toEqual({
+      normal: 'country',
+      prular: 'countries',
+      capitalized: 'Country',
+      capitalizedPrular: 'Countries',
+      allCaps: 'COUNTRY',
+      allCapsPrular: 'COUNTRIES',
+    })
+    expect(getWordForms('person')).toEqual({
+      normal: 'person',
+      prular: 'people',
+      capitalized: 'Person',
+      capitalizedPrular: 'People',
+      allCaps: 'PERSON',
+      allCapsPrular: 'PEOPLE',
+    })
+    expect(getWordForms('man')).toEqual({
+      normal: 'man',
+      prular: 'men',
+      capitalized: 'Man',
+      capitalizedPrular: 'Men',
+      allCaps: 'MAN',
+      allCapsPrular: 'MEN',
+    })
   })
 })
