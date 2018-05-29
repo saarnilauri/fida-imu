@@ -8,6 +8,7 @@ class QuillEditor extends Component {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     editMode: PropTypes.bool,
+    defaultValue: PropTypes.oneOf([PropTypes.object, PropTypes.string]),
   }
   static defaultProps = {
     editMode: true,
@@ -49,6 +50,7 @@ class QuillEditor extends Component {
           />
         </div>
       ) : (
+        // eslint-disable-next-line
         <div dangerouslySetInnerHTML={{ __html: this.state.text ? this.state.text : this.props.defaultValue }} />
       )
 

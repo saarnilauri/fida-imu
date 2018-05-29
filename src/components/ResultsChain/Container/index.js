@@ -212,14 +212,17 @@ class ResultsChainContainer extends Component {
                 </Input>
               </FormGroup>
             </Col>
-            {this.state.userHasSelected && (
+            {/* eslint-disable */ // Due prettier problem
+            this.state.userHasSelected && (
               <Col md="8" className="text-right">
                 <Button color="secondary" size="sm" onClick={this.toggleEditMode}>
                   <Fontawesome name={!this.state.editMode ? 'cog' : 'eye'} /> {!this.state.editMode ? 'Edit' : 'View'}{' '}
                   results chain
                 </Button>
               </Col>
-            )}
+            )
+            /* eslint-enable */
+            }
           </Row>
           {this.state.userHasSelected && (
             <Row>
