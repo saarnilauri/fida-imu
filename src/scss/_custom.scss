@@ -52,6 +52,17 @@ label {
       margin-bottom: 0;
     }
   }
+  .card-header {
+    font-weight: 600;
+  }
+}
+
+.popover-body {
+  font-size: 1rem !important;
+}
+
+.popover-header {
+  font-size: 1.1rem !important;
 }
 
 .ql-bubble .ql-tooltip {
@@ -173,4 +184,40 @@ label {
   &:hover {
     color: #ddd;
   }
+}
+
+.landing-bg {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/fida-imu-dev.appspot.com/o/images%2Fbg-welcome.jpg?alt=media&token=44377540-2d47-4049-9b76-9496a3a21d8e");
+  background-size: cover;
+  height: 100%;
+  .card {
+    background-color: rgba(255, 255, 255, 0.9);
+    .lead {
+      font-size: 1.4rem;
+    }
+  }
+}
+
+.full-height {
+  height: 100%;
+}
+
+.text-large {
+  font-size: 2rem;
+  font-family: $headings-font-family;
+  font-weight: $headings-font-weight;
+}
+
+.half-page-image {
+  width: 43%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background-size: cover;
+  z-index: -1;
+}
+
+.tuktuk {
+  background-image: url("https://goo.gl/yeuoF2");
 }

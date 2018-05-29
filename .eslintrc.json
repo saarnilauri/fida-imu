@@ -19,6 +19,7 @@
     "arrow-parens": [0],
     "indent": ["error", 2],
     "jsx-a11y/anchor-is-valid": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
     "function-paren-newline": "off",
     "linebreak-style": ["error", "unix"],
     "max-len": ["error", 120],

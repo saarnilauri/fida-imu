@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { injectIntl } from 'react-intl'
 import capitalize from 'lodash/capitalize'
 import FormElement from '../FormGroupElement'
 
 const propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
+  intl: PropTypes.object,
 }
 
 const Field = ({ id, ...props }) => (
@@ -17,49 +19,51 @@ Field.propTypes = {
   label: PropTypes.string,
 }
 
-export const UsernameField = ({ onChange, value }) => (
+const UnameField = ({ onChange, value, intl }) => (
   <Field
     className=""
     id="username"
-    placeholder="Display name"
+    placeholder={intl.formatMessage({ id: 'user.form.display-name' })}
     value={value}
     onChange={onChange}
     type="text"
     icon="user"
   />
 )
+UnameField.propTypes = propTypes
+export const UsernameField = injectIntl(UnameField)
 
-UsernameField.propTypes = propTypes
-
-export const EmailField = ({ onChange, value }) => (
+export const MailField = ({ onChange, value, intl }) => (
   <Field
     className="py-2"
     value={value}
     id="email"
     onChange={onChange}
     type="text"
-    placeholder="Email Address"
+    placeholder={intl.formatMessage({ id: 'user.form.email' })}
     icon="envelope"
   />
 )
 
-EmailField.propTypes = propTypes
+MailField.propTypes = propTypes
+export const EmailField = injectIntl(MailField)
 
-export const PasswordField = ({ onChange, value }) => (
+export const PwdField = ({ onChange, value, intl }) => (
   <Field
     className="py-2"
     id="password"
     value={value}
     onChange={onChange}
     type="password"
-    placeholder="Password"
+    placeholder={intl.formatMessage({ id: 'user.form.password' })}
     icon="lock"
   />
 )
 
-PasswordField.propTypes = propTypes
+PwdField.propTypes = propTypes
+export const PasswordField = injectIntl(PwdField)
 
-export const PasswordConfirmField = ({ onChangeOne, passwordOne, onChangeTwo, passwordTwo }) => (
+export const PwdConfirmField = ({ onChangeOne, passwordOne, onChangeTwo, passwordTwo, intl }) => (
   <div>
     <Field
       className=""
@@ -68,7 +72,7 @@ export const PasswordConfirmField = ({ onChangeOne, passwordOne, onChangeTwo, pa
       value={passwordOne}
       onChange={onChangeOne}
       type="password"
-      placeholder="Password"
+      placeholder={intl.formatMessage({ id: 'user.form.password' })}
       icon="lock"
     />
     <Field
@@ -78,15 +82,17 @@ export const PasswordConfirmField = ({ onChangeOne, passwordOne, onChangeTwo, pa
       value={passwordTwo}
       onChange={onChangeTwo}
       type="password"
-      placeholder="Confirm password"
+      placeholder={intl.formatMessage({ id: 'user.form.password-confirm' })}
       icon="lock"
     />
   </div>
 )
 
-PasswordConfirmField.propTypes = {
+PwdConfirmField.propTypes = {
   passwordOne: PropTypes.string,
   onChangeOne: PropTypes.func,
   passwordTwo: PropTypes.string,
   onChangeTwo: PropTypes.func,
 }
+
+export const PasswordConfirmField = injectIntl(PwdConfirmField)

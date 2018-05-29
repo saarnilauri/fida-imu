@@ -2,26 +2,35 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
 import { Alert, Button, Card, CardBody } from 'reactstrap'
+import { FormattedMessage } from 'react-intl'
 import { auth, db } from '../../../firebase'
 import * as routes from '../../../constants/routes'
 import { updateByPropertyName, setStateValue } from '../../../constants/utils'
 import PageWrapper from '../PageWrapper'
-import logo from '../../../assets/img/brand/fida_logo.svg'
 import { UsernameField, EmailField, PasswordConfirmField } from '../../FormGroupElement/FormFields'
+import { LoginLangMenu } from '../Login'
 
 const SignUpPage = ({ history }) => (
   <PageWrapper>
     <Card className="p-4">
-      <CardBody>
-        <h1 className="small-h1">Sign up to IMU reporting</h1>
+      <CardBody style={{ position: 'relative' }}>
+        <h1 className="small-h1">
+          <FormattedMessage id="app.sign-up.title" />
+        </h1>
         <SignUpForm history={history} />
+        <LoginLangMenu />
       </CardBody>
     </Card>
     <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: `${44}%` }}>
       <CardBody className="text-center">
         <div className="flex-row align-items-center">
           <div>
-            <img alt="Fida" src={logo} width="120" height="120" />
+            <img
+              className="img-fluid rounded img-thumbnail"
+              alt="Fida"
+              style={{ maxWidth: 160 }}
+              src="https://goo.gl/bHV9uq"
+            />
           </div>
         </div>
       </CardBody>
@@ -94,7 +103,7 @@ class SignUpForm extends Component {
           onChangeTwo={setStateValue('passwordTwo', this)}
         />
         <Button disabled={isInvalid} type="submit">
-          Sign Up
+          <FormattedMessage id="app.sign-up.button" />
         </Button>
       </form>
     )

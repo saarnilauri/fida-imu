@@ -1,28 +1,38 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Alert, CardBody, Card, Col, Row } from 'reactstrap'
+import { FormattedMessage } from 'react-intl'
 import { auth } from '../../../firebase'
 import * as routes from '../../../constants/routes'
 import { updateByPropertyName, setStateValue } from '../../../constants/utils'
 import PageWrapper from '../PageWrapper'
-import { EmailField } from '../../FormElement/FormFields'
-
-import logo from '../../../assets/img/brand/fida_logo.svg'
+import { EmailField } from '../../FormGroupElement/FormFields'
+import { LoginLangMenu } from '../Login'
 
 const PasswordForgetPage = () => (
   <PageWrapper>
     <Card className="p-4">
-      <CardBody>
-        <h1 className="small-h1">Forgot your password?</h1>
-        <p>No worries. Please fill in the form bellow to start recovering your email.</p>
+      <CardBody style={{ position: 'relative' }}>
+        <h1 className="small-h1">
+          <FormattedMessage id="app.pwd-forgot.header" />
+        </h1>
+        <p>
+          <FormattedMessage id="app.pwd-forgot.intro" />
+        </p>
         <PasswordForgetForm />
+        <LoginLangMenu />
       </CardBody>
     </Card>
     <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: `${44}%` }}>
       <CardBody className="text-center">
         <div className="flex-row align-items-center">
           <div>
-            <img alt="Fida" src={logo} width="120" height="120" />
+            <img
+              className="img-fluid rounded img-thumbnail"
+              alt="Fida"
+              style={{ maxWidth: 160 }}
+              src="https://goo.gl/bHV9uq"
+            />
           </div>
         </div>
       </CardBody>
@@ -72,12 +82,12 @@ class PasswordForgetForm extends Component {
         <Row>
           <Col xs="6">
             <Button color="secondary" disabled={isInvalid} type="submit">
-              Reset My Password
+              <FormattedMessage id="app.pwd-forgot.reset-pwd" />
             </Button>
           </Col>
           <Col xs="6" className="text-right">
             <Link className="px-0" to={routes.SIGN_IN}>
-              Login
+              <FormattedMessage id="app.pwd-forgot.login" />
             </Link>
           </Col>
         </Row>
