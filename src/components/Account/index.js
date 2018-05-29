@@ -20,6 +20,9 @@ const AccountPage = props => (
           </Card>
         </Col>
       </Row>
+      <div className="half-page-image tuktuk">
+        <p>Image by: aaaa</p>
+      </div>
     </Container>
   </div>
 )
