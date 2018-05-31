@@ -1,19 +1,19 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { FormGroup, Input, Label } from 'reactstrap'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { FormGroup, Input, Label } from "reactstrap";
 
 class Radiobutton extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
-      isChecked: props.isChecked,
-    }
+      isChecked: props.isChecked
+    };
   }
 
   render() {
-    const { label, name, fieldLabel } = this.props
-    const { isChecked } = this.state
+    const { label, name, fieldLabel } = this.props;
+    const { isChecked } = this.state;
 
     return (
       <FormGroup check inline className="checkbox" key={Math.random() * 10000}>
@@ -30,7 +30,7 @@ class Radiobutton extends Component {
           {fieldLabel}
         </Label>
       </FormGroup>
-    )
+    );
   }
 }
 
@@ -39,7 +39,7 @@ Radiobutton.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   isChecked: PropTypes.bool,
-  onChange: PropTypes.func.isRequired,
-}
+  onChange: PropTypes.func.isRequired
+};
 
-export default Radiobutton
+export default Radiobutton;

@@ -1,27 +1,27 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { Card, CardBody, Nav } from 'reactstrap'
-import { withRouter } from 'react-router-dom'
-import { FormattedMessage } from 'react-intl'
-import { auth } from '../../../firebase'
-import * as routes from '../../../constants/routes'
-import { updateByPropertyName, setStateValue } from '../../../constants/utils'
-import LoginForm from './Form'
-import ErrorMsg from '../../ErrorMsg'
-import PageWrapper from '../PageWrapper'
-import LanguageMenu from '../../LanguageSwitch/Menu'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Card, CardBody, Nav } from "reactstrap";
+import { withRouter } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
+import { auth } from "../../../firebase";
+import * as routes from "../../../constants/routes";
+import { updateByPropertyName, setStateValue } from "../../../constants/utils";
+import LoginForm from "./Form";
+import ErrorMsg from "../../ErrorMsg";
+import PageWrapper from "../PageWrapper";
+import LanguageMenu from "../../LanguageSwitch/Menu";
 
 export const LoginLangMenu = () => (
-  <div style={{ position: 'absolute', top: -10, right: 0 }}>
+  <div style={{ position: "absolute", top: -10, right: 0 }}>
     <Nav className="ml-auto align-right" navbar>
       <LanguageMenu />
     </Nav>
   </div>
-)
+);
 const SignInPage = ({ history }) => (
   <PageWrapper>
     <Card className="p-4">
-      <CardBody style={{ position: 'relative' }}>
+      <CardBody style={{ position: "relative" }}>
         <h1 className="small-h1">
           <FormattedMessage id="app.login.header" />
         </h1>
@@ -50,49 +50,49 @@ const SignInPage = ({ history }) => (
       </CardBody>
     </Card>
   </PageWrapper>
-)
+);
 
 SignInPage.propTypes = {
-  history: PropTypes.object,
-}
+  history: PropTypes.object
+};
 
 const INITIAL_STATE = {
-  email: '',
-  password: '',
+  email: "",
+  password: "",
   error: null,
-  loading: false,
-}
+  loading: false
+};
 
 class SignInForm extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = { ...INITIAL_STATE }
+    this.state = { ...INITIAL_STATE };
   }
 
   onSubmit = event => {
-    const { email, password } = this.state
+    const { email, password } = this.state;
 
-    const { history } = this.props
-    this.setState(updateByPropertyName('loading', true))
+    const { history } = this.props;
+    this.setState(updateByPropertyName("loading", true));
     auth
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
-        this.setState(() => ({ ...INITIAL_STATE }))
-        history.push(routes.HOME)
+        this.setState(() => ({ ...INITIAL_STATE }));
+        history.push(routes.HOME);
       })
       .catch(error => {
-        this.setState(updateByPropertyName('error', error))
-        this.setState(updateByPropertyName('loading', false))
-      })
+        this.setState(updateByPropertyName("error", error));
+        this.setState(updateByPropertyName("loading", false));
+      });
 
-    event.preventDefault()
-  }
+    event.preventDefault();
+  };
 
   render() {
-    const { email, password, error, loading } = this.state
+    const { email, password, error, loading } = this.state;
 
-    const isInvalid = password === '' || email === '' || loading === true
+    const isInvalid = password === "" || email === "" || loading === true;
 
     return (
       <form onSubmit={this.onSubmit} className="py-2">
@@ -101,19 +101,19 @@ class SignInForm extends Component {
           email={email}
           password={password}
           isInvalid={isInvalid}
-          onChangeEmail={setStateValue('email', this)}
-          onChangePassword={setStateValue('password', this)}
+          onChangeEmail={setStateValue("email", this)}
+          onChangePassword={setStateValue("password", this)}
           forgotPasswordRoute={routes.PASSWORD_FORGET}
         />
       </form>
-    )
+    );
   }
 }
 
 SignInForm.propTypes = {
-  history: PropTypes.object,
-}
+  history: PropTypes.object
+};
 
-export default withRouter(SignInPage)
+export default withRouter(SignInPage);
 
-export { SignInForm }
+export { SignInForm };

@@ -1,5 +1,5 @@
-import React from 'react'
-import Fontawesome from 'react-fontawesome'
+import React from "react";
+import Fontawesome from "react-fontawesome";
 
 const LanguageSwitch = () => (
   <React.Fragment>
@@ -7,6 +7,6 @@ const LanguageSwitch = () => (
       <Fontawesome name="language" />
     </span>
   </React.Fragment>
-)
+);
 
-export default LanguageSwitch
+export default LanguageSwitch;

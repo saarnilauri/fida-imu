@@ -1,11 +1,15 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
-import Fontawesome from 'react-fontawesome'
-import ButtonGroup from '../ButtonGroup'
+import React from "react";
+import PropTypes from "prop-types";
+import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import Fontawesome from "react-fontawesome";
+import ButtonGroup from "../ButtonGroup";
 
 const ModalWrapper = props => (
-  <Modal isOpen={props.isOpen} toggle={props.toggle} className={props.className}>
+  <Modal
+    isOpen={props.isOpen}
+    toggle={props.toggle}
+    className={props.className}
+  >
     <ModalHeader toggle={props.toggle}>
       {props.titleIcon && <Fontawesome name={props.titleIcon} />}
       {` ${props.title}`}
@@ -15,22 +19,22 @@ const ModalWrapper = props => (
       <ButtonGroup
         buttons={[
           {
-            color: 'primary',
+            color: "primary",
             icon: props.actionBtnIcon,
             onClick: props.action,
-            title: props.actionBtnTitle,
+            title: props.actionBtnTitle
           },
           {
             icon: props.cancelBtnIcon,
             onClick: props.cancel,
-            color: 'secondary',
-            title: props.cancelBtnTitle,
-          },
+            color: "secondary",
+            title: props.cancelBtnTitle
+          }
         ]}
       />
     </ModalFooter>
   </Modal>
-)
+);
 
 ModalWrapper.propTypes = {
   action: PropTypes.func,
@@ -39,12 +43,16 @@ ModalWrapper.propTypes = {
   cancel: PropTypes.func,
   cancelBtnIcon: PropTypes.string,
   cancelBtnTitle: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),
+  children: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+    PropTypes.string
+  ]),
   className: PropTypes.string,
   isOpen: PropTypes.bool,
   title: PropTypes.string,
   titleIcon: PropTypes.string,
-  toggle: PropTypes.func,
-}
+  toggle: PropTypes.func
+};
 
-export default ModalWrapper
+export default ModalWrapper;

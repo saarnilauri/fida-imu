@@ -1,29 +1,29 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import ButtonGroup from '../ButtonGroup'
+import React from "react";
+import PropTypes from "prop-types";
+import ButtonGroup from "../ButtonGroup";
 
 const EditAndRemove = props => (
   <ButtonGroup
     buttons={[
       {
-        icon: 'pencil',
+        icon: "pencil",
         titleAttr: props.editTitleAttr,
-        onClick: props.onClickEdit,
+        onClick: props.onClickEdit
       },
       {
-        icon: 'trash',
+        icon: "trash",
         titleAttr: props.removeTitleAttr,
-        onClick: props.onClickRemove,
-      },
+        onClick: props.onClickRemove
+      }
     ]}
   />
-)
+);
 
 EditAndRemove.propTypes = {
   editTitleAttr: PropTypes.string,
   removeTitleAttr: PropTypes.string,
   onClickEdit: PropTypes.func.isRequired,
-  onClickRemove: PropTypes.func.isRequired,
-}
+  onClickRemove: PropTypes.func.isRequired
+};
 
-export default EditAndRemove
+export default EditAndRemove;

@@ -1,25 +1,36 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import ErrorMsg from '../../ErrorMsg'
-import ButtonGroup from '../../ButtonGroup'
-import FormElement from '../../FormGroupElement'
+import React from "react";
+import PropTypes from "prop-types";
+import ErrorMsg from "../../ErrorMsg";
+import ButtonGroup from "../../ButtonGroup";
+import FormElement from "../../FormGroupElement";
 
 const CountryListForm = props => {
-  const { onSubmit, error, onNameChange, name, area, onAreaChange, code, onCodeChange, editMode, cancelEdit } = props
+  const {
+    onSubmit,
+    error,
+    onNameChange,
+    name,
+    area,
+    onAreaChange,
+    code,
+    onCodeChange,
+    editMode,
+    cancelEdit
+  } = props;
   const buttons = [
     {
-      color: 'primary',
+      color: "primary",
       onClick: () => {},
-      title: editMode ? 'Save' : 'Add',
-      type: 'submit',
-    },
-  ]
+      title: editMode ? "Save" : "Add",
+      type: "submit"
+    }
+  ];
   if (editMode) {
     buttons.push({
       onClick: cancelEdit,
-      color: 'secondary',
-      title: 'cancel',
-    })
+      color: "secondary",
+      title: "cancel"
+    });
   }
   return (
     <form onSubmit={onSubmit}>
@@ -32,7 +43,14 @@ const CountryListForm = props => {
         placeholder="Country name"
         icon="map-marker"
       />
-      <FormElement onChange={onAreaChange} value={area} name="area" id="area" placeholder="Region" icon="map" />
+      <FormElement
+        onChange={onAreaChange}
+        value={area}
+        name="area"
+        id="area"
+        placeholder="Region"
+        icon="map"
+      />
       <FormElement
         onChange={onCodeChange}
         value={code}
@@ -43,8 +61,8 @@ const CountryListForm = props => {
       />
       <ButtonGroup buttons={buttons} />
     </form>
-  )
-}
+  );
+};
 
 CountryListForm.propTypes = {
   area: PropTypes.string,
@@ -56,7 +74,7 @@ CountryListForm.propTypes = {
   onAreaChange: PropTypes.func,
   onCodeChange: PropTypes.func,
   onNameChange: PropTypes.func,
-  onSubmit: PropTypes.func,
-}
+  onSubmit: PropTypes.func
+};
 
-export default CountryListForm
+export default CountryListForm;

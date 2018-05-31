@@ -44,14 +44,18 @@
     "webfontloader": "^1.6.28"
   },
   "scripts": {
-    "build-css": "node-sass-chokidar --include-path ./node_modules ./src/scss -o ./src/scss",
-    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./node_modules ./src/scss -o ./src/scss --watch --recursive",
+    "build-css":
+      "node-sass-chokidar --include-path ./node_modules ./src/scss -o ./src/scss",
+    "watch-css":
+      "npm run build-css && node-sass-chokidar --include-path ./node_modules ./src/scss -o ./src/scss --watch --recursive",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
-    "test": "react-scripts test --env=jsdom --setupTestFrameworkScriptFile=raf/polyfill",
-    "testci": "node node_modules/.bin/jest --env=jsdom --setupTestFrameworkScriptFile=raf/polyfill --coverage",
+    "test":
+      "react-scripts test --env=jsdom --setupTestFrameworkScriptFile=raf/polyfill",
+    "testci":
+      "node node_modules/.bin/jest --env=jsdom --setupTestFrameworkScriptFile=raf/polyfill --coverage",
     "eject": "react-scripts eject",
     "deploy": "firebase deploy"
   },

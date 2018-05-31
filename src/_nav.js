@@ -1,49 +1,49 @@
-import basicNavigation from './_basicNav'
+import basicNavigation from "./_basicNav";
 
 export default {
   items: [
     ...basicNavigation.items,
     {
       title: true,
-      name: 'app.navi.admin.title',
-      class: 'admin',
+      name: "app.navi.admin.title",
+      class: "admin"
     },
     {
-      name: 'app.navi.admin.results_chains',
-      url: '/results-chains',
-      icon: 'fa fa-table',
-      class: 'admin',
+      name: "app.navi.admin.results_chains",
+      url: "/results-chains",
+      icon: "fa fa-table",
+      class: "admin"
     },
     {
-      name: 'app.navi.admin.indicator_bank',
-      url: '/indicatorbank',
-      icon: 'fa fa-tasks',
-      class: 'admin',
+      name: "app.navi.admin.indicator_bank",
+      url: "/indicatorbank",
+      icon: "fa fa-tasks",
+      class: "admin"
     },
     {
-      name: 'app.navi.admin.users',
-      url: '/users',
-      icon: 'fa fa-group',
-      class: 'admin',
+      name: "app.navi.admin.users",
+      url: "/users",
+      icon: "fa fa-group",
+      class: "admin"
     },
     {
-      name: 'app.navi.admin.countries',
-      url: '/countries',
-      icon: 'fa fa-map-marker',
-      class: 'admin',
+      name: "app.navi.admin.countries",
+      url: "/countries",
+      icon: "fa fa-map-marker",
+      class: "admin"
     },
     {
-      name: 'app.navi.admin.churches',
-      url: '/churches',
-      icon: 'fa fa-home',
-      class: 'admin',
+      name: "app.navi.admin.churches",
+      url: "/churches",
+      icon: "fa fa-home",
+      class: "admin"
     },
     {
-      name: 'app.navi.admin.settings',
-      url: '/settings',
-      icon: 'icon-settings',
-      class: 'admin',
-    },
+      name: "app.navi.admin.settings",
+      url: "/settings",
+      icon: "icon-settings",
+      class: "admin"
+    }
 
     /* {
       name: 'Typography',
@@ -290,5 +290,5 @@ export default {
       icon: 'icon-layers',
       variant: 'danger',
     }, */
-  ],
-}
+  ]
+};

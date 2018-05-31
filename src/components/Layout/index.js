@@ -1,22 +1,22 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { Route, Switch, Redirect } from 'react-router-dom'
-import { AppFooter, AppHeader } from '@coreui/react'
-import uuid from 'uuid'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Route, Switch, Redirect } from "react-router-dom";
+import { AppFooter, AppHeader } from "@coreui/react";
+import uuid from "uuid";
 // sidebar nav config
-import routes from '../../routes'
-import Footer from './Footer'
-import Header from './Header'
-import Sidebar from './Sidebar'
-import FidaToast from '../FidaToast'
+import routes from "../../routes";
+import Footer from "./Footer";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
+import FidaToast from "../FidaToast";
 
 class Layout extends Component {
   static propTypes = {
-    user: PropTypes.object,
-  }
+    user: PropTypes.object
+  };
 
   render() {
-    const { user } = this.props
+    const { user } = this.props;
     const view =
       user !== null ? (
         <div className="app">
@@ -36,7 +36,7 @@ class Layout extends Component {
                       name={route.name}
                       render={props => <route.component {...props} />}
                     />
-                  ) : null
+                  ) : null;
                 })}
               </Switch>
             </main>
@@ -48,9 +48,9 @@ class Layout extends Component {
         </div>
       ) : (
         <Redirect to="/login" />
-      )
-    return view
+      );
+    return view;
   }
 }
 
-export default Layout
+export default Layout;

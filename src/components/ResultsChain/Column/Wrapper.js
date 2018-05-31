@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import ResultsChainColumn from '../Column'
-import QuillEditor from '../../QuillEditor'
+import React from "react";
+import PropTypes from "prop-types";
+import ResultsChainColumn from "../Column";
+import QuillEditor from "../../QuillEditor";
 
 const ColumnWrapper = props => (
   <ResultsChainColumn {...props}>
@@ -19,13 +19,17 @@ const ColumnWrapper = props => (
       onChange={props.onChange}
     />
   </ResultsChainColumn>
-)
+);
 
 ColumnWrapper.propTypes = {
   bgClassName: PropTypes.string,
   botEditorName: PropTypes.string,
   botEditorValue: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),
+  children: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+    PropTypes.string
+  ]),
   editMode: PropTypes.bool,
   getHighestValue: PropTypes.func,
   onChange: PropTypes.func,
@@ -35,7 +39,7 @@ ColumnWrapper.propTypes = {
   sysName: PropTypes.string,
   title: PropTypes.string,
   topEditorName: PropTypes.string,
-  topEditorValue: PropTypes.string,
-}
+  topEditorValue: PropTypes.string
+};
 
-export default ColumnWrapper
+export default ColumnWrapper;

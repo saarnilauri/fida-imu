@@ -1,10 +1,18 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { FormGroup, Label } from 'reactstrap'
-import uuid from 'uuid'
-import Checkbox from '../Checkbox'
+import React from "react";
+import PropTypes from "prop-types";
+import { FormGroup, Label } from "reactstrap";
+import uuid from "uuid";
+import Checkbox from "../Checkbox";
 
-const roles = ['missionary', 'admin', 'joti', 'communications', 'partner', 'church', 'church']
+const roles = [
+  "missionary",
+  "admin",
+  "joti",
+  "communications",
+  "partner",
+  "church",
+  "church"
+];
 
 const UserRoles = props => (
   <FormGroup>
@@ -22,15 +30,15 @@ const UserRoles = props => (
       ))}
     </div>
   </FormGroup>
-)
+);
 
 UserRoles.defaultProps = {
-  roles: {},
-}
+  roles: {}
+};
 
 UserRoles.propTypes = {
   handleCheckboxChange: PropTypes.func.isRequired,
-  roles: PropTypes.object,
-}
+  roles: PropTypes.object
+};
 
-export default UserRoles
+export default UserRoles;

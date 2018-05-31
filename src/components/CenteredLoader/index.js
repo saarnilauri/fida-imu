@@ -1,6 +1,6 @@
-import React from 'react'
-import Loader from '../Loader'
-import './style.css'
+import React from "react";
+import Loader from "../Loader";
+import "./style.css";
 
 const CenteredLoader = () => (
   <div className="Aligner">
@@ -8,6 +8,6 @@ const CenteredLoader = () => (
       <Loader />
     </div>
   </div>
-)
+);
 
-export default CenteredLoader
+export default CenteredLoader;

@@ -1,53 +1,55 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import Fontawesome from 'react-fontawesome'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Fontawesome from "react-fontawesome";
 
 class Notifications extends Component {
   componentDidUpdate() {
-    if (this.props.notification !== '') {
-      this.props.cleanNotification()
+    if (this.props.notification !== "") {
+      this.props.cleanNotification();
     }
   }
   render() {
-    const { notification } = this.props
+    const { notification } = this.props;
 
     const view =
-      notification !== '' ? (
+      notification !== "" ? (
         <React.Fragment>
           <div className="animated fadeIn text-muted">
             <span className="text-info">
               <Fontawesome name="info-circle" />
-            </span>{' '}
+            </span>{" "}
             {notification}
           </div>
         </React.Fragment>
-      ) : null
+      ) : null;
 
-    return view
+    return view;
   }
 }
 
 Notifications.propTypes = {
   notification: PropTypes.string,
-  cleanNotification: PropTypes.func,
-}
+  cleanNotification: PropTypes.func
+};
 
 const mapStateToProps = state => ({
-  notification: state.notificationState.notification,
-})
+  notification: state.notificationState.notification
+});
 
 const mapDispatchToProps = dispatch => ({
   cleanNotification: () => {
     const clear = () => {
-      dispatch({ type: 'CLEAN_NOTIFICATION' })
-    }
-    setTimeout(clear, 5000)
-  },
-})
+      dispatch({ type: "CLEAN_NOTIFICATION" });
+    };
+    setTimeout(clear, 5000);
+  }
+});
 
-export { Notifications }
+export { Notifications };
 
-const EnhachedNotification = connect(mapStateToProps, mapDispatchToProps)(Notifications)
+const EnhachedNotification = connect(mapStateToProps, mapDispatchToProps)(
+  Notifications
+);
 
-export default EnhachedNotification
+export default EnhachedNotification;

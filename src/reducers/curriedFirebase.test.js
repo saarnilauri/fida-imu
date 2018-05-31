@@ -1,6 +1,6 @@
-import configureStore from 'redux-mock-store'
-import firebasemock from 'firebase-mock'
-import thunk from 'redux-thunk'
+import configureStore from "redux-mock-store";
+import firebasemock from "firebase-mock";
+import thunk from "redux-thunk";
 import {
   applyReady,
   getApplyEntityToState,
@@ -11,136 +11,148 @@ import {
   getEntityCollectionNotReadyActionCreator,
   getEntityCollectionIsReadyActionCreator,
   getLoadOneEntityActionCreator,
-  getMapDispatchToProps,
-} from './curriedFirebase'
+  getMapDispatchToProps
+} from "./curriedFirebase";
 
-const firebaseMock = new firebasemock.MockFirebase()
+const firebaseMock = new firebasemock.MockFirebase();
 
 firebaseMock.ref = () => {
-  return new firebasemock.MockFirebase()
-}
+  return new firebasemock.MockFirebase();
+};
 
-const getFirebase = () => firebaseMock
+const getFirebase = () => firebaseMock;
 // firebasemock.override()
-const middlewares = [thunk.withExtraArgument(getFirebase)]
-const mockStore = configureStore(middlewares)
+const middlewares = [thunk.withExtraArgument(getFirebase)];
+const mockStore = configureStore(middlewares);
 
-describe('curriedFirebase', () => {
-  it('getInitialState returns valid state object', () => {
-    expect(getInitialState('resultschain')).toEqual({
+describe("curriedFirebase", () => {
+  it("getInitialState returns valid state object", () => {
+    expect(getInitialState("resultschain")).toEqual({
       collectionReady: false,
       resultschain: null,
-      resultschainsCollection: [],
-    })
+      resultschainsCollection: []
+    });
 
-    expect(getInitialState('country')).toEqual({
+    expect(getInitialState("country")).toEqual({
       collectionReady: false,
       country: null,
-      countriesCollection: [],
-    })
-  })
+      countriesCollection: []
+    });
+  });
 
-  it('getAddEntityActionCreator returns valid action creator', () => {
-    const addResultschain = getAddEntityActionCreator('resultschain')
-    expect(addResultschain).toEqual(expect.any(Function))
+  it("getAddEntityActionCreator returns valid action creator", () => {
+    const addResultschain = getAddEntityActionCreator("resultschain");
+    expect(addResultschain).toEqual(expect.any(Function));
 
-    expect(addResultschain({ title: 'test' })).toEqual({
-      type: 'ADD_RESULTSCHAIN',
-      payload: { title: 'test' },
-    })
-  })
+    expect(addResultschain({ title: "test" })).toEqual({
+      type: "ADD_RESULTSCHAIN",
+      payload: { title: "test" }
+    });
+  });
 
-  it('getAddEntitiesActionCreator returns valid action creator', () => {
-    const addResultschains = getAddEntitiesActionCreator('resultschain')
-    expect(addResultschains).toEqual(expect.any(Function))
+  it("getAddEntitiesActionCreator returns valid action creator", () => {
+    const addResultschains = getAddEntitiesActionCreator("resultschain");
+    expect(addResultschains).toEqual(expect.any(Function));
 
-    expect(addResultschains([{ title: 'test' }, { title: 'test-2' }])).toEqual({
-      type: 'ADD_RESULTSCHAINS',
-      payload: [{ title: 'test' }, { title: 'test-2' }],
-    })
-  })
+    expect(addResultschains([{ title: "test" }, { title: "test-2" }])).toEqual({
+      type: "ADD_RESULTSCHAINS",
+      payload: [{ title: "test" }, { title: "test-2" }]
+    });
+  });
 
-  it('getEntityCollectionNotReadyActionCreator returns valid action creator', () => {
-    const setResultchainsCollectionNotReady = getEntityCollectionNotReadyActionCreator('resultschain')
-    expect(setResultchainsCollectionNotReady).toEqual(expect.any(Function))
+  it("getEntityCollectionNotReadyActionCreator returns valid action creator", () => {
+    const setResultchainsCollectionNotReady = getEntityCollectionNotReadyActionCreator(
+      "resultschain"
+    );
+    expect(setResultchainsCollectionNotReady).toEqual(expect.any(Function));
 
     expect(setResultchainsCollectionNotReady()).toEqual({
-      type: 'RESULTSCHAINS_COLLECTION_NOT_READY',
-    })
-  })
+      type: "RESULTSCHAINS_COLLECTION_NOT_READY"
+    });
+  });
 
-  it('getEntityCollectionIsReadyActionCreator returns valid action creator', () => {
-    const setResultchainsCollectionIsReady = getEntityCollectionIsReadyActionCreator('resultschain')
-    expect(setResultchainsCollectionIsReady).toEqual(expect.any(Function))
+  it("getEntityCollectionIsReadyActionCreator returns valid action creator", () => {
+    const setResultchainsCollectionIsReady = getEntityCollectionIsReadyActionCreator(
+      "resultschain"
+    );
+    expect(setResultchainsCollectionIsReady).toEqual(expect.any(Function));
 
     expect(setResultchainsCollectionIsReady()).toEqual({
-      type: 'RESULTSCHAINS_COLLECTION_IS_READY',
-    })
-  })
+      type: "RESULTSCHAINS_COLLECTION_IS_READY"
+    });
+  });
 
-  it('should dispatch action', () => {
+  it("should dispatch action", () => {
     // Initialize mockstore with empty state
-    const initialState = getInitialState('resultschain')
-    const store = mockStore(initialState)
+    const initialState = getInitialState("resultschain");
+    const store = mockStore(initialState);
 
-    const setResultchainsCollectionIsReady = getEntityCollectionIsReadyActionCreator('resultschain')
+    const setResultchainsCollectionIsReady = getEntityCollectionIsReadyActionCreator(
+      "resultschain"
+    );
 
     // Dispatch the action
-    store.dispatch(setResultchainsCollectionIsReady())
+    store.dispatch(setResultchainsCollectionIsReady());
 
     // Test if your store dispatched the expected actions
-    const actions = store.getActions()
-    const expectedPayload = { type: 'RESULTSCHAINS_COLLECTION_IS_READY' }
-    expect(actions).toEqual([expectedPayload])
-  })
+    const actions = store.getActions();
+    const expectedPayload = { type: "RESULTSCHAINS_COLLECTION_IS_READY" };
+    expect(actions).toEqual([expectedPayload]);
+  });
 
-  it('No error when dispatch load action', () => {
+  it("No error when dispatch load action", () => {
     // Initialize mockstore with empty state
-    const initialState = getInitialState('resultschain')
-    const store = mockStore(initialState)
+    const initialState = getInitialState("resultschain");
+    const store = mockStore(initialState);
 
-    const loadOneEntity = getLoadOneEntityActionCreator('resultschain')
+    const loadOneEntity = getLoadOneEntityActionCreator("resultschain");
 
     // Dispatch the action
-    expect(store.dispatch).not.toThrow(new Error())
+    expect(store.dispatch).not.toThrow(new Error());
 
-    store.dispatch(loadOneEntity('test-uid'))
-  })
+    store.dispatch(loadOneEntity("test-uid"));
+  });
 
-  it('applyReady return a new valid state', () => {
-    expect(applyReady(getInitialState('test'), { payload: true })).toEqual({
+  it("applyReady return a new valid state", () => {
+    expect(applyReady(getInitialState("test"), { payload: true })).toEqual({
       collectionReady: true,
       test: null,
-      testsCollection: [],
-    })
-    expect(applyReady({}, { payload: false })).toEqual({ collectionReady: false })
-  })
+      testsCollection: []
+    });
+    expect(applyReady({}, { payload: false })).toEqual({
+      collectionReady: false
+    });
+  });
 
-  it('getApplyEntityToState return a new valid state', () => {
-    expect(getApplyEntityToState('test')(getInitialState('test'), { payload: { title: 'test' } })).toEqual({
-      collectionReady: false,
-      test: { title: 'test' },
-      testsCollection: [],
-    })
-  })
-
-  it('getApplyEntityCollectionToState return a new valid state', () => {
+  it("getApplyEntityToState return a new valid state", () => {
     expect(
-      getApplyEntityCollectionToState('test')(getInitialState('test'), {
-        payload: [{ title: 'test' }, { title: 'test2' }],
-      }),
+      getApplyEntityToState("test")(getInitialState("test"), {
+        payload: { title: "test" }
+      })
+    ).toEqual({
+      collectionReady: false,
+      test: { title: "test" },
+      testsCollection: []
+    });
+  });
+
+  it("getApplyEntityCollectionToState return a new valid state", () => {
+    expect(
+      getApplyEntityCollectionToState("test")(getInitialState("test"), {
+        payload: [{ title: "test" }, { title: "test2" }]
+      })
     ).toEqual({
       collectionReady: false,
       test: null,
-      testsCollection: [{ title: 'test' }, { title: 'test2' }],
-    })
-  })
+      testsCollection: [{ title: "test" }, { title: "test2" }]
+    });
+  });
 
-  it('getMapDispatchToProps returns a map for dispatch to props', () => {
-    const map = getMapDispatchToProps('test')
-    expect(map).toEqual(expect.any(Function))
+  it("getMapDispatchToProps returns a map for dispatch to props", () => {
+    const map = getMapDispatchToProps("test");
+    expect(map).toEqual(expect.any(Function));
     expect(Object.keys(map(() => {})).sort()).toEqual(
-      ['addTest', 'updateTest', 'removeTest', 'loadTests', 'loadTest'].sort(),
-    )
-  })
-})
+      ["addTest", "updateTest", "removeTest", "loadTests", "loadTest"].sort()
+    );
+  });
+});

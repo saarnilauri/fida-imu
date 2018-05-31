@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Alert } from 'reactstrap'
+import React from "react";
+import PropTypes from "prop-types";
+import { Alert } from "reactstrap";
 
 const ErrorMsg = ({ error }) => (
   <React.Fragment>
@@ -11,9 +11,9 @@ const ErrorMsg = ({ error }) => (
     )}
     {error && null}
   </React.Fragment>
-)
+);
 ErrorMsg.propTypes = {
-  error: PropTypes.string,
-}
+  error: PropTypes.string
+};
 
-export default ErrorMsg
+export default ErrorMsg;

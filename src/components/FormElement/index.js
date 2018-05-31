@@ -1,13 +1,29 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { FormGroup, Label, Input } from 'reactstrap'
+import React from "react";
+import PropTypes from "prop-types";
+import { FormGroup, Label, Input } from "reactstrap";
 
-const FormElement = ({ id, label, name, placeholder, value, type, className, onChange }) => (
+const FormElement = ({
+  id,
+  label,
+  name,
+  placeholder,
+  value,
+  type,
+  className,
+  onChange
+}) => (
   <FormGroup className={className}>
     <Label for={id}>{label}</Label>
-    <Input type={type} value={value} onChange={onChange} name={name} id={id} placeholder={placeholder} />
+    <Input
+      type={type}
+      value={value}
+      onChange={onChange}
+      name={name}
+      id={id}
+      placeholder={placeholder}
+    />
   </FormGroup>
-)
+);
 
 export const formElementProptypes = {
   id: PropTypes.string,
@@ -17,9 +33,9 @@ export const formElementProptypes = {
   value: PropTypes.string,
   type: PropTypes.string,
   className: PropTypes.string,
-  onChange: PropTypes.func,
-}
+  onChange: PropTypes.func
+};
 
-FormElement.propTypes = formElementProptypes
+FormElement.propTypes = formElementProptypes;
 
-export default FormElement
+export default FormElement;
