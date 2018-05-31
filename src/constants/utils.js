@@ -30,7 +30,8 @@ export const findUserItems = (collection, uid = null) => {
   return items
 }
 
-export const collectionToArray = collection => Object.keys(collection).map(uid => ({ ...collection[uid], uid }))
+export const collectionToArray = collection =>
+  (collection ? Object.keys(collection).map(uid => ({ ...collection[uid], uid })) : [])
 
 export const collectionToArrayWithLabelAndValue = (collection, label) =>
   Object.keys(collection).map(uid => ({ ...collection[uid], label: collection[uid][label], value: uid, key: uid }))
