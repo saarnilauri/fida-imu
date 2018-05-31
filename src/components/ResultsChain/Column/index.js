@@ -20,7 +20,6 @@ class ResultsChainColumn extends Component {
     }
     this.toggle = this.toggle.bind(this)
     this.helpClick = this.helpClick.bind(this)
-    this.mouseLeave = this.mouseLeave.bind(this)
   }
 
   toggle() {
@@ -45,13 +44,6 @@ class ResultsChainColumn extends Component {
       })
     }
     event.preventDefault()
-  }
-
-  mouseLeave(event) {
-    this.setState({
-      popoverTarget: event.target.id,
-      popoverOpen: !this.state.popoverOpen,
-    })
   }
 
   render() {

@@ -33,6 +33,12 @@ export default {
       class: 'admin',
     },
     {
+      name: 'app.navi.admin.churches',
+      url: '/churches',
+      icon: 'fa fa-home',
+      class: 'admin',
+    },
+    {
       name: 'app.navi.admin.settings',
       url: '/settings',
       icon: 'icon-settings',

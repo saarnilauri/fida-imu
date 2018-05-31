@@ -14,6 +14,7 @@ const rootReducer = combineReducers({
   notificationState: notificationReducer,
   resultsChainState: resultsChainReducer,
   countryState: getEntityReducer('country'),
+  churchState: getEntityReducer('church'),
 })
 
 export default rootReducer

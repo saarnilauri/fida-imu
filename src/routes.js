@@ -28,6 +28,11 @@ const CountryList = Loadable({
   loading: Loading,
 })
 
+const ChurchAdminPage = Loadable({
+  loader: () => import('./components/Church/AdminPage'),
+  loading: Loading,
+})
+
 const NotAllowed = Loadable({
   loader: () => import('./components/NotAllowed'),
   loading: Loading,
@@ -38,6 +43,7 @@ const routes = [
   { path: '/', exact: true, name: 'Landing', component: LandingPage },
   { path: '/users', name: 'Home', component: withAuthorization(authCondition, adminRoleCondition)(Users) },
   { path: '/landing', name: 'Landing', component: LandingPage },
+  { path: '/churches', name: 'Churches', component: ChurchAdminPage },
   {
     path: '/account',
     name: 'Account',

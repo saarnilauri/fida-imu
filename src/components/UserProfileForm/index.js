@@ -11,6 +11,7 @@ import { updateByPropertyName, setStateValue } from '../../constants/utils'
 import { UsernameField } from '../FormElement/FormFields'
 import FormContent from '../FormContent'
 import EnhachedCountrySelect from '../Country/Select'
+import ChurchSelect from '../Church/Select'
 import Editor from '../Editor'
 import Loader from '../Loader'
 import UserRoles from './UserRoles'
@@ -23,6 +24,7 @@ const INITIAL_STATE = {
   isLoaded: false,
   notice: null,
   countries: false,
+  churches: false,
 }
 
 class UserProfileForm extends Component {
@@ -30,6 +32,7 @@ class UserProfileForm extends Component {
     super(props)
     this.onChange = this.onChange.bind(this)
     this.handleSelectCountriesChange = this.handleSelectCountriesChange.bind(this)
+    this.handleSelectChurchesChange = this.handleSelectChurchesChange.bind(this)
     this.state = { ...INITIAL_STATE }
   }
 
@@ -75,16 +78,23 @@ class UserProfileForm extends Component {
       roles = Object.assign(roles, temp)
     })
 
-    const { username, email, description, descriptionHtml, countries } = this.state
+    const { username, email, description, descriptionHtml, countries, churches } = this.state
     const updatedDescriptionHtml = description ? description.toString('html') : descriptionHtml
 
     db
-      .writeUserData(this.props.authUser.uid, username, email, updatedDescriptionHtml, roles, countries)
+      .writeUserData(this.props.authUser.uid, username, email, updatedDescriptionHtml, roles, countries, churches)
       .then(() => {
         toast.success(formatMessage({ id: 'account.page.progress.updated' }), {
           position: toast.POSITION.TOP_CENTER,
         })
-        this.props.onGetUserProfile({ username, email, descriptionHtml: updatedDescriptionHtml, roles, countries })
+        this.props.onGetUserProfile({
+          username,
+          email,
+          descriptionHtml: updatedDescriptionHtml,
+          roles,
+          countries,
+          churches,
+        })
       })
       .catch(error => {
         this.setState(updateByPropertyName('error', error))
@@ -96,6 +106,7 @@ class UserProfileForm extends Component {
       updatedDescriptionHtml,
       roles,
       countries,
+      churches,
     }
     this.props.firebase.updateProfile(profile)
     event.preventDefault()
@@ -103,6 +114,10 @@ class UserProfileForm extends Component {
 
   handleSelectCountriesChange(countries) {
     this.setState(() => ({ countries }))
+  }
+
+  handleSelectChurchesChange(churches) {
+    this.setState(() => ({ churches }))
   }
 
   toggleCheckbox = label => {
@@ -115,7 +130,7 @@ class UserProfileForm extends Component {
 
   render() {
     const { formatMessage } = this.props
-    const { username, descriptionHtml, error, isLoaded, roles, countries } = this.state
+    const { username, descriptionHtml, error, isLoaded, roles, countries, churches } = this.state
 
     const isInvalid = username === ''
 
@@ -140,6 +155,12 @@ class UserProfileForm extends Component {
                   <Fontawesome name="globe" /> {formatMessage({ id: 'account.page.coutries' })}
                 </Label>
                 <EnhachedCountrySelect value={countries} onChange={this.handleSelectCountriesChange} />
+              </div>
+              <div className="py-2">
+                <Label for="1234">
+                  <Fontawesome name="home" /> {formatMessage({ id: 'account.page.churches' })}
+                </Label>
+                <ChurchSelect value={churches} onChange={this.handleSelectChurchesChange} />
               </div>
               <Button disabled={isInvalid} type="submit">
                 {formatMessage({ id: 'actions.save' })}
