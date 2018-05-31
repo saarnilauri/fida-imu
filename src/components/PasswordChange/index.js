@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Button, Alert } from 'reactstrap'
+import { Button } from 'reactstrap'
 import { auth } from '../../firebase'
 import { PasswordConfirmField } from '../FormElement/FormFields'
+import ErrorMsg from '../ErrorMsg'
 import { setStateValue, updateByPropertyName } from '../../constants/utils'
 
 const INITIAL_STATE = {
@@ -40,7 +41,7 @@ class PasswordChangeForm extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        {error && <Alert color="danger">{error.message}</Alert>}
+        {error && <ErrorMsg error={error.message} />}
         <PasswordConfirmField
           passwordOne={passwordOne}
           onChangeOne={setStateValue('passwordOne', this)}

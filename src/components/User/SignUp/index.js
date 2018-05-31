@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
-import { Alert, Button, Card, CardBody } from 'reactstrap'
+import { Button, Card, CardBody } from 'reactstrap'
 import { FormattedMessage } from 'react-intl'
 import { auth, db } from '../../../firebase'
 import * as routes from '../../../constants/routes'
@@ -9,6 +9,7 @@ import { updateByPropertyName, setStateValue } from '../../../constants/utils'
 import PageWrapper from '../PageWrapper'
 import { UsernameField, EmailField, PasswordConfirmField } from '../../FormGroupElement/FormFields'
 import { LoginLangMenu } from '../Login'
+import ErrorMsg from '../../ErrorMsg'
 
 const SignUpPage = ({ history }) => (
   <PageWrapper>
@@ -89,11 +90,7 @@ class SignUpForm extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        {error && (
-          <div className="py-2">
-            <Alert color="danger">{error.message}</Alert>
-          </div>
-        )}
+        {error && <ErrorMsg error={error.message} />}
         <UsernameField value={username} onChange={setStateValue('username', this)} />
         <EmailField value={email} onChange={setStateValue('email', this)} />
         <PasswordConfirmField

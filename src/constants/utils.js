@@ -51,3 +51,5 @@ export function getWordForms(word) {
     allCapsPrular: upperCase(pluralize(word)),
   }
 }
+
+export const getValueByPath = (p, o) => p.reduce((xs, x) => (xs && xs[x] ? xs[x] : null), o)

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Alert } from 'reactstrap'
+import ErrorMsg from '../../ErrorMsg'
 import ButtonGroup from '../../ButtonGroup'
 import FormElement from '../../FormGroupElement'
 
@@ -23,11 +23,7 @@ const CountryListForm = props => {
   }
   return (
     <form onSubmit={onSubmit}>
-      {error && (
-        <div className="py-2">
-          <Alert color="danger">{error.message}</Alert>
-        </div>
-      )}
+      {error && <ErrorMsg error={error.message} />}
       <FormElement
         onChange={onNameChange}
         value={name}

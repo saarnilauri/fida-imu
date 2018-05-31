@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { withFirebase } from 'react-redux-firebase'
-import { Button, Alert, Label } from 'reactstrap'
+import { Button, Label } from 'reactstrap'
 import { toast } from 'react-toastify'
 import Fontawesome from 'react-fontawesome'
 import { db } from '../../firebase'
@@ -15,6 +15,7 @@ import ChurchSelect from '../Church/Select'
 import Editor from '../Editor'
 import Loader from '../Loader'
 import UserRoles from './UserRoles'
+import ErrorMsg from '../ErrorMsg'
 
 const INITIAL_STATE = {
   username: '',
@@ -139,11 +140,7 @@ class UserProfileForm extends Component {
         {isLoaded === false && <Loader />}
         {isLoaded === true && (
           <form onSubmit={this.onSubmit}>
-            {error && (
-              <div className="py-2">
-                <Alert color="danger">{error.message}</Alert>
-              </div>
-            )}
+            {error && <ErrorMsg error={error.message} />}
             <UsernameField value={username} onChange={setStateValue('username', this)} />
             <div>
               <FormContent label={formatMessage({ id: 'account.page.profile_description' })} className="py-2">

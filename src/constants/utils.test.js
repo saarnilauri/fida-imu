@@ -4,6 +4,7 @@ import {
   collectionToArray,
   getWordForms,
   collectionToArrayWithLabelAndValue,
+  getValueByPath,
 } from './utils'
 
 const mockCollection = {
@@ -85,5 +86,10 @@ describe('Util functions', () => {
       allCaps: 'MAN',
       allCapsPrular: 'MEN',
     })
+  })
+
+  it('getValueByPath return correct value from object by given path', () => {
+    expect(getValueByPath(['a', 'b', 'c'], { a: { b: { c: 'value' } } })).toBe('value')
+    expect(getValueByPath(['a', 'b', 'd'], { a: { b: { c: 'value' } } })).toBe(null)
   })
 })
