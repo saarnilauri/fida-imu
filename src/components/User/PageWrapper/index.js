@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { CardGroup, Col, Container, Row } from 'reactstrap'
+import React from "react";
+import PropTypes from "prop-types";
+import { CardGroup, Col, Container, Row } from "reactstrap";
 
 const PageWrapper = props => {
   return (
@@ -13,11 +13,15 @@ const PageWrapper = props => {
         </Row>
       </Container>
     </div>
-  )
-}
+  );
+};
 
 PageWrapper.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),
-}
+  children: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+    PropTypes.string
+  ])
+};
 
-export default PageWrapper
+export default PageWrapper;

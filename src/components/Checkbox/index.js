@@ -1,30 +1,30 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { FormGroup, Input, Label } from 'reactstrap'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { FormGroup, Input, Label } from "reactstrap";
 
 class Checkbox extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
-      isChecked: props.isChecked,
-    }
-    this.toggleCheckboxChange = this.toggleCheckboxChange.bind(this)
+      isChecked: props.isChecked
+    };
+    this.toggleCheckboxChange = this.toggleCheckboxChange.bind(this);
   }
 
   toggleCheckboxChange() {
-    const { handleCheckboxChange, label } = this.props
+    const { handleCheckboxChange, label } = this.props;
 
     this.setState(({ isChecked }) => ({
-      isChecked: !isChecked,
-    }))
+      isChecked: !isChecked
+    }));
 
-    handleCheckboxChange(label)
+    handleCheckboxChange(label);
   }
 
   render() {
-    const { label, isSimple } = this.props
-    const { isChecked } = this.state
+    const { label, isSimple } = this.props;
+    const { isChecked } = this.state;
 
     if (isSimple) {
       return (
@@ -37,7 +37,7 @@ class Checkbox extends Component {
           value={label}
           onChange={this.toggleCheckboxChange}
         />
-      )
+      );
     }
     return (
       <FormGroup check inline className="checkbox" key={Math.random() * 10000}>
@@ -54,19 +54,19 @@ class Checkbox extends Component {
           {label}
         </Label>
       </FormGroup>
-    )
+    );
   }
 }
 
 Checkbox.defaultProps = {
-  isSimple: false,
-}
+  isSimple: false
+};
 
 Checkbox.propTypes = {
   label: PropTypes.string.isRequired,
   isChecked: PropTypes.bool,
   isSimple: PropTypes.bool,
-  handleCheckboxChange: PropTypes.func.isRequired,
-}
+  handleCheckboxChange: PropTypes.func.isRequired
+};
 
-export default Checkbox
+export default Checkbox;

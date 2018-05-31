@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import './index.css'
+import React from "react";
+import PropTypes from "prop-types";
+import "./index.css";
 
 const PageTitle = ({ title }) => {
   return (
@@ -13,11 +13,11 @@ const PageTitle = ({ title }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 PageTitle.propTypes = {
-  title: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-}
+  title: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+};
 
-export default PageTitle
+export default PageTitle;

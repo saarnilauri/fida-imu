@@ -1,67 +1,75 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { compose } from 'recompose'
-import { injectIntl } from 'react-intl'
-import ReactTable from 'react-table'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { compose } from "recompose";
+import { injectIntl } from "react-intl";
+import ReactTable from "react-table";
 
-import CenteredLoader from '../../CenteredLoader'
-import Checkbox from '../../Checkbox'
-import { collectionToArray } from '../../../constants/utils'
-import { getMapDispatchToProps } from '../../../reducers/curriedFirebase'
+import CenteredLoader from "../../CenteredLoader";
+import Checkbox from "../../Checkbox";
+import { collectionToArray } from "../../../constants/utils";
+import { getMapDispatchToProps } from "../../../reducers/curriedFirebase";
 
 class UserList extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
 
-    this.setTableSettings()
+    this.setTableSettings();
   }
 
   componentDidMount() {
     if (!this.props.ready) {
-      this.props.loadUsers()
+      this.props.loadUsers();
     }
   }
 
   setTableSettings() {
-    const { formatMessage } = this.props.intl
+    const { formatMessage } = this.props.intl;
     this.tableColumns = [
-      { Header: formatMessage({ id: 'user.list.table.header.username' }), accessor: 'username' },
       {
-        Header: formatMessage({ id: 'user.list.table.header.activated' }),
-        id: 'isActive',
+        Header: formatMessage({ id: "user.list.table.header.username" }),
+        accessor: "username"
+      },
+      {
+        Header: formatMessage({ id: "user.list.table.header.activated" }),
+        id: "isActive",
         width: 70,
         accessor: d => (
-          <div style={{ textAlign: 'center' }}>
-            <Checkbox handleCheckboxChange={this.handleCheckboxChange} isChecked={d.isActive} isSimple label={d.uid} />
+          <div style={{ textAlign: "center" }}>
+            <Checkbox
+              handleCheckboxChange={this.handleCheckboxChange}
+              isChecked={d.isActive}
+              isSimple
+              label={d.uid}
+            />
           </div>
-        ),
+        )
       },
       {
-        id: 'roles',
-        Header: formatMessage({ id: 'user.list.table.header.roles' }),
-        accessor: d => Object.keys(d.roles).join(', '),
-      },
-    ]
+        id: "roles",
+        Header: formatMessage({ id: "user.list.table.header.roles" }),
+        accessor: d => Object.keys(d.roles).join(", ")
+      }
+    ];
     this.tableSort = [
       {
-        id: 'username',
-      },
-    ]
+        id: "username"
+      }
+    ];
   }
 
   handleCheckboxChange(uid) {
     this.props.loadUser(uid, false).then(user => {
-      const newUserState = { ...user, isActive: !user.isActive }
-      delete newUserState.uid
-      this.props.updateUser(uid, newUserState)
-    })
+      const newUserState = { ...user, isActive: !user.isActive };
+      delete newUserState.uid;
+      this.props.updateUser(uid, newUserState);
+    });
   }
 
   render() {
-    const { ready, data } = this.props
+    const { ready, data } = this.props;
     const view = ready ? (
       <React.Fragment>
         <ReactTable
@@ -74,12 +82,12 @@ class UserList extends Component {
       </React.Fragment>
     ) : (
       <CenteredLoader />
-    )
-    return view
+    );
+    return view;
   }
 }
 
-UserList.defaultProps = { ready: false }
+UserList.defaultProps = { ready: false };
 
 UserList.propTypes = {
   data: PropTypes.array,
@@ -87,20 +95,26 @@ UserList.propTypes = {
   intl: PropTypes.object,
   loadUsers: PropTypes.func,
   loadUser: PropTypes.func,
-  updateUser: PropTypes.func,
-}
+  updateUser: PropTypes.func
+};
 
-export { UserList }
+export { UserList };
 
-const mapDispatchToProps = getMapDispatchToProps('user')
+const mapDispatchToProps = getMapDispatchToProps("user");
 
 const mapStateToProps = state => ({
   authUser: state.sessionState.authUser,
-  data: state.userState.collectionReady === true ? collectionToArray(state.userState.usersCollection) : [],
+  data:
+    state.userState.collectionReady === true
+      ? collectionToArray(state.userState.usersCollection)
+      : [],
   ready: state.userState.collectionReady,
-  activeUser: state.userState.user,
-})
+  activeUser: state.userState.user
+});
 
-const EnhanchedUserList = compose(injectIntl, connect(mapStateToProps, mapDispatchToProps))(UserList)
+const EnhanchedUserList = compose(
+  injectIntl,
+  connect(mapStateToProps, mapDispatchToProps)
+)(UserList);
 
-export default EnhanchedUserList
+export default EnhanchedUserList;

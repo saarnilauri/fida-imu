@@ -1,41 +1,71 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import capitalize from 'lodash/capitalize'
-import FormElement from './index'
+import React from "react";
+import PropTypes from "prop-types";
+import capitalize from "lodash/capitalize";
+import FormElement from "./index";
 
 const propTypes = {
   value: PropTypes.string,
-  onChange: PropTypes.func,
-}
+  onChange: PropTypes.func
+};
 
 const Field = ({ id, ...props }) => (
-  <FormElement {...props} name={id} id={id} label={props.label ? props.label : capitalize(id)} />
-)
+  <FormElement
+    {...props}
+    name={id}
+    id={id}
+    label={props.label ? props.label : capitalize(id)}
+  />
+);
 
 Field.propTypes = {
   id: PropTypes.string,
-  label: PropTypes.string,
-}
+  label: PropTypes.string
+};
 
 export const UsernameField = ({ onChange, value }) => (
-  <Field className="" id="username" value={value} onChange={onChange} type="text" />
-)
+  <Field
+    className=""
+    id="username"
+    value={value}
+    onChange={onChange}
+    type="text"
+  />
+);
 
-UsernameField.propTypes = propTypes
+UsernameField.propTypes = propTypes;
 
 export const EmailField = ({ onChange, value }) => (
-  <Field className="py-2" value={value} id="email" onChange={onChange} type="text" placeholder="Email Address" />
-)
+  <Field
+    className="py-2"
+    value={value}
+    id="email"
+    onChange={onChange}
+    type="text"
+    placeholder="Email Address"
+  />
+);
 
-EmailField.propTypes = propTypes
+EmailField.propTypes = propTypes;
 
 export const PasswordField = ({ onChange, value }) => (
-  <Field className="py-2" id="password" value={value} onChange={onChange} type="password" placeholder="Password" />
-)
+  <Field
+    className="py-2"
+    id="password"
+    value={value}
+    onChange={onChange}
+    type="password"
+    placeholder="Password"
+  />
+);
 
-PasswordField.propTypes = propTypes
+PasswordField.propTypes = propTypes;
 
-export const PasswordConfirmField = ({ onChangeOne, passwordOne, onChangeTwo, passwordTwo }) => (
+export const PasswordConfirmField = ({
+  onChangeOne,
+  passwordOne,
+  onChangeTwo,
+  passwordTwo
+}) => (
   <React.Fragment>
     <Field
       className=""
@@ -56,11 +86,11 @@ export const PasswordConfirmField = ({ onChangeOne, passwordOne, onChangeTwo, pa
       placeholder=""
     />
   </React.Fragment>
-)
+);
 
 PasswordConfirmField.propTypes = {
   passwordOne: PropTypes.string,
   onChangeOne: PropTypes.func,
   passwordTwo: PropTypes.string,
-  onChangeTwo: PropTypes.func,
-}
+  onChangeTwo: PropTypes.func
+};

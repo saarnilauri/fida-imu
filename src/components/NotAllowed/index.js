@@ -1,7 +1,7 @@
-import React from 'react'
-import Card from '../Card'
-import PageTitle from '../PageTitle'
-import PageWrapper from '../PageWrapper'
+import React from "react";
+import Card from "../Card";
+import PageTitle from "../PageTitle";
+import PageWrapper from "../PageWrapper";
 
 const LandingPage = () => (
   <React.Fragment>
@@ -13,6 +13,6 @@ const LandingPage = () => (
       </Card>
     </PageWrapper>
   </React.Fragment>
-)
+);
 
-export default LandingPage
+export default LandingPage;

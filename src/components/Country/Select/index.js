@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Select from 'react-select'
-import 'react-select/dist/react-select.css'
+import React from "react";
+import PropTypes from "prop-types";
+import Select from "react-select";
+import "react-select/dist/react-select.css";
 
-import withCountries from '../../hoc/withCountries'
+import withCountries from "../../hoc/withCountries";
 
 const CountrySelect = props => {
   const view = props.ready ? (
@@ -18,20 +18,25 @@ const CountrySelect = props => {
       onChange={props.onChange}
       value={props.value}
     />
-  ) : null
-  return view
-}
+  ) : null;
+  return view;
+};
 
 CountrySelect.defaultProps = {
-  data: [],
-}
+  data: []
+};
 
 CountrySelect.propTypes = {
   data: PropTypes.array,
   onChange: PropTypes.func,
-  value: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.array, PropTypes.string]),
-}
+  value: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.object,
+    PropTypes.array,
+    PropTypes.string
+  ])
+};
 
-export { CountrySelect }
-const enhanchedCountrySelect = withCountries(CountrySelect)
-export default enhanchedCountrySelect
+export { CountrySelect };
+const enhanchedCountrySelect = withCountries(CountrySelect);
+export default enhanchedCountrySelect;

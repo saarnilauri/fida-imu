@@ -1,6 +1,6 @@
-import React from 'react'
-import { Col, Row, Badge, Button, ListGroup, ListGroupItem } from 'reactstrap'
-import FontAwesome from 'react-fontawesome'
+import React from "react";
+import { Col, Row, Badge, Button, ListGroup, ListGroupItem } from "reactstrap";
+import FontAwesome from "react-fontawesome";
 
 const IndicatorList = () => (
   <ListGroup>
@@ -35,6 +35,6 @@ const IndicatorList = () => (
       </Row>
     </ListGroupItem>
   </ListGroup>
-)
+);
 
-export default IndicatorList
+export default IndicatorList;

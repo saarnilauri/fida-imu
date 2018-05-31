@@ -1,19 +1,19 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { Button, CardBody, Card, Col, Row } from 'reactstrap'
-import { FormattedMessage } from 'react-intl'
-import { auth } from '../../../firebase'
-import * as routes from '../../../constants/routes'
-import { updateByPropertyName, setStateValue } from '../../../constants/utils'
-import ErrorMsg from '../../ErrorMsg'
-import PageWrapper from '../PageWrapper'
-import { EmailField } from '../../FormGroupElement/FormFields'
-import { LoginLangMenu } from '../Login'
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { Button, CardBody, Card, Col, Row } from "reactstrap";
+import { FormattedMessage } from "react-intl";
+import { auth } from "../../../firebase";
+import * as routes from "../../../constants/routes";
+import { updateByPropertyName, setStateValue } from "../../../constants/utils";
+import ErrorMsg from "../../ErrorMsg";
+import PageWrapper from "../PageWrapper";
+import { EmailField } from "../../FormGroupElement/FormFields";
+import { LoginLangMenu } from "../Login";
 
 const PasswordForgetPage = () => (
   <PageWrapper>
     <Card className="p-4">
-      <CardBody style={{ position: 'relative' }}>
+      <CardBody style={{ position: "relative" }}>
         <h1 className="small-h1">
           <FormattedMessage id="app.pwd-forgot.header" />
         </h1>
@@ -24,7 +24,10 @@ const PasswordForgetPage = () => (
         <LoginLangMenu />
       </CardBody>
     </Card>
-    <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: `${44}%` }}>
+    <Card
+      className="text-white bg-primary py-5 d-md-down-none"
+      style={{ width: `${44}%` }}
+    >
       <CardBody className="text-center">
         <div className="flex-row align-items-center">
           <div>
@@ -39,47 +42,47 @@ const PasswordForgetPage = () => (
       </CardBody>
     </Card>
   </PageWrapper>
-)
+);
 
 const INITIAL_STATE = {
-  email: '',
+  email: "",
   error: null,
-  loading: false,
-}
+  loading: false
+};
 
 class PasswordForgetForm extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = { ...INITIAL_STATE }
+    this.state = { ...INITIAL_STATE };
   }
 
   onSubmit = event => {
-    const { email } = this.state
+    const { email } = this.state;
 
-    this.setState(updateByPropertyName('loading', true))
+    this.setState(updateByPropertyName("loading", true));
 
     auth
       .doPasswordReset(email)
       .then(() => {
-        this.setState(() => ({ ...INITIAL_STATE }))
+        this.setState(() => ({ ...INITIAL_STATE }));
       })
       .catch(error => {
-        this.setState(updateByPropertyName('error', error))
-      })
+        this.setState(updateByPropertyName("error", error));
+      });
 
-    event.preventDefault()
-  }
+    event.preventDefault();
+  };
 
   render() {
-    const { email, error, loading } = this.state
+    const { email, error, loading } = this.state;
 
-    const isInvalid = email === '' || loading === true
+    const isInvalid = email === "" || loading === true;
 
     return (
       <form onSubmit={this.onSubmit}>
         {error && <ErrorMsg error={error.message} />}
-        <EmailField value={email} onChange={setStateValue('email', this)} />
+        <EmailField value={email} onChange={setStateValue("email", this)} />
         <Row>
           <Col xs="6">
             <Button color="secondary" disabled={isInvalid} type="submit">
@@ -93,7 +96,7 @@ class PasswordForgetForm extends Component {
           </Col>
         </Row>
       </form>
-    )
+    );
   }
 }
 
@@ -101,8 +104,8 @@ const PasswordForgetLink = () => (
   <p>
     <Link to={routes.PASSWORD_FORGET}>Forgot Password?</Link>
   </p>
-)
+);
 
-export default PasswordForgetPage
+export default PasswordForgetPage;
 
-export { PasswordForgetForm, PasswordForgetLink }
+export { PasswordForgetForm, PasswordForgetLink };

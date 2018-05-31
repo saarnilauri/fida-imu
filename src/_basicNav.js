@@ -1,29 +1,29 @@
 export default {
   items: [
     {
-      name: 'app.navi.basic.results_chain',
-      url: '/results-chain',
-      icon: 'icon-calculator',
+      name: "app.navi.basic.results_chain",
+      url: "/results-chain",
+      icon: "icon-calculator"
     },
     {
-      name: 'app.navi.basic.reports',
-      url: '/my-reports',
-      icon: 'fa fa-files-o',
+      name: "app.navi.basic.reports",
+      url: "/my-reports",
+      icon: "fa fa-files-o"
     },
     {
       title: true,
-      name: 'app.navi.basic.title.more',
+      name: "app.navi.basic.title.more"
     },
     {
-      name: 'app.navi.basic.account',
-      url: '/account',
-      icon: 'icon-user',
+      name: "app.navi.basic.account",
+      url: "/account",
+      icon: "icon-user"
     },
     {
-      name: 'app.navi.basic.landing',
-      url: '/landing',
-      icon: 'icon-home',
-    },
+      name: "app.navi.basic.landing",
+      url: "/landing",
+      icon: "icon-home"
+    }
     /* {
       name: 'Typography',
       url: '/theme/typography',
@@ -269,5 +269,5 @@ export default {
       icon: 'icon-layers',
       variant: 'danger',
     }, */
-  ],
-}
+  ]
+};

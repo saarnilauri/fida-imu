@@ -1,15 +1,15 @@
-import getEntityAdminPage from '../../hoc/getEntityAdminPage'
+import getEntityAdminPage from "../../hoc/getEntityAdminPage";
 
 const settings = {
   initialState: {
-    name: '',
-    city: '',
-    area: '',
+    name: "",
+    city: "",
+    area: ""
   },
   cleanState: {
-    name: '',
-    city: '',
-    area: '',
+    name: "",
+    city: "",
+    area: ""
   },
   form: {
     fields: {
@@ -17,21 +17,21 @@ const settings = {
         // icon: 'info',
       },
       city: {
-        icon: 'map-signs',
+        icon: "map-signs"
       },
       area: {
-        icon: 'map-pin',
-      },
-    },
+        icon: "map-pin"
+      }
+    }
   },
   list: {
     settings: {
-      tableColumns: ['name', 'city', 'area'],
-      tableSort: [{ id: 'name' }],
-    },
-  },
-}
+      tableColumns: ["name", "city", "area"],
+      tableSort: [{ id: "name" }]
+    }
+  }
+};
 
-const ChurchAdminPage = getEntityAdminPage('church', settings)
+const ChurchAdminPage = getEntityAdminPage("church", settings);
 
-export default ChurchAdminPage
+export default ChurchAdminPage;

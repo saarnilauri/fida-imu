@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 const propTypes = {
-  children: PropTypes.node,
-}
+  children: PropTypes.node
+};
 
-const defaultProps = {}
+const defaultProps = {};
 
 class Footer extends Component {
   render() {
     // eslint-disable-next-line
-    const { children, ...attributes } = this.props
+    const { children, ...attributes } = this.props;
 
     return (
       <React.Fragment>
@@ -19,11 +19,11 @@ class Footer extends Component {
         </span>
         <span className="ml-auto">IMU reporting</span>
       </React.Fragment>
-    )
+    );
   }
 }
 
-Footer.propTypes = propTypes
-Footer.defaultProps = defaultProps
+Footer.propTypes = propTypes;
+Footer.defaultProps = defaultProps;
 
-export default Footer
+export default Footer;
