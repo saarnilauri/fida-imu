@@ -15,6 +15,7 @@ import ChurchSelect from '../Church/Select'
 import Editor from '../Editor'
 import Loader from '../Loader'
 import UserRoles from './UserRoles'
+import ImageUploaderWrapper from '../ImageUploader'
 
 const INITIAL_STATE = {
   username: '',
@@ -162,6 +163,7 @@ class UserProfileForm extends Component {
                 </Label>
                 <ChurchSelect value={churches} onChange={this.handleSelectChurchesChange} />
               </div>
+              <ImageUploaderWrapper />
               <Button disabled={isInvalid} type="submit">
                 {formatMessage({ id: 'actions.save' })}
               </Button>
