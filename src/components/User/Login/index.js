@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Card, CardBody, Alert, Nav } from 'reactstrap'
+import { Card, CardBody, Nav } from 'reactstrap'
 import { withRouter } from 'react-router-dom'
 import { FormattedMessage } from 'react-intl'
 import { auth } from '../../../firebase'
 import * as routes from '../../../constants/routes'
 import { updateByPropertyName, setStateValue } from '../../../constants/utils'
 import LoginForm from './Form'
+import ErrorMsg from '../../ErrorMsg'
 import PageWrapper from '../PageWrapper'
 import LanguageMenu from '../../LanguageSwitch/Menu'
 
@@ -95,7 +96,7 @@ class SignInForm extends Component {
 
     return (
       <form onSubmit={this.onSubmit} className="py-2">
-        {error && <Alert color="danger">{error.message}</Alert>}
+        {error && <ErrorMsg error={error.message} />}
         <LoginForm
           email={email}
           password={password}

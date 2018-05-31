@@ -8,6 +8,7 @@ export const doCreateUser = (id, username, email, roles = { missionary: true }) 
     email,
     roles,
     countries: [],
+    churches: [],
     isActive: false,
     descriptionHtml: '',
   }

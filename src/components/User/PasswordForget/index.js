@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Alert, CardBody, Card, Col, Row } from 'reactstrap'
+import { Button, CardBody, Card, Col, Row } from 'reactstrap'
 import { FormattedMessage } from 'react-intl'
 import { auth } from '../../../firebase'
 import * as routes from '../../../constants/routes'
 import { updateByPropertyName, setStateValue } from '../../../constants/utils'
+import ErrorMsg from '../../ErrorMsg'
 import PageWrapper from '../PageWrapper'
 import { EmailField } from '../../FormGroupElement/FormFields'
 import { LoginLangMenu } from '../Login'
@@ -77,7 +78,7 @@ class PasswordForgetForm extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        {error && <Alert color="danger">{error.message}</Alert>}
+        {error && <ErrorMsg error={error.message} />}
         <EmailField value={email} onChange={setStateValue('email', this)} />
         <Row>
           <Col xs="6">
