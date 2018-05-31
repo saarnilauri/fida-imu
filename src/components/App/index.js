@@ -6,6 +6,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom'
 import en from 'react-intl/locale-data/en'
 import fi from 'react-intl/locale-data/fi'
 import { addLocaleData, defineMessages, IntlProvider } from 'react-intl'
+
 import CenteredLoader from '../CenteredLoader'
 import withAuthentication from '../Session/withAuthentication'
 import Layout from '../Layout'

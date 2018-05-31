@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { injectIntl } from 'react-intl'
 import ReactTable from 'react-table'
-import 'react-table/react-table.css'
 
 import CenteredLoader from '../../CenteredLoader'
 import Modal from '../../Modal'

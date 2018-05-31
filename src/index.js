@@ -12,6 +12,8 @@ import 'flag-icon-css/css/flag-icon.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 // Import Simple Line Icons Set
 import 'simple-line-icons/css/simple-line-icons.css'
+
+import 'react-table/react-table.css'
 // Import Main styles for this application
 import './scss/style.css'
 
