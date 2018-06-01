@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-
+import { loadThumbURL } from '../../reducers/profileThumb'
 import { firebase, db } from '../../firebase'
 
 const withAuthentication = Component => {
@@ -11,13 +11,14 @@ const withAuthentication = Component => {
       this.state = { ready: false, user: null }
     }
     componentDidMount() {
-      const { onSetAuthUser, onGetUserProfile } = this.props
+      const { onSetAuthUser, onGetUserProfile, loadThumbUrl } = this.props
 
       firebase.auth.onAuthStateChanged(authUser => {
         if (authUser) {
           onSetAuthUser(authUser)
           db.onceGetUserById(authUser.uid).then(snap => {
             onGetUserProfile(snap.val())
+            loadThumbUrl(authUser.uid)
             this.setState(() => ({ ready: true, user: authUser }))
           })
         } else {
@@ -35,10 +36,12 @@ const withAuthentication = Component => {
   WithAuthentication.propTypes = {
     onSetAuthUser: PropTypes.func,
     onGetUserProfile: PropTypes.func,
+    loadThumbUrl: PropTypes.func,
   }
 
   const mapDispatchToProps = dispatch => ({
     onSetAuthUser: authUser => dispatch({ type: 'AUTH_USER_SET', authUser }),
+    loadThumbUrl: uid => dispatch(loadThumbURL(uid)),
     onGetUserProfile: userProfile => dispatch({ type: 'SET_USER_PROFILE', userProfile }),
   })
 
