@@ -1,33 +1,27 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
-import ErrorMsg from '../ErrorMsg'
+import { EntityFormPropTypes } from './EntityPropTypes'
 import ButtonGroup from '../ButtonGroup'
+import Form from '../Form'
 import FormElement from '../FormGroupElement'
+import { getAddEditCancelButtonSetup } from './helperFunctions'
 
 const getEntityForm = (entity, formFields) => {
   class EntityForm extends Component {
     render() {
       const { onSubmit, error, onValueChange, getValue, editMode, cancelEdit } = this.props
       const { formatMessage } = this.props.intl
-      const buttons = [
-        {
-          color: 'primary',
-          onClick: () => {},
-          title: editMode ? formatMessage({ id: 'actions.save' }) : formatMessage({ id: 'actions.add' }),
-          type: 'submit',
+      const buttons = getAddEditCancelButtonSetup({
+        title: {
+          add: formatMessage({ id: 'actions.add' }),
+          save: formatMessage({ id: 'actions.save' }),
+          cancel: formatMessage({ id: 'actions.cancel' }),
         },
-      ]
-      if (editMode) {
-        buttons.push({
-          onClick: cancelEdit,
-          color: 'secondary',
-          title: formatMessage({ id: 'actions.cancel' }),
-        })
-      }
+        editMode,
+        cancelEdit,
+      })
       return (
-        <form onSubmit={onSubmit}>
-          {error && <ErrorMsg error={error.message} />}
+        <Form onSubmit={onSubmit} error={error ? error.message : null}>
           {Object.keys(formFields).map(key => (
             <FormElement
               key={key}
@@ -40,21 +34,11 @@ const getEntityForm = (entity, formFields) => {
             />
           ))}
           <ButtonGroup buttons={buttons} />
-        </form>
+        </Form>
       )
     }
   }
-
-  EntityForm.propTypes = {
-    cancelEdit: PropTypes.func,
-    editMode: PropTypes.bool,
-    onValueChange: PropTypes.func,
-    getValue: PropTypes.func,
-    onSubmit: PropTypes.func,
-    intl: PropTypes.object.isRequired,
-    error: PropTypes.string,
-  }
-
+  EntityForm.propTypes = EntityFormPropTypes
   return injectIntl(EntityForm)
 }
 
