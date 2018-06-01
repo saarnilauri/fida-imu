@@ -5,13 +5,15 @@ import { AppHeaderDropdown } from '@coreui/react'
 import { DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap'
 import { FormattedMessage } from 'react-intl'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import SignOutButton from '../../SignOut'
 import userIcon from '../../../assets/img/user.svg'
 
 const UserHeaderMenu = props => (
   <AppHeaderDropdown direction="down">
     <DropdownToggle nav>
-      <img src={userIcon} className="img-avatar" alt="" /> {props.user && props.user.email}
+      <img src={props.profilePic ? props.profilePic : userIcon} className="img-avatar" alt="" />{' '}
+      {props.user && props.user.email}
     </DropdownToggle>
     <DropdownMenu right style={{ right: 'auto' }}>
       <DropdownItem header tag="div" className="text-center">
@@ -33,6 +35,9 @@ const UserHeaderMenu = props => (
 
 UserHeaderMenu.propTypes = {
   user: PropTypes.object,
+  profilePic: PropTypes.string,
 }
 
-export default UserHeaderMenu
+const mapStateToProps = state => ({ profilePic: state.profileThumb.thumb })
+
+export default connect(mapStateToProps)(UserHeaderMenu)

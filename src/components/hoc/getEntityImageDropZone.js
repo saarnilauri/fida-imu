@@ -25,13 +25,16 @@ const getEntityImageDropZone = (entity, multiple = false, authUserUid = null) =>
       super(props)
       this.state = {
         error: null,
-        isUploading: false,
+        isProcessing: false,
       }
       this.handleDrop = this.handleDrop.bind(this)
     }
 
     onFileDelete = (file, key) => {
-      return this.props.firebase.deleteFile(file.fullPath, `${filesPath}/${key}`)
+      this.setState(() => ({ isProcessing: true }))
+      return this.props.firebase.deleteFile(file.fullPath, `${filesPath}/${key}`).then(() => {
+        this.setState(() => ({ isProcessing: false }))
+      })
     }
 
     handleDropRejected = rejectedFiles => {
@@ -40,20 +43,20 @@ const getEntityImageDropZone = (entity, multiple = false, authUserUid = null) =>
 
     handleDrop(acceptedFiles) {
       if (acceptedFiles.length > 0) {
-        this.setState(() => ({ isUploading: true }))
+        this.setState(() => ({ isProcessing: true }))
         this.props.firebase
           .uploadFiles(filesPath, acceptedFiles, filesPath)
           .then(() => {
-            this.setState(() => ({ isUploading: false }))
+            this.setState(() => ({ isProcessing: false }))
           })
           .catch(error => {
-            this.setState(() => ({ error, isUploading: false }))
+            this.setState(() => ({ error, isProcessing: false }))
           })
       }
     }
 
     render() {
-      const { error, isUploading } = this.state
+      const { error, isProcessing } = this.state
       const displayDropzone = multiple || (!multiple && !this.props.uploadedFiles)
       return (
         <React.Fragment>
@@ -83,7 +86,7 @@ const getEntityImageDropZone = (entity, multiple = false, authUserUid = null) =>
             </div>
           )}
           {displayDropzone &&
-            !isUploading && (
+            !isProcessing && (
             <Dropzone
               className="dragAndDropArea"
               maxSize={5242880}
@@ -107,7 +110,7 @@ const getEntityImageDropZone = (entity, multiple = false, authUserUid = null) =>
               </div>
             </Dropzone>
           )}
-          {isUploading && (
+          {isProcessing && (
             <div className="dragAndDropArea d-flex flex-column justify-content-center align-items-center ">
               <Loader />
             </div>
