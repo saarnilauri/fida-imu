@@ -15,7 +15,7 @@ before_install:
 - export PATH=$HOME/.yarn/bin:$PATH
 install:
 - yarn install
-- cd functions && yarn install
+- cd functions && npm install
 before_script:
 - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
   > ./cc-test-reporter
