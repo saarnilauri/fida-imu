@@ -39,6 +39,12 @@ export default {
       class: 'admin',
     },
     {
+      name: 'app.navi.admin.components',
+      url: '/components',
+      icon: 'fa fa-cubes',
+      class: 'admin',
+    },
+    {
       name: 'app.navi.admin.settings',
       url: '/settings',
       icon: 'icon-settings',

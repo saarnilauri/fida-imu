@@ -1,28 +1,33 @@
 notifications:
   email: false
 env:
-  global: "CC_TEST_REPORTER_ID=ac6fc9fc89dd17739f1be0994221f61248d30385f0d89d57381c0916bf97456a"
-  
+  global: CC_TEST_REPORTER_ID=ac6fc9fc89dd17739f1be0994221f61248d30385f0d89d57381c0916bf97456a
 language: node_js
 node_js: 7
 sudo: false
 cache: yarn
 before_install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.27.5
-  - export PATH=$HOME/.yarn/bin:$PATH
+- openssl aes-256-cbc -K $encrypted_aedef779901c_key -iv $encrypted_aedef779901c_iv
+  -in firebase.settings.tar.gz.enc -out firebase.settings.tar.gz -d
+- tar -xvzf firebase.settings.tar.gz
+- mv config.js ./src/firebase/. && mv service-account-credentials.json ./functions/.
+- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.27.5
+- export PATH=$HOME/.yarn/bin:$PATH
 install:
-  - yarn install
+- yarn install
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
 script:
-  - yarn build
-  - yarn testci
+- yarn build
+- yarn testci
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+- cd functions && npm install
 deploy:
   skip_cleanup: true
   provider: firebase
   token:
-    secure: "kRsjCrcEbM10Al1MJvi1pfCF3U/9Mv3ztYoOcVCpdeNjuN10Ekr2qWmYj8g+YD//PbnbTnPRSg63AZRVHeTWCs44RzXpv0BcHCugRO/LM4jzXB9AKSV2vdVZCdk/myuSaoOq8THiBKi9vi4XkaitryGfbLe/b/WgAsAph8Yr/iJoJq/j8C8KibGvhWCmPHsB7cwjSacqWoEjz89Qy0P3GXsKr1VYIXo6bPbG2htup6DroMz6KBWC6bF0I6KwFTqh5ehhtwIH6VGQ2QfEB7isCWG3z832bVkFH9sVF0X3+yiMRLP4ybPmJbg8Eq6xDSZyUkh6OUyXcNWbT1/VuMoyqrRrrH15xanlxHqpB/ocVkVezj6G8OQMYo4TsMsX6Fho2yLC/CJCAwluFQKmSJzMAEQVKhfO0/cYs7Jb6HALUBsd9ICLNF4AlwpqO21WKnZkP+qln4TDrBoD3JZoAKPsZUa7eZDYvacC4Fry0NjSCLscLt+GKoSk8McnN3ecxt5ZyYtOyjAT6cA8uPMXnSm3JRgr21T4WR5cKdUhKOzGmDoQkDR5jDM+iZmV04n6U7cSgPenfwPgA11xPyYAysB7Mv05cy/Xc26u5bNQTBphHKoM0eedzSLLIdsPbmNVPNwjTI4nJZx782T8RD6fo3kXZxtJPEo1SkaDXgohxVu7cTY="
+    secure: kRsjCrcEbM10Al1MJvi1pfCF3U/9Mv3ztYoOcVCpdeNjuN10Ekr2qWmYj8g+YD//PbnbTnPRSg63AZRVHeTWCs44RzXpv0BcHCugRO/LM4jzXB9AKSV2vdVZCdk/myuSaoOq8THiBKi9vi4XkaitryGfbLe/b/WgAsAph8Yr/iJoJq/j8C8KibGvhWCmPHsB7cwjSacqWoEjz89Qy0P3GXsKr1VYIXo6bPbG2htup6DroMz6KBWC6bF0I6KwFTqh5ehhtwIH6VGQ2QfEB7isCWG3z832bVkFH9sVF0X3+yiMRLP4ybPmJbg8Eq6xDSZyUkh6OUyXcNWbT1/VuMoyqrRrrH15xanlxHqpB/ocVkVezj6G8OQMYo4TsMsX6Fho2yLC/CJCAwluFQKmSJzMAEQVKhfO0/cYs7Jb6HALUBsd9ICLNF4AlwpqO21WKnZkP+qln4TDrBoD3JZoAKPsZUa7eZDYvacC4Fry0NjSCLscLt+GKoSk8McnN3ecxt5ZyYtOyjAT6cA8uPMXnSm3JRgr21T4WR5cKdUhKOzGmDoQkDR5jDM+iZmV04n6U7cSgPenfwPgA11xPyYAysB7Mv05cy/Xc26u5bNQTBphHKoM0eedzSLLIdsPbmNVPNwjTI4nJZx782T8RD6fo3kXZxtJPEo1SkaDXgohxVu7cTY=

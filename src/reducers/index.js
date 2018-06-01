@@ -16,6 +16,7 @@ const rootReducer = combineReducers({
   resultsChainState: resultsChainReducer,
   countryState: getEntityReducer('country'),
   churchState: getEntityReducer('church'),
+  componentState: getEntityReducer('component'),
   profileThumb: profileThumbReducer,
 })
 
