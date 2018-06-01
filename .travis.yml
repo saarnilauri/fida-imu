@@ -25,7 +25,7 @@ script:
 - yarn testci
 after_script:
 - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
-- cd functions && yarn install
+- cd functions && npm install
 deploy:
   skip_cleanup: true
   provider: firebase
