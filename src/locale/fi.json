@@ -95,6 +95,11 @@
   "datatable.rows": "riviä",
   "error.occured": "Tapahtui virhe!",
   "image.dropzone.instructions": "Klikkaa tai raahaa ja pudota kuvia tähän.",
+  
+  "indicator.list.page.header" : "Indikaattoripankki",
+  "indicator.list.page.subheader": "Palveluun lisätyt inkikaattorit",
+  "indicator.list.table.header.name": "Nimi",
+
   "modal.actions.cancel": "Peruuta",
   "modal.actions.yes_remove": "Kyllä, olen varma",
   "modal.header.please_confirm": "Ole hyvä ja vahvista:",

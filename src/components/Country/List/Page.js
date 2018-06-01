@@ -83,12 +83,12 @@ class CountryListPage extends Component {
         <PageTitle title={formatMessage({ id: 'country.list.page.header' })} />
         <PageWrapper>
           <Row>
-            <Col md="9">
+            <Col md="8">
               <Card title={formatMessage({ id: 'country.list.page.subheader' })} noPadding>
                 <CountryList edit={this.editCountry} />
               </Card>
             </Col>
-            <Col md="3">
+            <Col md="4">
               <Card
                 title={
                   editMode

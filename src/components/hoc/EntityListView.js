@@ -40,10 +40,10 @@ const EntityListView = props => {
 
 EntityListView.propTypes = {
   formatMessage: PropTypes.func.isRequired,
-  data: PropTypes.array,
-  tableColumns: PropTypes.array,
-  tableSort: PropTypes.array,
-  entity: PropTypes.string,
+  data: PropTypes.array.isRequired,
+  tableColumns: PropTypes.array.isRequired,
+  tableSort: PropTypes.array.isRequired,
+  entity: PropTypes.string.isRequired,
   modalIsOpen: PropTypes.bool,
   removeEntity: PropTypes.func.isRequired,
   cancelRemove: PropTypes.func.isRequired,

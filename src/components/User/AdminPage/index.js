@@ -15,7 +15,7 @@ const UserAdminPage = props => {
       <PageTitle title={formatMessage({ id: 'user.list.page.title' })} />
       <PageWrapper>
         <Row>
-          <Col sm="12" md="9">
+          <Col sm="12" md="8">
             <Card noPadding title={formatMessage({ id: 'user.list.page.subtitle' })}>
               <EnhanchedUserList />
             </Card>

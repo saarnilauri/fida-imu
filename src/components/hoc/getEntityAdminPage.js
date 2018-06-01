@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { injectIntl } from 'react-intl'
@@ -10,9 +9,10 @@ import PageTitle from '../PageTitle'
 import PageWrapper from '../PageWrapper'
 import getEntityForm from './getEntityForm'
 import getEntityList from './getEntityList'
-
-import { updateByPropertyName, collectionToArray, getSchemaKeys, getWordForms } from '../../constants/utils'
+import { getListMapStateToProps } from './helperFunctions'
 import { getMapDispatchToProps } from '../../reducers/curriedFirebase'
+import { updateByPropertyName, getSchemaKeys, getWordForms } from '../../constants/utils'
+import { getEntityListPropTypes } from './EntityPropTypes'
 
 const getEntityAdminPage = (entity, settings) => {
   const wordForms = getWordForms(entity)
@@ -29,19 +29,13 @@ const getEntityAdminPage = (entity, settings) => {
         ...settings.initialState,
         editMode: false,
         uid: null,
-        data: props.data.lenght > 0 ? props.data : [],
+        data: props.data.lenght > 0 ? props.data : [], // eslint-disable-line
       }
       this.editEntity = this.editEntity.bind(this)
       this.onSubmit = this.onSubmit.bind(this)
       this.cancelEdit = this.cancelEdit.bind(this)
       this.handleValueChange = this.handleValueChange.bind(this)
       this.getFieldValueFromState = this.getFieldValueFromState.bind(this)
-    }
-
-    componentDidMount() {
-      if (!this.props.ready) {
-        this.props[`load${wordForms.capitalizedPrular}`]()
-      }
     }
 
     onSubmit(e) {
@@ -80,18 +74,18 @@ const getEntityAdminPage = (entity, settings) => {
 
     render() {
       const { area, name, code, error, editMode } = this.state
-      const { formatMessage } = this.props.intl
+      const { formatMessage } = this.props.intl // eslint-disable-line
       return (
         <React.Fragment>
           <PageTitle title={formatMessage({ id: `${entity}.list.page.header` })} />
           <PageWrapper>
             <Row>
-              <Col md="9">
+              <Col md="8">
                 <Card title={formatMessage({ id: `${entity}.list.page.subheader` })} noPadding>
                   <EntityList edit={this.editEntity} entity={entity} />
                 </Card>
               </Col>
-              <Col md="3">
+              <Col md="4">
                 <Card
                   title={
                     editMode
@@ -122,27 +116,10 @@ const getEntityAdminPage = (entity, settings) => {
     }
   }
 
-  EntityListPage.propTypes = {
-    [`add${wordForms.capitalized}`]: PropTypes.func, // eslint-disable-line
-    data: PropTypes.array,
-    intl: PropTypes.object,
-    [`load${wordForms.capitalizedPlural}`]: PropTypes.func, // eslint-disable-line
-    ready: PropTypes.bool,
-    [`update${wordForms.capitalized}`]: PropTypes.func, // eslint-disable-line
-  }
+  EntityListPage.propTypes = getEntityListPropTypes(wordForms)
 
   const mapDispatchToProps = getMapDispatchToProps(entity)
-
-  const mapStateToProps = state => {
-    return {
-      authUser: state.sessionState.authUser,
-      data:
-        state[`${entity}State`].collectionReady === true
-          ? collectionToArray(state[`${entity}State`][`${wordForms.prular}Collection`])
-          : [],
-      ready: state[`${entity}State`].collectionReady,
-    }
-  }
+  const mapStateToProps = getListMapStateToProps(entity)
 
   return compose(
     injectIntl,

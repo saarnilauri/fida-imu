@@ -1,32 +1,42 @@
 import getEntityAdminPage from '../../hoc/getEntityAdminPage'
 
+const initialState = {
+  name: '',
+  type: '',
+  component: '',
+  column: '',
+}
+
+const fields = {
+  name: {
+    icon: 'info',
+  },
+  type: {
+    icon: 'dashboard',
+    type: 'radio',
+    values: ['basic', 'relative'],
+  },
+  component: {
+    icon: 'cube',
+    type: 'radio',
+    source: 'component',
+  },
+  column: {
+    icon: 'columns',
+    type: 'checkbox',
+    values: ['activity', 'output', 'outcome', 'impact'],
+  },
+}
+
 const settings = {
-  initialState: {
-    name: '',
-    city: '',
-    area: '',
-  },
-  cleanState: {
-    name: '',
-    city: '',
-    area: '',
-  },
+  initialState,
+  cleanState: initialState,
   form: {
-    fields: {
-      name: {
-        // icon: 'info',
-      },
-      city: {
-        icon: 'map-signs',
-      },
-      area: {
-        icon: 'map-pin',
-      },
-    },
+    fields,
   },
   list: {
     settings: {
-      tableColumns: ['name', 'city', 'area'],
+      tableColumns: Object.keys(initialState),
       tableSort: [{ id: 'name' }],
     },
   },

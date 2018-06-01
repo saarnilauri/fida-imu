@@ -23,6 +23,11 @@ const ResultsChain = Loadable({
   loading: Loading,
 })
 
+const IndicatorAdminPage = Loadable({
+  loader: () => import('./components/Indicator/AdminPage'),
+  loading: Loading,
+})
+
 const CountryList = Loadable({
   loader: () => import('./components/Country/List/Page'),
   loading: Loading,
@@ -52,6 +57,11 @@ const routes = [
     path: '/churches',
     name: 'Churches',
     component: withAuthorization(authCondition, adminRoleCondition)(ChurchAdminPage),
+  },
+  {
+    path: '/indicatorbank',
+    name: 'Indicator bank',
+    component: withAuthorization(authCondition, adminRoleCondition)(IndicatorAdminPage),
   },
   {
     path: '/components',
