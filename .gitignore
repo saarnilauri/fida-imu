@@ -17,7 +17,9 @@
 .env.development.local
 .env.test.local
 .env.production.local
-
+functions/service-account-credentials.json
+src/firebase/config.js
+firebase.settings.tar.gz
 db.json
 
 npm-debug.log*

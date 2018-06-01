@@ -30,6 +30,7 @@
   "app.login.header": "Tervetuloa",
   "app.login.intro": "Kirjaudu sisään tunnuksellasi.",
   "app.navi.admin.churches": "Seurakunnat",
+  "app.navi.admin.components": "Komponentit",
   "app.navi.admin.countries": "Maat",
   "app.navi.admin.indicator_bank": "Indikaattoripankki",
   "app.navi.admin.results_chains": "Suunnitelmat",
@@ -65,6 +66,17 @@
   "components.radiolabel.multiply": "Moninkertaista",
   "components.radiolabel.plant": "Istuta",
   "components.radiolabel.renew": "Uudista",
+
+  "component.list.modal.question.remove": "Haluatko varmasti poistaa komponentin?",
+  "component.list.page.header": "Strategian komponentit",
+  "component.list.page.subheader": "Järjestelmään lisätyt komponentit",
+  "component.list.table.header.name": "Komponentin nimi",
+  "component.datatable.now-rows-found": "Järjestelmään ei ole lisätty yhtään komponenttia",
+  "component.list.page.form.title.add_new": "Lisää komponentti",
+  "component.list.page.form.title.edit": "Muokkaa komponenttin tietoja",
+  
+  "component.list.page.form.placeholder.name": "Nimi",
+
   "country.list.page.form.placeholder.code": "Maakoodi (esim. fi)",
   "country.list.page.form.placeholder.country": "Maan nimi",
   "country.list.page.form.title.add_new": "Lisää maa",

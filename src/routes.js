@@ -33,6 +33,11 @@ const ChurchAdminPage = Loadable({
   loading: Loading,
 })
 
+const ComponentAdminPage = Loadable({
+  loader: () => import('./components/Component/AdminPage'),
+  loading: Loading,
+})
+
 const NotAllowed = Loadable({
   loader: () => import('./components/NotAllowed'),
   loading: Loading,
@@ -43,7 +48,16 @@ const routes = [
   { path: '/', exact: true, name: 'Landing', component: LandingPage },
   { path: '/users', name: 'Home', component: withAuthorization(authCondition, adminRoleCondition)(Users) },
   { path: '/landing', name: 'Landing', component: LandingPage },
-  { path: '/churches', name: 'Churches', component: ChurchAdminPage },
+  {
+    path: '/churches',
+    name: 'Churches',
+    component: withAuthorization(authCondition, adminRoleCondition)(ChurchAdminPage),
+  },
+  {
+    path: '/components',
+    name: 'Components',
+    component: withAuthorization(authCondition, adminRoleCondition)(ComponentAdminPage),
+  },
   {
     path: '/account',
     name: 'Account',
