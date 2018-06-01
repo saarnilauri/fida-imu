@@ -15,7 +15,6 @@ before_install:
 - export PATH=$HOME/.yarn/bin:$PATH
 install:
 - yarn install
-- cd functions && npm install
 before_script:
 - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
   > ./cc-test-reporter
@@ -26,6 +25,7 @@ script:
 - yarn testci
 after_script:
 - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+- cd functions && yarn install
 deploy:
   skip_cleanup: true
   provider: firebase
