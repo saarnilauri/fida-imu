@@ -1,6 +1,7 @@
 import pluralize from 'pluralize'
 import upperCase from 'lodash/upperCase'
 import capitalize from 'lodash/capitalize'
+import isEqual from 'lodash/isEqual'
 
 export const updateByPropertyName = (propertyName, value) => () => ({
   [propertyName]: value,
