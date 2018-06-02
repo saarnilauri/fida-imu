@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import isEqual from 'lodash/isEqual'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
@@ -12,7 +11,7 @@ import PageWrapper from '../../PageWrapper'
 import CountryListForm from './Form'
 import CountryList from './index'
 
-import { updateByPropertyName, collectionToArray, getSchemaKeys } from '../../../constants/utils'
+import { updateByPropertyName, collectionToArray, getSchemaKeys, shouldItRerender } from '../../../constants/utils'
 import { getMapDispatchToProps } from '../../../reducers/curriedFirebase'
 
 const getCleanState = () => ({
@@ -45,10 +44,7 @@ class CountryListPage extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (isEqual(nextProps, this.props) && isEqual(nextState, this.state)) {
-      return false
-    }
-    return true
+    return shouldItRerender(nextProps, this.props, nextState, this.state)
   }
 
   onSubmit(e) {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import forEach from 'lodash/forEach'
 import has from 'lodash/has'
-import isEqual from 'lodash/isEqual'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { injectIntl } from 'react-intl'
@@ -14,7 +13,7 @@ import getEntityForm from './getEntityForm'
 import getEntityList from './getEntityList'
 import { getListMapStateToProps } from './helperFunctions'
 import { getMapDispatchToProps } from '../../reducers/curriedFirebase'
-import { getWordForms } from '../../constants/utils'
+import { getWordForms, shouldItRerender } from '../../constants/utils'
 import { getEntityListPropTypes } from './EntityPropTypes'
 
 const nameKeyValuesToArray = obj => {
@@ -70,10 +69,7 @@ const getEntityAdminPage = (entity, settings) => {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-      if (isEqual(nextProps, this.props) && isEqual(nextState, this.state)) {
-        return false
-      }
-      return true
+      return shouldItRerender(nextProps, this.props, nextState, this.state)
     }
 
     onSubmit(form) {

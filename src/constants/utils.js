@@ -58,3 +58,10 @@ export function getWordForms(word) {
 }
 
 export const getValueByPath = (p, o) => p.reduce((xs, x) => (xs && xs[x] ? xs[x] : null), o)
+
+export const shouldItRerender = (nextProps, props, nextState, state) => {
+  if (isEqual(nextProps, props) && isEqual(nextState, state)) {
+    return false
+  }
+  return true
+}

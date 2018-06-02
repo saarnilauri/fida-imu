@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import isEqual from 'lodash/isEqual'
 import PropTypes from 'prop-types'
 import { Col, Row, Badge } from 'reactstrap'
 import { connect } from 'react-redux'
@@ -16,7 +15,13 @@ import IndicatorList from '../../IndicatorList' // TODO: replace the mock with a
 import CenteredLoader from '../../CenteredLoader'
 import FlagIcon from '../../FlagIcon'
 
-import { findUserItems, getSchemaKeys, getWordForms, updateByPropertyName } from '../../../constants/utils'
+import {
+  findUserItems,
+  getSchemaKeys,
+  getWordForms,
+  updateByPropertyName,
+  shouldItRerender,
+} from '../../../constants/utils'
 import {
   addResultsChainToFirebase,
   loadResultsChains,
@@ -65,10 +70,7 @@ class ResultsChainContainer extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (isEqual(nextProps, this.props) && isEqual(nextState, this.state)) {
-      return false
-    }
-    return true
+    return shouldItRerender(nextProps, this.props, nextState, this.state)
   }
 
   onResizeActivityTop = measures => {
