@@ -2,6 +2,14 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactQuill from 'react-quill'
 
+const fullToolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+  [{ header: 1 }, { header: 2 }, 'blockquote'], // custom button values
+  [{ list: 'ordered' }, { list: 'bullet' }],
+  [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
+  [{ align: [] }],
+  ['clean'], // remove formatting button
+]
 class QuillEditor extends Component {
   constructor(props) {
     super(props)
@@ -16,37 +24,13 @@ class QuillEditor extends Component {
 
   render() {
     const modules = {
-      toolbar: [
-        ['bold', 'italic', 'underline', { header: 1 }],
-        [{ list: 'ordered' }, { list: 'bullet' }],
-        //      [{ align: [] }],
-        //      ['clean'],
-      ],
+      toolbar: [['bold', 'italic', 'underline', { header: 1 }], [{ list: 'ordered' }, { list: 'bullet' }]],
     }
-
-    const fullToolbarOptions = [
-      ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-
-      [{ header: 1 }, { header: 2 }, 'blockquote'], // custom button values
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
-
-      // [{ header: [1, 2, 3, 4, 5, 6, false] }],
-
-      [{ align: [] }],
-
-      ['clean'], // remove formatting button
-    ]
-
     const formats = ['header', 'bold', 'italic', 'underline', 'strike', 'blockquote', 'list', 'bullet', 'indent']
-
     const { editMode, full } = this.props
-
     if (full) {
       modules.toolbar = fullToolbarOptions
     }
-
-    console.log(modules.toolbar)
     const view =
       editMode === true ? (
         <div className="scrolling-container">
@@ -63,7 +47,6 @@ class QuillEditor extends Component {
         // eslint-disable-next-line
         <div dangerouslySetInnerHTML={{ __html: this.state.text ? this.state.text : this.props.defaultValue }} />
       )
-
     return view
   }
 }
