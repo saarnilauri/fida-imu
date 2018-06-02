@@ -1,18 +1,20 @@
 import getEntityAdminPage from '../../hoc/getEntityAdminPage'
+import { text } from '../../hoc/schemaFunctions'
+
+const schema = {
+  type: 'object',
+  required: ['name'],
+  properties: {
+    name: text('Name'),
+  },
+}
+
+const uiSchema = {}
 
 const settings = {
-  initialState: {
-    name: '',
-  },
-  cleanState: {
-    name: '',
-  },
   form: {
-    fields: {
-      name: {
-        icon: 'cube',
-      },
-    },
+    schema,
+    uiSchema,
   },
   list: {
     settings: {

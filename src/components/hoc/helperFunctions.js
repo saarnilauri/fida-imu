@@ -1,5 +1,6 @@
 import isString from 'lodash/isString'
 import has from 'lodash/has'
+import forEach from 'lodash/forEach'
 import { collectionToArray, getWordForms } from '../../constants/utils'
 
 export const getAddEditCancelButtonSetup = settings => {
@@ -31,9 +32,15 @@ export const getErrorProperty = error => {
   return null
 }
 
-export const getListMapStateToProps = entity => state => {
+export const getListMapStateToProps = (entity, sources = {}) => state => {
   const wordForms = getWordForms(entity)
+  const sourceMaps = { sources: {} }
+  forEach(sources, (source, key) => {
+    const sourceWordForms = getWordForms(source)
+    sourceMaps.sources[key] = state[`${source}State`][`${sourceWordForms.prular}Collection`]
+  })
   return {
+    ...sourceMaps,
     authUser: state.sessionState.authUser,
     data:
       state[`${entity}State`].collectionReady === true

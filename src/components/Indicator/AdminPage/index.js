@@ -1,42 +1,50 @@
 import getEntityAdminPage from '../../hoc/getEntityAdminPage'
+import {
+  bool,
+  checkbox,
+  number,
+  select,
+  text,
+  checkboxSchema,
+  hiddenSchema,
+  numberSchema,
+  radioSchema,
+  selectSchema,
+  textareaSchema,
+} from '../../hoc/schemaFunctions'
 
-const initialState = {
-  name: '',
-  type: '',
-  component: '',
-  column: '',
+const schema = {
+  type: 'object',
+  required: ['name', 'type', 'component', 'column'],
+  properties: {
+    name: text('Name'),
+    description: text('Description'),
+    goal: number('Goal value'),
+    progress: Object.assign(text(), { default: '0' }),
+    type: bool('Is this relative to other indicators?', ['goal', 'relative']),
+    component: select('Component', [], []),
+    column: checkbox('Result chain column', ['ouput', 'outcome', 'impact'], ['Ouput', 'Outcome', 'Impact']),
+  },
 }
 
-const fields = {
-  name: {
-    icon: 'info',
-  },
-  type: {
-    icon: 'dashboard',
-    type: 'radio',
-    values: ['basic', 'relative'],
-  },
-  component: {
-    icon: 'cube',
-    type: 'radio',
-    source: 'component',
-  },
-  column: {
-    icon: 'columns',
-    type: 'checkbox',
-    values: ['activity', 'output', 'outcome', 'impact'],
-  },
+const uiSchema = {
+  description: textareaSchema(),
+  goal: numberSchema(),
+  progress: hiddenSchema(),
+  type: radioSchema(),
+  component: selectSchema(),
+  column: checkboxSchema(),
 }
 
 const settings = {
-  initialState,
-  cleanState: initialState,
   form: {
-    fields,
+    schema,
+    uiSchema,
+    sources: { component: 'component' },
   },
   list: {
     settings: {
-      tableColumns: Object.keys(initialState),
+      tableColumns: ['name', 'progress', 'goal'],
       tableSort: [{ id: 'name' }],
     },
   },

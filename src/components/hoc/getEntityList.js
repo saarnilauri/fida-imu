@@ -29,9 +29,9 @@ const getEntityList = (entity, settings) => {
 
     componentDidMount() {
       // eslint-disable-next-line
-      if (!this.props.ready) {
-        this.props[`load${wordForms.capitalizedPrular}`]()
-      }
+      // if (!this.props.ready) {
+      //  this.props[`load${wordForms.capitalizedPrular}`]()
+      // }
     }
 
     setTableSettings() {
@@ -75,7 +75,7 @@ const getEntityList = (entity, settings) => {
           formatMessage={formatMessage}
           data={data}
           tableColumns={this.tableColumns}
-          tableSort={this.tableSort}
+          tableSort={settings.tableSort}
           entity={entity}
           modalIsOpen={modalIsOpen}
           removeEntity={this.removeEntity}

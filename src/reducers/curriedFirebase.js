@@ -1,3 +1,4 @@
+import forEach from 'lodash/forEach'
 import { sendNotification } from './notifications'
 import { getWordForms } from '../constants/utils'
 
@@ -149,7 +150,7 @@ export const applyReady = (state, action) => ({
   collectionReady: action.payload,
 })
 
-export const getMapDispatchToProps = entity => dispatch => {
+export const getMapDispatchToProps = (entity, sources = {}) => dispatch => {
   const addEntity = getAddEntityToFirebaseActionCreator(entity)
   const loadEntity = getLoadOneEntityActionCreator(entity)
   const loadEntities = getLoadEntityCollectionActionCreator(entity)
@@ -165,6 +166,12 @@ export const getMapDispatchToProps = entity => dispatch => {
   map[`load${wordForms.capitalizedPrular}`] = () => dispatch(loadEntities(`${wordForms.capitalizedPrular} loaded...`))
   map[`load${wordForms.capitalized}`] = (uid, addToStore) =>
     dispatch(loadEntity(uid, `${wordForms.capitalized} loaded...`, addToStore))
+  forEach(sources, source => {
+    const sourceWordForms = getWordForms(source)
+    const loadSource = getLoadEntityCollectionActionCreator(source)
+    map[`load${sourceWordForms.capitalizedPrular}`] = () =>
+      dispatch(loadSource(`${sourceWordForms.capitalizedPrular} loaded...`))
+  })
   return map
 }
 

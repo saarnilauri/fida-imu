@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import { injectIntl } from 'react-intl'
+import Form from 'react-jsonschema-form'
+import { TypeaheadField } from 'react-jsonschema-form-extras/lib/TypeaheadField'
+import ReactDatePicker from 'react-jsonschema-form-extras/lib/ReactDatePicker'
 import { EntityFormPropTypes } from './EntityPropTypes'
 import ButtonGroup from '../ButtonGroup'
-import Form from '../Form'
-import FormElement from '../FormGroupElement'
 import { getAddEditCancelButtonSetup } from './helperFunctions'
 
-const getEntityForm = (entity, formFields) => {
+const customFields = { typeahead: TypeaheadField, rdp: ReactDatePicker }
+
+const getEntityForm = (entity, formSetup, schema) => {
   class EntityForm extends Component {
     render() {
-      const { onSubmit, error, onValueChange, getValue, editMode, cancelEdit } = this.props
+      const { onSubmit, formData, editMode, cancelEdit } = this.props
       const { formatMessage } = this.props.intl
       const buttons = getAddEditCancelButtonSetup({
         title: {
@@ -21,18 +24,13 @@ const getEntityForm = (entity, formFields) => {
         cancelEdit,
       })
       return (
-        <Form onSubmit={onSubmit} error={error ? error.message : null}>
-          {Object.keys(formFields).map(key => (
-            <FormElement
-              key={key}
-              onChange={onValueChange}
-              value={getValue(key)}
-              name={key}
-              id={key}
-              placeholder={formatMessage({ id: `${entity}.list.page.form.placeholder.${key}` })}
-              icon={formFields[key].icon}
-            />
-          ))}
+        <Form
+          formData={formData}
+          schema={schema}
+          uiSchema={formSetup.uiSchema}
+          fields={customFields}
+          onSubmit={onSubmit}
+        >
           <ButtonGroup buttons={buttons} />
         </Form>
       )

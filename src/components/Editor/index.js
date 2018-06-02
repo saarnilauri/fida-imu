@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import RichTextEditor from 'react-rte'
+import QuillEditor from '../QuillEditor'
 
 class Editor extends Component {
   static propTypes = {
@@ -11,9 +11,7 @@ class Editor extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: props.content
-        ? RichTextEditor.createValueFromString(props.content, 'html')
-        : RichTextEditor.createEmptyValue(),
+      value: props.content,
     }
   }
 
@@ -28,7 +26,11 @@ class Editor extends Component {
   }
 
   render() {
-    return <RichTextEditor value={this.state.value} onChange={this.onChange} />
+    return (
+      <React.Fragment>
+        <QuillEditor full name="profile" onChange={this.onChange} defaultValue={this.state.value} />
+      </React.Fragment>
+    )
   }
 }
 

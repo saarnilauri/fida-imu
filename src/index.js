@@ -13,6 +13,9 @@ import 'font-awesome/css/font-awesome.min.css'
 // Import Simple Line Icons Set
 import 'simple-line-icons/css/simple-line-icons.css'
 
+import 'react-bootstrap-typeahead/css/Typeahead.css'
+import 'react-day-picker/lib/style.css'
+import 'react-quill/dist/quill.snow.css'
 import 'react-table/react-table.css'
 // Import Main styles for this application
 import './scss/style.css'

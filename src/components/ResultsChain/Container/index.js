@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import isEqual from 'lodash/isEqual'
 import PropTypes from 'prop-types'
 import { Col, Row, Badge } from 'reactstrap'
 import { connect } from 'react-redux'
@@ -61,6 +62,13 @@ class ResultsChainContainer extends Component {
     if (!this.props.ready) {
       this.props.loadResultsChains()
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (isEqual(nextProps, this.props) && isEqual(nextState, this.state)) {
+      return false
+    }
+    return true
   }
 
   onResizeActivityTop = measures => {

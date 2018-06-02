@@ -21,7 +21,7 @@ const mockProfile = {
     },
   ],
   isActive: true,
-  descriptionHtml: '<p>Test</p>',
+  description: '<p>Test</p>',
   email: 'name@someplace.com',
   roles: { admin: true, missionary: true },
   username: 'John Doe',

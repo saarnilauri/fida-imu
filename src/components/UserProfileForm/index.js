@@ -19,7 +19,7 @@ import ErrorMsg from '../ErrorMsg'
 
 const INITIAL_STATE = {
   username: '',
-  descriptionHtml: null,
+  description: null,
   error: null,
   roles: {},
   isLoaded: false,
@@ -79,11 +79,11 @@ class UserProfileForm extends Component {
       roles = Object.assign(roles, temp)
     })
 
-    const { username, email, description, descriptionHtml, countries, churches } = this.state
-    const updatedDescriptionHtml = description ? description.toString('html') : descriptionHtml
+    const { username, email, description, countries, churches } = this.state
+    // const updatedDescriptionHtml = description ? description.toString('html') : descriptionHtml
 
     db
-      .writeUserData(this.props.authUser.uid, username, email, updatedDescriptionHtml, roles, countries, churches)
+      .writeUserData(this.props.authUser.uid, username, email, description, roles, countries, churches)
       .then(() => {
         toast.success(formatMessage({ id: 'account.page.progress.updated' }), {
           position: toast.POSITION.TOP_CENTER,
@@ -91,7 +91,7 @@ class UserProfileForm extends Component {
         this.props.onGetUserProfile({
           username,
           email,
-          descriptionHtml: updatedDescriptionHtml,
+          description,
           roles,
           countries,
           churches,
@@ -104,7 +104,7 @@ class UserProfileForm extends Component {
     const profile = {
       username,
       email,
-      updatedDescriptionHtml,
+      description,
       roles,
       countries,
       churches,
@@ -131,7 +131,7 @@ class UserProfileForm extends Component {
 
   render() {
     const { formatMessage } = this.props
-    const { username, descriptionHtml, error, isLoaded, roles, countries, churches } = this.state
+    const { username, description, error, isLoaded, roles, countries, churches } = this.state
 
     const isInvalid = username === ''
 
@@ -144,7 +144,7 @@ class UserProfileForm extends Component {
             <UsernameField value={username} onChange={setStateValue('username', this)} />
             <div>
               <FormContent label={formatMessage({ id: 'account.page.profile_description' })} className="py-2">
-                <Editor onChange={this.onChange} content={descriptionHtml} />
+                <Editor onChange={this.onChange} content={description} />
               </FormContent>
               <UserRoles roles={roles} handleCheckboxChange={this.toggleCheckbox} />
               <div className="py-2">

@@ -36,6 +36,11 @@ export const collectionToArray = collection =>
 export const collectionToArrayWithLabelAndValue = (collection, label) =>
   Object.keys(collection).map(uid => ({ ...collection[uid], label: collection[uid][label], value: uid, key: uid }))
 
+export const collectionToArrayWithNames = (collection, label) =>
+  Object.keys(collection).map(uid => collection[uid][label])
+
+export const collectionToKeys = collection => Object.keys(collection)
+
 export const getSchemaKeys = (state, schema) =>
   Object.keys(state).filter(key => {
     return key.indexOf('Editor') !== -1 || schema.indexOf(key) !== -1

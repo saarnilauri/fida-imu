@@ -8,6 +8,7 @@ export const EntityFormPropTypes = {
   onSubmit: PropTypes.func,
   intl: PropTypes.object.isRequired,
   error: PropTypes.string,
+  sources: PropTypes.object,
 }
 
 export const getEntityListPropTypes = wordForms => ({

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import isEqual from 'lodash/isEqual'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
@@ -41,6 +42,13 @@ class CountryListPage extends Component {
     if (!this.props.ready) {
       this.props.loadCountries()
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (isEqual(nextProps, this.props) && isEqual(nextState, this.state)) {
+      return false
+    }
+    return true
   }
 
   onSubmit(e) {

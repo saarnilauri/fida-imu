@@ -1,28 +1,22 @@
 import getEntityAdminPage from '../../hoc/getEntityAdminPage'
+import { text } from '../../hoc/schemaFunctions'
+
+const schema = {
+  type: 'object',
+  required: ['name'],
+  properties: {
+    name: text('Name'),
+    city: text('City'),
+    area: text('Area'),
+  },
+}
+
+const uiSchema = {}
 
 const settings = {
-  initialState: {
-    name: '',
-    city: '',
-    area: '',
-  },
-  cleanState: {
-    name: '',
-    city: '',
-    area: '',
-  },
   form: {
-    fields: {
-      name: {
-        // icon: 'info',
-      },
-      city: {
-        icon: 'map-signs',
-      },
-      area: {
-        icon: 'map-pin',
-      },
-    },
+    schema,
+    uiSchema,
   },
   list: {
     settings: {

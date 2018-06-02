@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import forEach from 'lodash/forEach'
+import has from 'lodash/has'
+import isEqual from 'lodash/isEqual'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { injectIntl } from 'react-intl'
@@ -11,22 +14,37 @@ import getEntityForm from './getEntityForm'
 import getEntityList from './getEntityList'
 import { getListMapStateToProps } from './helperFunctions'
 import { getMapDispatchToProps } from '../../reducers/curriedFirebase'
-import { updateByPropertyName, getSchemaKeys, getWordForms } from '../../constants/utils'
+import { getWordForms } from '../../constants/utils'
 import { getEntityListPropTypes } from './EntityPropTypes'
+
+const nameKeyValuesToArray = obj => {
+  return Object.keys(obj).map(item => {
+    return obj[item].name
+  })
+}
+
+const mapSourcesToSchema = (sources, schema) => {
+  const mappedSchema = Object.assign({}, schema)
+  // Object.assign(schema, {})
+  forEach(sources, (source, key) => {
+    if (has(schema.properties, key)) {
+      // console.log(source, key)
+      // mappedSchema.properties[key] = { enum: null, enumNames: null }
+      mappedSchema.properties[key].enum = Object.keys(source)
+      mappedSchema.properties[key].enumNames = nameKeyValuesToArray(source)
+    }
+  })
+  return mappedSchema
+}
 
 const getEntityAdminPage = (entity, settings) => {
   const wordForms = getWordForms(entity)
-  const EntityForm = getEntityForm(entity, settings.form.fields)
-  const EntityList = getEntityList(entity, settings.list.settings)
-
   class EntityListPage extends Component {
     constructor(props) {
       super(props)
 
-      this.schema = Object.keys(settings.form.fields)
-
       this.state = {
-        ...settings.initialState,
+        formData: null,
         editMode: false,
         uid: null,
         data: props.data.lenght > 0 ? props.data : [], // eslint-disable-line
@@ -34,47 +52,62 @@ const getEntityAdminPage = (entity, settings) => {
       this.editEntity = this.editEntity.bind(this)
       this.onSubmit = this.onSubmit.bind(this)
       this.cancelEdit = this.cancelEdit.bind(this)
-      this.handleValueChange = this.handleValueChange.bind(this)
-      this.getFieldValueFromState = this.getFieldValueFromState.bind(this)
     }
 
-    onSubmit(e) {
-      const cleanProps = getSchemaKeys(this.state, this.schema)
-      const { uid } = this.state
+    componentDidMount() {
+      if (settings.form.sources) {
+        // console.log(settings.form.sources)
+        forEach(settings.form.sources, source => {
+          const sourceWordForms = getWordForms(source)
+          // console.log(sourceWordForms)
+          this.props[`load${sourceWordForms.capitalizedPrular}`]()
+        })
+      }
+      // eslint-disable-next-line
+      if (!this.props.ready) {
+        this.props[`load${wordForms.capitalizedPrular}`]()
+      }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+      if (isEqual(nextProps, this.props) && isEqual(nextState, this.state)) {
+        return false
+      }
+      return true
+    }
+
+    onSubmit(form) {
       const data = {}
-
-      cleanProps.forEach(key => {
-        data[key] = this.state[key]
+      forEach(form.formData, (item, key) => {
+        const value = item === undefined ? '' : item
+        data[key] = value
       })
-
+      const { uid } = this.state
       if (uid === null) {
         this.props[`add${wordForms.capitalized}`](data)
       } else {
         this.props[`update${wordForms.capitalized}`](uid, data)
       }
-
-      this.setState(() => ({ ...settings.cleanState, editMode: false, uid: null }))
-
-      e.preventDefault()
+      this.setState(() => ({ formData: null, editMode: false, uid: null }))
     }
 
-    getFieldValueFromState(key) {
-      return this.state[key]
-    }
     editEntity(uid) {
       const { data } = this.props
-      this.setState(() => ({ ...data.find(item => item.uid === uid), editMode: true }))
-    }
-    handleValueChange(event) {
-      this.setState(updateByPropertyName(event.target.id, event.target.value))
+      this.setState(() => ({ uid, formData: data.find(item => item.uid === uid), editMode: true }))
     }
     cancelEdit() {
-      this.setState(() => ({ ...settings.cleanState, editMode: false, uid: null }))
+      this.setState(() => ({ formData: null, editMode: false, uid: null }))
     }
 
     render() {
-      const { area, name, code, error, editMode } = this.state
+      const mappedSchema = mapSourcesToSchema(this.props.sources, settings.form.schema)
+      // console.log(Object.assign({}, settings.form.schema, mappedSchema))
+      const EntityForm = getEntityForm(entity, settings.form, mappedSchema)
+      const EntityList = getEntityList(entity, settings.list.settings)
+
+      const { formData, editMode } = this.state
       const { formatMessage } = this.props.intl // eslint-disable-line
+
       return (
         <React.Fragment>
           <PageTitle title={formatMessage({ id: `${entity}.list.page.header` })} />
@@ -95,17 +128,11 @@ const getEntityAdminPage = (entity, settings) => {
                   headerClass={editMode ? 'bg-secondary text-white' : ''}
                 >
                   <EntityForm
-                    // entity={entity}
+                    formData={formData}
                     onSubmit={this.onSubmit}
-                    error={error}
-                    onValueChange={this.handleValueChange}
-                    getValue={this.getFieldValueFromState}
-                    onAreaChange={event => this.setState(updateByPropertyName('area', event.target.value))}
-                    name={name}
-                    area={area}
-                    code={code}
                     editMode={editMode}
                     cancelEdit={this.cancelEdit}
+                    sources={this.props.sources} // eslint-disable-line
                   />
                 </Card>
               </Col>
@@ -117,9 +144,9 @@ const getEntityAdminPage = (entity, settings) => {
   }
 
   EntityListPage.propTypes = getEntityListPropTypes(wordForms)
-
-  const mapDispatchToProps = getMapDispatchToProps(entity)
-  const mapStateToProps = getListMapStateToProps(entity)
+  const sources = settings.form.sources ? settings.form.sources : []
+  const mapStateToProps = getListMapStateToProps(entity, sources)
+  const mapDispatchToProps = getMapDispatchToProps(entity, sources)
 
   return compose(
     injectIntl,

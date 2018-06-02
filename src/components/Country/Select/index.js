@@ -1,22 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Select from 'react-select'
-import 'react-select/dist/react-select.css'
+import { Typeahead } from 'react-bootstrap-typeahead'
 
 import withCountries from '../../hoc/withCountries'
 
 const CountrySelect = props => {
   const view = props.ready ? (
-    <Select
-      multi
-      closeOnSelect={false}
-      placeholder="Select related countries"
-      name="countries"
+    <Typeahead
+      labelKey="label"
+      multiple
       options={props.data}
-      className="basic-multi-select"
-      classNamePrefix="select"
+      defaultSelected={props.value || []}
       onChange={props.onChange}
-      value={props.value}
+      placeholder="Select related countries"
     />
   ) : null
   return view
