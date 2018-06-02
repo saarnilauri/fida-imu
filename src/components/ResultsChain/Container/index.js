@@ -15,7 +15,13 @@ import IndicatorList from '../../IndicatorList' // TODO: replace the mock with a
 import CenteredLoader from '../../CenteredLoader'
 import FlagIcon from '../../FlagIcon'
 
-import { findUserItems, getSchemaKeys, getWordForms, updateByPropertyName } from '../../../constants/utils'
+import {
+  findUserItems,
+  getSchemaKeys,
+  getWordForms,
+  updateByPropertyName,
+  shouldItRerender,
+} from '../../../constants/utils'
 import {
   addResultsChainToFirebase,
   loadResultsChains,
@@ -61,6 +67,10 @@ class ResultsChainContainer extends Component {
     if (!this.props.ready) {
       this.props.loadResultsChains()
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return shouldItRerender(nextProps, this.props, nextState, this.state)
   }
 
   onResizeActivityTop = measures => {

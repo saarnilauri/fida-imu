@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { injectIntl } from 'react-intl'
-import ReactTable from 'react-table'
 
 import CenteredLoader from '../CenteredLoader'
-import Modal from '../Modal'
-import EditAndRemove from '../ButtonGroup/EditAndRemove'
-
-import { collectionToArray, getWordForms } from '../../constants/utils'
+import EntityListView from './EntityListView'
+import getListActionsColumn from './getListActionsCol'
+import { getEntityListPropTypes } from './EntityPropTypes'
+import { getListMapStateToProps } from './helperFunctions'
 import { getMapDispatchToProps } from '../../reducers/curriedFirebase'
+import { getWordForms } from '../../constants/utils'
 
 const getCleanState = () => ({
   modalIsOpen: false,
@@ -29,30 +28,25 @@ const getEntityList = (entity, settings) => {
     }
 
     componentDidMount() {
-      if (!this.props.ready) {
-        // this.props[`load${wordForms.capitalizedPlural}`]()
-      }
+      // eslint-disable-next-line
+      // if (!this.props.ready) {
+      //  this.props[`load${wordForms.capitalizedPrular}`]()
+      // }
     }
 
     setTableSettings() {
-      const { formatMessage } = this.props.intl
+      const { formatMessage } = this.props.intl // eslint-disable-line
       this.tableColumns = settings.tableColumns.map(column => ({
         Header: formatMessage({ id: `${entity}.list.table.header.${column}` }),
         accessor: column,
       }))
-      this.tableColumns.push({
-        Header: formatMessage({ id: 'country.list.table.header.actions' }),
-        id: 'edit',
-        width: 100,
-        accessor: d => (
-          <EditAndRemove
-            editTitleAttr={formatMessage({ id: 'actions.edit' })}
-            removeTitleAttr={formatMessage({ id: 'actions.remove' })}
-            onClickEdit={() => this.props.edit(d.uid)}
-            onClickRemove={() => this.promptRemove(d.uid)}
-          />
-        ),
-      })
+      this.tableColumns.push(
+        getListActionsColumn({
+          formatMessage,
+          edit: this.props.edit, // eslint-disable-line
+          promptRemove: this.promptRemove,
+        }),
+      )
     }
 
     cancelRemove() {
@@ -74,66 +68,28 @@ const getEntityList = (entity, settings) => {
 
     render() {
       const { modalIsOpen } = this.state
-      const { ready, data } = this.props
+      const { ready, data } = this.props // eslint-disable-line
       const { formatMessage } = this.props.intl
       const view = ready ? (
-        <React.Fragment>
-          <ReactTable
-            data={data}
-            columns={this.tableColumns}
-            defaultSorted={settings.tableSort}
-            defaultPageSize={10}
-            className="-striped -highlight"
-            previousText={formatMessage({ id: 'datatable.pagination.previous' })}
-            nextText={formatMessage({ id: 'datatable.pagination.next' })}
-            loadingText={formatMessage({ id: 'datatable.loading' })}
-            noDataText={formatMessage({ id: `${entity}.datatable.now-rows-found` })}
-            pageText={formatMessage({ id: 'datatable.page' })}
-            ofText={formatMessage({ id: 'datatable.of' })}
-            rowsText={formatMessage({ id: 'datatable.rows' })}
-          />
-          <Modal
-            isOpen={modalIsOpen}
-            action={this.removeEntity}
-            cancel={this.cancelRemove}
-            title={formatMessage({ id: 'modal.header.please_confirm' })}
-            className="modal-danger"
-            titleIcon="exclamation-circle"
-            actionBtnIcon="trash"
-            cancelBtnTitle={formatMessage({ id: 'modal.actions.cancel' })}
-            actionBtnTitle={formatMessage({ id: 'modal.actions.yes_remove' })}
-          >
-            {formatMessage({ id: `${entity}.list.modal.question.remove` })}
-          </Modal>
-        </React.Fragment>
+        <EntityListView
+          formatMessage={formatMessage}
+          data={data}
+          tableColumns={this.tableColumns}
+          tableSort={settings.tableSort}
+          entity={entity}
+          modalIsOpen={modalIsOpen}
+          removeEntity={this.removeEntity}
+          cancelRemove={this.cancelRemove}
+        />
       ) : (
         <CenteredLoader />
       )
       return view
     }
   }
-
+  EntityList.propTypes = getEntityListPropTypes(wordForms)
   const mapDispatchToProps = getMapDispatchToProps(entity)
-
-  EntityList.propTypes = {
-    data: PropTypes.array,
-    intl: PropTypes.object,
-    [`load${wordForms.capitalizedPlural}`]: PropTypes.func, // eslint-disable-line
-    ready: PropTypes.bool,
-    edit: PropTypes.func,
-    [`remove${wordForms.capitalized}`]: PropTypes.func, // eslint-disable-line
-  }
-
-  const mapStateToProps = state => {
-    return {
-      authUser: state.sessionState.authUser,
-      data:
-        state[`${entity}State`].collectionReady === true
-          ? collectionToArray(state[`${entity}State`][`${wordForms.prular}Collection`])
-          : [],
-      ready: state[`${entity}State`].collectionReady,
-    }
-  }
+  const mapStateToProps = getListMapStateToProps(entity)
   return compose(injectIntl, connect(mapStateToProps, mapDispatchToProps))(EntityList)
 }
 

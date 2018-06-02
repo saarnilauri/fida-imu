@@ -59,7 +59,7 @@ CountryListForm.propTypes = {
   onCodeChange: PropTypes.func,
   onNameChange: PropTypes.func,
   onSubmit: PropTypes.func,
-  intl: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
 }
 
 export default injectIntl(CountryListForm)

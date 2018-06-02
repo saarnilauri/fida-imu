@@ -1,6 +1,7 @@
 import pluralize from 'pluralize'
 import upperCase from 'lodash/upperCase'
 import capitalize from 'lodash/capitalize'
+import isEqual from 'lodash/isEqual'
 
 export const updateByPropertyName = (propertyName, value) => () => ({
   [propertyName]: value,
@@ -36,6 +37,11 @@ export const collectionToArray = collection =>
 export const collectionToArrayWithLabelAndValue = (collection, label) =>
   Object.keys(collection).map(uid => ({ ...collection[uid], label: collection[uid][label], value: uid, key: uid }))
 
+export const collectionToArrayWithNames = (collection, label) =>
+  Object.keys(collection).map(uid => collection[uid][label])
+
+export const collectionToKeys = collection => Object.keys(collection)
+
 export const getSchemaKeys = (state, schema) =>
   Object.keys(state).filter(key => {
     return key.indexOf('Editor') !== -1 || schema.indexOf(key) !== -1
@@ -53,3 +59,10 @@ export function getWordForms(word) {
 }
 
 export const getValueByPath = (p, o) => p.reduce((xs, x) => (xs && xs[x] ? xs[x] : null), o)
+
+export const shouldItRerender = (nextProps, props, nextState, state) => {
+  if (isEqual(nextProps, props) && isEqual(nextState, state)) {
+    return false
+  }
+  return true
+}

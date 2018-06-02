@@ -1,60 +1,42 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
-import ErrorMsg from '../ErrorMsg'
+import Form from 'react-jsonschema-form'
+import { TypeaheadField } from 'react-jsonschema-form-extras/lib/TypeaheadField'
+import ReactDatePicker from 'react-jsonschema-form-extras/lib/ReactDatePicker'
+import { EntityFormPropTypes } from './EntityPropTypes'
 import ButtonGroup from '../ButtonGroup'
-import FormElement from '../FormGroupElement'
+import { getAddEditCancelButtonSetup } from './helperFunctions'
 
-const getEntityForm = (entity, formFields) => {
+const customFields = { typeahead: TypeaheadField, rdp: ReactDatePicker }
+
+const getEntityForm = (entity, formSetup, schema) => {
   class EntityForm extends Component {
     render() {
-      const { onSubmit, error, onValueChange, getValue, editMode, cancelEdit } = this.props
+      const { onSubmit, formData, editMode, cancelEdit } = this.props
       const { formatMessage } = this.props.intl
-      const buttons = [
-        {
-          color: 'primary',
-          onClick: () => {},
-          title: editMode ? formatMessage({ id: 'actions.save' }) : formatMessage({ id: 'actions.add' }),
-          type: 'submit',
+      const buttons = getAddEditCancelButtonSetup({
+        title: {
+          add: formatMessage({ id: 'actions.add' }),
+          save: formatMessage({ id: 'actions.save' }),
+          cancel: formatMessage({ id: 'actions.cancel' }),
         },
-      ]
-      if (editMode) {
-        buttons.push({
-          onClick: cancelEdit,
-          color: 'secondary',
-          title: formatMessage({ id: 'actions.cancel' }),
-        })
-      }
+        editMode,
+        cancelEdit,
+      })
       return (
-        <form onSubmit={onSubmit}>
-          {error && <ErrorMsg error={error.message} />}
-          {Object.keys(formFields).map(key => (
-            <FormElement
-              key={key}
-              onChange={onValueChange}
-              value={getValue(key)}
-              name={key}
-              id={key}
-              placeholder={formatMessage({ id: `${entity}.list.page.form.placeholder.${key}` })}
-              icon={formFields[key].icon}
-            />
-          ))}
+        <Form
+          formData={formData}
+          schema={schema}
+          uiSchema={formSetup.uiSchema}
+          fields={customFields}
+          onSubmit={onSubmit}
+        >
           <ButtonGroup buttons={buttons} />
-        </form>
+        </Form>
       )
     }
   }
-
-  EntityForm.propTypes = {
-    cancelEdit: PropTypes.func,
-    editMode: PropTypes.bool,
-    onValueChange: PropTypes.func,
-    getValue: PropTypes.func,
-    onSubmit: PropTypes.func,
-    intl: PropTypes.object.isRequired,
-    error: PropTypes.string,
-  }
-
+  EntityForm.propTypes = EntityFormPropTypes
   return injectIntl(EntityForm)
 }
 

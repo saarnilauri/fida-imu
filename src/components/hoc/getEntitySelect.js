@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { compose } from 'recompose'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
-import Select from 'react-select'
-import 'react-select/dist/react-select.css'
+import { Typeahead } from 'react-bootstrap-typeahead'
 
 import withEntities from './withEntities'
 
@@ -13,17 +12,16 @@ const getEntitySelect = entity => {
       const { ready, data, onChange, value } = this.props
       const { formatMessage } = this.props.intl
       const view = ready ? (
-        <Select
-          multi
-          closeOnSelect={false}
-          placeholder={formatMessage({ id: `${entity}.select.placeholder` })}
-          name="countries"
-          options={data}
-          className="basic-multi-select"
-          classNamePrefix="select"
-          onChange={onChange}
-          value={value}
-        />
+        <React.Fragment>
+          <Typeahead
+            labelKey="label"
+            multiple
+            options={data}
+            defaultSelected={value || []}
+            onChange={onChange}
+            placeholder={formatMessage({ id: `${entity}.select.placeholder` })}
+          />
+        </React.Fragment>
       ) : null
       return view
     }

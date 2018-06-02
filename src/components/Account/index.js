@@ -17,7 +17,7 @@ const AccountPage = props => {
       <PageTitle title={props.intl.formatMessage({ id: 'account.page.title' })} />
       <Container fluid>
         <Row className="full-height d-flex justify-content-left align-items-top py-4">
-          <Col md="6" className="fadeIn animated">
+          <Col md="8" className="fadeIn animated">
             <Card title={props.intl.formatMessage({ id: 'account.page.subtitle' }, { name: props.authUser.email })}>
               <UserProfileForm formatMessage={props.intl.formatMessage} />
             </Card>
@@ -28,9 +28,6 @@ const AccountPage = props => {
             </Card>
           </Col>
         </Row>
-        <div className="half-page-image tuktuk">
-          <p>Image by: aaaa</p>
-        </div>
       </Container>
     </div>
   )

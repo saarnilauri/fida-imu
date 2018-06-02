@@ -95,6 +95,17 @@
   "datatable.rows": "riviä",
   "error.occured": "Tapahtui virhe!",
   "image.dropzone.instructions": "Klikkaa tai raahaa ja pudota kuvia tähän.",
+  
+  "indicator.list.page.header" : "Indikaattoripankki",
+  "indicator.list.page.subheader": "Palveluun lisätyt inkikaattorit",
+  "indicator.list.table.header.name": "Nimi",
+  "indicator.list.table.header.progress": "Syötteet",
+  "indicator.list.table.header.goal": "Tavoite",  
+  "indicator.list.page.form.title.add_new": "Lisää indikaattori",
+  "indicator.list.page.form.title.edit": "Muokkaa indikaattoria",
+  "indicator.datatable.now-rows-found": "Ei yhtään indikaattoria",
+  "indicator.list.modal.question.remove": "Haluatko varmasti poistaa indikaattorin",
+
   "modal.actions.cancel": "Peruuta",
   "modal.actions.yes_remove": "Kyllä, olen varma",
   "modal.header.please_confirm": "Ole hyvä ja vahvista:",

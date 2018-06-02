@@ -11,7 +11,7 @@ import PageWrapper from '../../PageWrapper'
 import CountryListForm from './Form'
 import CountryList from './index'
 
-import { updateByPropertyName, collectionToArray, getSchemaKeys } from '../../../constants/utils'
+import { updateByPropertyName, collectionToArray, getSchemaKeys, shouldItRerender } from '../../../constants/utils'
 import { getMapDispatchToProps } from '../../../reducers/curriedFirebase'
 
 const getCleanState = () => ({
@@ -41,6 +41,10 @@ class CountryListPage extends Component {
     if (!this.props.ready) {
       this.props.loadCountries()
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return shouldItRerender(nextProps, this.props, nextState, this.state)
   }
 
   onSubmit(e) {
@@ -83,12 +87,12 @@ class CountryListPage extends Component {
         <PageTitle title={formatMessage({ id: 'country.list.page.header' })} />
         <PageWrapper>
           <Row>
-            <Col md="9">
+            <Col md="8">
               <Card title={formatMessage({ id: 'country.list.page.subheader' })} noPadding>
                 <CountryList edit={this.editCountry} />
               </Card>
             </Col>
-            <Col md="3">
+            <Col md="4">
               <Card
                 title={
                   editMode
