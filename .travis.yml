@@ -3,7 +3,7 @@ notifications:
 env:
   global: CC_TEST_REPORTER_ID=ac6fc9fc89dd17739f1be0994221f61248d30385f0d89d57381c0916bf97456a
 language: node_js
-node_js: 7
+node_js: 8
 sudo: false
 cache: yarn
 before_install:
