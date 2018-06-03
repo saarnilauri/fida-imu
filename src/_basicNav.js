@@ -11,6 +11,11 @@ export default {
       icon: 'fa fa-files-o',
     },
     {
+      name: 'app.navi.basic.prayers',
+      url: '/prayers',
+      icon: 'fa fa-comment',
+    },
+    {
       title: true,
       name: 'app.navi.basic.title.more',
     },
