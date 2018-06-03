@@ -18,6 +18,7 @@ const rootReducer = combineReducers({
   churchState: getEntityReducer('church'),
   componentState: getEntityReducer('component'),
   indicatorState: getEntityReducer('indicator'),
+  prayerState: getEntityReducer('prayer'),
   profileThumb: profileThumbReducer,
 })
 

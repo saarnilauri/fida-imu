@@ -42,6 +42,10 @@ const ComponentAdminPage = Loadable({
   loader: () => import('./components/Component/AdminPage'),
   loading: Loading,
 })
+const PrayerAdminPage = Loadable({
+  loader: () => import('./components/Prayer/AdminPage'),
+  loading: Loading,
+})
 
 const NotAllowed = Loadable({
   loader: () => import('./components/NotAllowed'),
@@ -67,6 +71,11 @@ const routes = [
     path: '/components',
     name: 'Components',
     component: withAuthorization(authCondition, adminRoleCondition)(ComponentAdminPage),
+  },
+  {
+    path: '/prayers',
+    name: 'Prayers',
+    component: withAuthorization(authCondition)(PrayerAdminPage),
   },
   {
     path: '/account',

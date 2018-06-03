@@ -42,6 +42,16 @@
   "app.navi.basic.reports": "Raportit",
   "app.navi.basic.results_chain": "Suunnitelma",
   "app.navi.basic.title.more": "Lisää",
+  "app.navi.basic.prayers": "Rukousaiheet",
+
+  "prayer.list.page.subheader": "Rukousaiheita",
+  "prayer.list.page.form.title.add_new": "Lisää rukousaihe",
+  "prayer.datatable.now-rows-found": "Ei lisättyjä aiheita",
+  "prayer.list.table.header.name": "Otsikko",
+  "prayer.list.table.header.text": "Teksti",
+  "prayer.list.page.header": "Rukous- ja kiitosaiheet",
+  "prayer.list.modal.question.remove": "Haluatko varmasti poistaa tämän rukousaiheen?",
+
   "app.pwd-forgot.header": "Unohtuiko salasanasi?",
   "app.pwd-forgot.intro": "Ei huolta. Täytä alla oleva lomake, niin lähetämme sinulle ohjeet uuden salasanan hankkimiseen.",
   "app.pwd-forgot.login": "Kirjaudu sisään",
