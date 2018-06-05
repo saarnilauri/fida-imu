@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl'
 import { Row, Col } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import Card from '../Card'
+import RecentPrayers from '../Prayer/RecentPrayers'
 
 const LandingPage = () => {
   return (
@@ -27,6 +28,9 @@ const LandingPage = () => {
                 </Col>
               </Row>
             </Card>
+          </Col>
+          <Col md="5">
+            <RecentPrayers />
           </Col>
         </Row>
       </div>
