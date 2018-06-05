@@ -11,7 +11,7 @@ const schema = {
 }
 
 const uiSchema = {
-  description: textareaSchema(),
+  text: textareaSchema(),
 }
 
 const settings = {
