@@ -51,6 +51,7 @@
   "prayer.list.table.header.text": "Teksti",
   "prayer.list.page.header": "Rukous- ja kiitosaiheet",
   "prayer.list.modal.question.remove": "Haluatko varmasti poistaa tämän rukousaiheen?",
+  "prayer.recent.card.headder": "Viimeisimmät rukousaiheet",
 
   "app.pwd-forgot.header": "Unohtuiko salasanasi?",
   "app.pwd-forgot.intro": "Ei huolta. Täytä alla oleva lomake, niin lähetämme sinulle ohjeet uuden salasanan hankkimiseen.",
