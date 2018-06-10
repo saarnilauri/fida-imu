@@ -13,6 +13,7 @@ export const EntityFormPropTypes = {
 
 export const getEntityListPropTypes = wordForms => ({
   data: PropTypes.array,
+  userProfile: PropTypes.object,
   intl: PropTypes.object,
   [`load${wordForms.capitalizedPlural}`]: PropTypes.func, // eslint-disable-line
   ready: PropTypes.bool,

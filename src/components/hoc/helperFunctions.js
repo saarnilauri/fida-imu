@@ -42,6 +42,7 @@ export const getListMapStateToProps = (entity, sources = {}) => state => {
   return {
     ...sourceMaps,
     authUser: state.sessionState.authUser,
+    userProfile: state.firebase.profile,
     data:
       state[`${entity}State`].collectionReady === true
         ? collectionToArray(state[`${entity}State`][`${wordForms.prular}Collection`])
