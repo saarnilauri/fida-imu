@@ -5,7 +5,7 @@ import map from 'lodash/map'
 import uuid from 'uuid'
 import { Button, Row, Col } from 'reactstrap'
 
-const EntityImageDropZonePreview = ({ uploadedFiles }) => (
+const EntityImageDropZonePreview = ({ onFileDelete, uploadedFiles }) => (
   <React.Fragment>
     {uploadedFiles && (
       <div className="py-2">
@@ -19,7 +19,7 @@ const EntityImageDropZonePreview = ({ uploadedFiles }) => (
                 <div className="dropzone-image-remove-wrapper">
                   <Button
                     color="danger"
-                    onClick={() => this.onFileDelete(file, key)}
+                    onClick={() => onFileDelete(file, key)}
                     style={{ color: '#fff', borderRadius: 20 }}
                   >
                     <Fontawesome name="trash" />
@@ -35,6 +35,7 @@ const EntityImageDropZonePreview = ({ uploadedFiles }) => (
 )
 
 EntityImageDropZonePreview.propTypes = {
+  onFileDelete: PropTypes.func.isRequired,
   uploadedFiles: PropTypes.object.isRequired,
 }
 

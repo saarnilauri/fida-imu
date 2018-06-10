@@ -58,7 +58,9 @@ const getEntityImageDropZone = (entity, multiple = false, authUserUid = null) =>
       return (
         <React.Fragment>
           {error && <ErrorMsg error={error.message} />}
-          {this.props.uploadedFiles && <EntityImageDropZonePreview uploadedFiles={this.props.uploadedFiles} />}
+          {this.props.uploadedFiles && (
+            <EntityImageDropZonePreview onFileDelete={this.onFileDelete} uploadedFiles={this.props.uploadedFiles} />
+          )}
           {displayDropzone &&
             !isProcessing && (
             <EntityImageDropZone

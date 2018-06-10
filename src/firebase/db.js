@@ -12,8 +12,18 @@ export const doCreateUser = (id, username, email, roles = { missionary: true }) 
     isActive: false,
     description: '',
   }
-  db.ref(`users/${id}`).set(data)
-  db.ref(`userProfiles/${id}`).set(data)
+  const userDataReady = new Promise((resolve, reject) => {
+    db.ref(`users/${id}`)
+      .set(data)
+      .then(() => {
+        db.ref(`userProfiles/${id}`)
+          .set(data)
+          .then(() => resolve())
+          .catch(error => reject(error))
+      })
+      .catch(error => reject(error))
+  })
+  return userDataReady
 }
 
 export const onceGetUsers = () => db.ref('users').once('value')
