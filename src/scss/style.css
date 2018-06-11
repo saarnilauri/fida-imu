@@ -10031,6 +10031,8 @@ label {
     background-color: rgba(255, 255, 255, 0.9); }
     .landing-bg .card .lead {
       font-size: 1.4rem; }
+  .landing-bg .list-group-item {
+    background-color: transparent; }
 
 .full-height {
   height: 100%; }
@@ -10092,19 +10094,33 @@ label {
   .rjsf .radio label {
     font-weight: 400; }
 
-.rjsf .checkbox input[type="checkbox"],
-.rjsf .checkbox-inline input[type="checkbox"],
-.rjsf .radio input[type="radio"],
-.rjsf .radio-inline input[type="radio"] {
+.rjsf .checkbox input[type='checkbox'],
+.rjsf .checkbox-inline input[type='checkbox'],
+.rjsf .radio input[type='radio'],
+.rjsf .radio-inline input[type='radio'] {
   position: absolute;
   margin-top: 4px\9;
   margin-left: -20px; }
 
-.rjsf input[type="checkbox"],
-.rjsf input[type="radio"] {
+.rjsf input[type='checkbox'],
+.rjsf input[type='radio'] {
   margin: 4px 0 0;
   margin-top: 1px\9;
   line-height: normal; }
+
+.collapseToggle {
+  display: block;
+  transform: rotate(135deg);
+  float: right; }
+
+.prayer-heading {
+  cursor: pointer; }
+
+.prayer-text {
+  margin-top: 1rem;
+  border-left: 5px solid #ccc;
+  padding-left: 15px;
+  display: inline-block; }
 
 html body .app.flex-row.align-items-center {
   height: 100vh; }

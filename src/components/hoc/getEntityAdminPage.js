@@ -24,11 +24,8 @@ const nameKeyValuesToArray = obj => {
 
 const mapSourcesToSchema = (sources, schema) => {
   const mappedSchema = Object.assign({}, schema)
-  // Object.assign(schema, {})
   forEach(sources, (source, key) => {
     if (has(schema.properties, key)) {
-      // console.log(source, key)
-      // mappedSchema.properties[key] = { enum: null, enumNames: null }
       mappedSchema.properties[key].enum = Object.keys(source)
       mappedSchema.properties[key].enumNames = nameKeyValuesToArray(source)
     }
@@ -55,10 +52,8 @@ const getEntityAdminPage = (entity, settings) => {
 
     componentDidMount() {
       if (settings.form.sources) {
-        // console.log(settings.form.sources)
         forEach(settings.form.sources, source => {
           const sourceWordForms = getWordForms(source)
-          // console.log(sourceWordForms)
           this.props[`load${sourceWordForms.capitalizedPrular}`]()
         })
       }
@@ -78,6 +73,8 @@ const getEntityAdminPage = (entity, settings) => {
         const value = item === undefined ? '' : item
         data[key] = value
       })
+      data.username = this.props.userProfile.username // eslint-disable-line
+
       const { uid } = this.state
       if (uid === null) {
         this.props[`add${wordForms.capitalized}`](data)
@@ -96,8 +93,8 @@ const getEntityAdminPage = (entity, settings) => {
     }
 
     render() {
-      const mappedSchema = mapSourcesToSchema(this.props.sources, settings.form.schema)
-      // console.log(Object.assign({}, settings.form.schema, mappedSchema))
+      const mappedSchema = mapSourcesToSchema(this.props.sources, settings.form.schema) // eslint-disable-line
+
       const EntityForm = getEntityForm(entity, settings.form, mappedSchema)
       const EntityList = getEntityList(entity, settings.list.settings)
 

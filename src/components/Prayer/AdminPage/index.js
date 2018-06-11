@@ -1,5 +1,5 @@
 import getEntityAdminPage from '../../hoc/getEntityAdminPage'
-import { text, textareaSchema } from '../../hoc/schemaFunctions'
+import { text, textareaSchema, bool, radioSchema } from '../../hoc/schemaFunctions'
 
 const schema = {
   type: 'object',
@@ -7,11 +7,14 @@ const schema = {
   properties: {
     name: text('Topic'),
     text: text('Text'),
+    person: text('Person'),
+    anonymous: bool('Display as anonymous prayer reques', ['yes', 'no']),
   },
 }
 
 const uiSchema = {
-  description: textareaSchema(),
+  text: textareaSchema(),
+  anonymous: radioSchema(),
 }
 
 const settings = {
