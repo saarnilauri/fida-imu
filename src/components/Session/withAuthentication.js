@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import LogRocket from 'logrocket'
 import { loadThumbURL } from '../../reducers/profileThumb'
 import { firebase, db } from '../../firebase'
 
@@ -15,6 +16,9 @@ const withAuthentication = Component => {
 
       firebase.auth.onAuthStateChanged(authUser => {
         if (authUser) {
+          LogRocket.identify(authUser.uid, {
+            email: authUser.email,
+          })
           onSetAuthUser(authUser)
           db.onceGetUserById(authUser.uid).then(snap => {
             onGetUserProfile(snap.val())
@@ -45,7 +49,10 @@ const withAuthentication = Component => {
     onGetUserProfile: userProfile => dispatch({ type: 'SET_USER_PROFILE', userProfile }),
   })
 
-  return connect(null, mapDispatchToProps)(WithAuthentication)
+  return connect(
+    null,
+    mapDispatchToProps,
+  )(WithAuthentication)
 }
 
 export default withAuthentication

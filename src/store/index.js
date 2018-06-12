@@ -1,4 +1,5 @@
 import { applyMiddleware, compose, createStore } from 'redux'
+import LogRocket from 'logrocket'
 import thunk from 'redux-thunk'
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
 // import logger from 'redux-logger'
@@ -17,7 +18,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 const store = createStore(
   rootReducer,
   composeEnhancers(
-    applyMiddleware(thunk.withExtraArgument(getFirebase)),
+    applyMiddleware(thunk.withExtraArgument(getFirebase), LogRocket.reduxMiddleware()),
     reactReduxFirebase(firebase, rrfConfig, { userProfile: 'usersProfiles', enableLogging: false }),
   ),
 )
