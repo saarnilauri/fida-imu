@@ -2,14 +2,13 @@
 
 # dependencies
 /node_modules
-/custom-bootstrap/node_modules
-/custom-bootstrap/bower_components
 
 # testing
 /coverage
 
 # production
 /build
+src/scss/style.css
 
 # misc
 .DS_Store
