@@ -6,6 +6,5 @@ build
 functions
 .vscode
 jest.config.js
-custom-bootstrap/gulpfile.js
 src/registerServiceWorker.js
 reports
