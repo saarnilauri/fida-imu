@@ -1,8 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { ToastContainer, style } from 'react-toastify'
-import Transition from 'react-transition-group/Transition'
-import { TOAST_LONG, TOAST_ANIMATION_DURATION } from '../../constants/ui.setup'
+import { TOAST_LONG } from '../../constants/ui.setup'
+import FadeInAndOut from './FadeInAndOut'
 
 style({
   width: '320px',
@@ -42,25 +41,6 @@ style({
     right: '1em',
   },
 })
-
-// Any transition created with react-transition-group/Transition will work !
-const FadeInAndOut = ({ children, ...props }) => (
-  <Transition
-    {...props}
-    timeout={TOAST_ANIMATION_DURATION}
-    onEnter={node => node.classList.add('fadeInDownBig', 'animated')}
-    onExit={node => {
-      // node.classList.remove('fadeInLeft', 'animate')
-      node.classList.add('fadeOutUpBig', 'animated')
-    }}
-  >
-    {children}
-  </Transition>
-)
-
-FadeInAndOut.propTypes = {
-  children: PropTypes.object,
-}
 
 const FidaToast = () => <ToastContainer autoClose={TOAST_LONG} hideProgressBar transition={FadeInAndOut} />
 
