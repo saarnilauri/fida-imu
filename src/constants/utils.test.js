@@ -1,10 +1,12 @@
 import {
-  updateByPropertyName,
-  findUserItems,
   collectionToArray,
-  getWordForms,
   collectionToArrayWithLabelAndValue,
+  collectionToArrayWithNames,
+  findUserItems,
   getValueByPath,
+  getWordForms,
+  shouldItRerender,
+  updateByPropertyName,
 } from './utils'
 
 const mockCollection = {
@@ -17,7 +19,7 @@ const mockCollection = {
     users: ['test-user-key'],
   },
   'item-3': {
-    name: 'item4name',
+    name: 'item3name',
     users: ['test-user-key', 'test-user-2-key'],
   },
   'item-4': {
@@ -43,6 +45,14 @@ describe('Util functions', () => {
 
   it('collectionToArray returns array of objects', () => {
     expect(collectionToArray(mockCollection)).toEqual(expect.any(Array))
+  })
+
+  it('collectionToArrayWithNames returns array of values from  entity name properties', () => {
+    const results = collectionToArrayWithNames(mockCollection, 'name')
+    expect(results).toEqual(expect.any(Array))
+    expect(results[0]).toBe('item1name')
+    expect(results[1]).toBe('item2name')
+    expect(results[2]).toBe('item3name')
   })
 
   it('collectionToArrayWithLabelAndValue returns array of objects', () => {
@@ -91,5 +101,15 @@ describe('Util functions', () => {
   it('getValueByPath return correct value from object by given path', () => {
     expect(getValueByPath(['a', 'b', 'c'], { a: { b: { c: 'value' } } })).toBe('value')
     expect(getValueByPath(['a', 'b', 'd'], { a: { b: { c: 'value' } } })).toBe(null)
+  })
+
+  it('shouldItRerender return true if props or state do not match with previous values', () => {
+    expect(shouldItRerender({ a: 1 }, { a: 2 }, { b: 1 }, { b: 1 })).toBe(true)
+  })
+  it('shouldItRerender return false if props and state match with previous values', () => {
+    expect(shouldItRerender({ a: 1 }, { a: 1 }, { b: 1 }, { b: 1 })).toBe(false)
+  })
+  it('shouldItRerender return false if props and state match with previous values. Compare deep.', () => {
+    expect(shouldItRerender({ a: { c: 1 } }, { a: { c: 1 } }, { b: 1 }, { b: 1 })).toBe(false)
   })
 })
