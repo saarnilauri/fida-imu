@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ButtonGroup from '../ButtonGroup'
+import ButtonGroup from './index'
 
 const EditAndRemove = props => (
   <ButtonGroup

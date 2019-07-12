@@ -10,16 +10,20 @@ import { setLocaleLanguage } from '../reducers/userLocale'
 const rrfConfig = { userProfile: 'userProfiles' }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-    // options like actionSanitizer, stateSanitizer
-  })
+  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
   : compose
 
 const store = createStore(
   rootReducer,
   composeEnhancers(
-    applyMiddleware(thunk.withExtraArgument(getFirebase), LogRocket.reduxMiddleware()),
-    reactReduxFirebase(firebase, rrfConfig, { userProfile: 'usersProfiles', enableLogging: false }),
+    applyMiddleware(
+      thunk.withExtraArgument(getFirebase),
+      LogRocket.reduxMiddleware(),
+    ),
+    reactReduxFirebase(firebase, rrfConfig, {
+      userProfile: 'usersProfiles',
+      enableLogging: false,
+    }),
   ),
 )
 

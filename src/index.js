@@ -18,7 +18,7 @@ import 'react-day-picker/lib/style.css'
 import 'react-quill/dist/quill.snow.css'
 import 'react-table/react-table.css'
 // Import Main styles for this application
-import './scss/style.css'
+import './scss/style.css' // eslint-disable-line
 
 import store from './store'
 import App from './components/App'

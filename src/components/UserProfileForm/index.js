@@ -32,7 +32,9 @@ class UserProfileForm extends Component {
   constructor(props) {
     super(props)
     this.onChange = this.onChange.bind(this)
-    this.handleSelectCountriesChange = this.handleSelectCountriesChange.bind(this)
+    this.handleSelectCountriesChange = this.handleSelectCountriesChange.bind(
+      this,
+    )
     this.handleSelectChurchesChange = this.handleSelectChurchesChange.bind(this)
     this.state = { ...INITIAL_STATE }
   }
@@ -44,8 +46,7 @@ class UserProfileForm extends Component {
   componentDidMount() {
     const { formatMessage } = this.props
     if (this.props.authUser) {
-      db
-        .onceGetUserById(this.props.authUser.uid)
+      db.onceGetUserById(this.props.authUser.uid)
         .then(snap => {
           if (snap.val()) {
             const newState = snap.val()
@@ -82,8 +83,15 @@ class UserProfileForm extends Component {
     const { username, email, description, countries, churches } = this.state
     // const updatedDescriptionHtml = description ? description.toString('html') : descriptionHtml
 
-    db
-      .writeUserData(this.props.authUser.uid, username, email, description, roles, countries, churches)
+    db.writeUserData(
+      this.props.authUser.uid,
+      username,
+      email,
+      description,
+      roles,
+      countries,
+      churches,
+    )
       .then(() => {
         toast.success(formatMessage({ id: 'account.page.progress.updated' }), {
           position: toast.POSITION.TOP_CENTER,
@@ -113,14 +121,6 @@ class UserProfileForm extends Component {
     event.preventDefault()
   }
 
-  handleSelectCountriesChange(countries) {
-    this.setState(() => ({ countries }))
-  }
-
-  handleSelectChurchesChange(churches) {
-    this.setState(() => ({ churches }))
-  }
-
   toggleCheckbox = label => {
     if (this.selectedCheckboxes.has(label)) {
       this.selectedCheckboxes.delete(label)
@@ -129,9 +129,25 @@ class UserProfileForm extends Component {
     }
   }
 
+  handleSelectCountriesChange(countries) {
+    this.setState(() => ({ countries }))
+  }
+
+  handleSelectChurchesChange(churches) {
+    this.setState(() => ({ churches }))
+  }
+
   render() {
     const { formatMessage } = this.props
-    const { username, description, error, isLoaded, roles, countries, churches } = this.state
+    const {
+      username,
+      description,
+      error,
+      isLoaded,
+      roles,
+      countries,
+      churches,
+    } = this.state
 
     const isInvalid = username === ''
 
@@ -141,23 +157,42 @@ class UserProfileForm extends Component {
         {isLoaded === true && (
           <form onSubmit={this.onSubmit}>
             {error && <ErrorMsg error={error.message} />}
-            <UsernameField value={username} onChange={setStateValue('username', this)} />
+            <UsernameField
+              value={username}
+              onChange={setStateValue('username', this)}
+            />
             <div>
-              <FormContent label={formatMessage({ id: 'account.page.profile_description' })} className="py-2">
+              <FormContent
+                label={formatMessage({
+                  id: 'account.page.profile_description',
+                })}
+                className="py-2"
+              >
                 <Editor onChange={this.onChange} content={description} />
               </FormContent>
-              <UserRoles roles={roles} handleCheckboxChange={this.toggleCheckbox} />
+              <UserRoles
+                roles={roles}
+                handleCheckboxChange={this.toggleCheckbox}
+              />
               <div className="py-2">
                 <Label for="123">
-                  <Fontawesome name="globe" /> {formatMessage({ id: 'account.page.coutries' })}
+                  <Fontawesome name="globe" />{' '}
+                  {formatMessage({ id: 'account.page.coutries' })}
                 </Label>
-                <EnhachedCountrySelect value={countries} onChange={this.handleSelectCountriesChange} />
+                <EnhachedCountrySelect
+                  value={countries}
+                  onChange={this.handleSelectCountriesChange}
+                />
               </div>
               <div className="py-2">
                 <Label for="1234">
-                  <Fontawesome name="home" /> {formatMessage({ id: 'account.page.churches' })}
+                  <Fontawesome name="home" />{' '}
+                  {formatMessage({ id: 'account.page.churches' })}
                 </Label>
-                <ChurchSelect value={churches} onChange={this.handleSelectChurchesChange} />
+                <ChurchSelect
+                  value={churches}
+                  onChange={this.handleSelectChurchesChange}
+                />
               </div>
               <Button disabled={isInvalid} type="submit">
                 {formatMessage({ id: 'actions.save' })}
@@ -183,7 +218,14 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onGetUserProfile: userProfile => dispatch({ type: 'SET_USER_PROFILE', userProfile }),
+  onGetUserProfile: userProfile =>
+    dispatch({ type: 'SET_USER_PROFILE', userProfile }),
 })
 
-export default compose(withFirebase, connect(mapStateToProps, mapDispatchToProps))(UserProfileForm)
+export default compose(
+  withFirebase,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+)(UserProfileForm)

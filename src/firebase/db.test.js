@@ -1,7 +1,14 @@
-import { doCreateUser, onceGetUsers, onceGetUserById, writeUserData } from './db'
+import {
+  doCreateUser,
+  onceGetUsers,
+  onceGetUserById,
+  writeUserData,
+} from './db'
 
 it('create user returns promise', () => {
-  const returnValue = doCreateUser('123', 'testname', 'test@test.com', ['admin'])
+  const returnValue = doCreateUser('123', 'testname', 'test@test.com', [
+    'admin',
+  ])
   expect(returnValue).toBeInstanceOf(Promise)
 })
 

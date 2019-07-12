@@ -10,7 +10,11 @@ import ErrorMsg from '../ErrorMsg'
 import Loader from '../Loader'
 import { getValueByPath } from '../../constants/utils'
 
-const getEntityImageDropZone = (entity, multiple = false, authUserUid = null) => {
+const getEntityImageDropZone = (
+  entity,
+  multiple = false,
+  authUserUid = null,
+) => {
   let filesPath = `uploadedFiles/${entity}`
 
   if (authUserUid !== null) {
@@ -29,13 +33,18 @@ const getEntityImageDropZone = (entity, multiple = false, authUserUid = null) =>
 
     onFileDelete = (file, key) => {
       this.setState(() => ({ isProcessing: true }))
-      return this.props.firebase.deleteFile(file.fullPath, `${filesPath}/${key}`).then(() => {
-        this.setState(() => ({ isProcessing: false }))
-      })
+      return this.props.firebase
+        .deleteFile(file.fullPath, `${filesPath}/${key}`)
+        .then(() => {
+          this.setState(() => ({ isProcessing: false }))
+        })
     }
 
     handleDropRejected = rejectedFiles => {
-      console.log(rejectedFiles)
+      if (rejectedFiles) {
+        return false
+      }
+      return true
     }
 
     handleDrop(acceptedFiles) {
@@ -54,15 +63,18 @@ const getEntityImageDropZone = (entity, multiple = false, authUserUid = null) =>
 
     render() {
       const { error, isProcessing } = this.state
-      const displayDropzone = multiple || (!multiple && !this.props.uploadedFiles)
+      const displayDropzone =
+        multiple || (!multiple && !this.props.uploadedFiles)
       return (
         <React.Fragment>
           {error && <ErrorMsg error={error.message} />}
           {this.props.uploadedFiles && (
-            <EntityImageDropZonePreview onFileDelete={this.onFileDelete} uploadedFiles={this.props.uploadedFiles} />
+            <EntityImageDropZonePreview
+              onFileDelete={this.onFileDelete}
+              uploadedFiles={this.props.uploadedFiles}
+            />
           )}
-          {displayDropzone &&
-            !isProcessing && (
+          {displayDropzone && !isProcessing && (
             <EntityImageDropZone
               multiple={multiple}
               handleDrop={this.handleDrop}

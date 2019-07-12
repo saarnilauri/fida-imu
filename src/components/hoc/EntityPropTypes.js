@@ -12,10 +12,11 @@ export const EntityFormPropTypes = {
 }
 
 export const getEntityListPropTypes = wordForms => ({
+  next: PropTypes.bool,
   data: PropTypes.array,
   userProfile: PropTypes.object,
-  intl: PropTypes.object,
-  [`load${wordForms.capitalizedPlural}`]: PropTypes.func, // eslint-disable-line
+  intl: PropTypes.shape({ formatMessage: PropTypes.func }),
+  [`load${wordForms.capitalizedPrular}`]: PropTypes.func, // eslint-disable-line
   ready: PropTypes.bool,
   edit: PropTypes.func,
   [`remove${wordForms.capitalized}`]: PropTypes.func, // eslint-disable-line

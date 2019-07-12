@@ -40,11 +40,11 @@ export const getEntityCollectionIsReadyActionCreator = entity => () => {
   }
 }
 
-export const getLoadOneEntityActionCreator = entity => (uid, message, addToStore = true) => (
-  dispatch,
-  getState,
-  getFirebase,
-) => {
+export const getLoadOneEntityActionCreator = entity => (
+  uid,
+  message,
+  addToStore = true,
+) => (dispatch, getState, getFirebase) => {
   const wordForms = getWordForms(entity)
   const firebase = getFirebase()
   const prom = new Promise((resolve, reject) => {
@@ -63,11 +63,9 @@ export const getLoadOneEntityActionCreator = entity => (uid, message, addToStore
   return prom
 }
 
-export const getLoadEntityCollectionActionCreator = entity => (message = `${entity} loaded...`) => (
-  dispatch,
-  getState,
-  getFirebase,
-) => {
+export const getLoadEntityCollectionActionCreator = entity => (
+  message = `${entity} loaded...`,
+) => (dispatch, getState, getFirebase) => {
   const wordForms = getWordForms(entity)
   const notReady = getEntityCollectionNotReadyActionCreator(entity)
   dispatch(notReady())
@@ -84,11 +82,10 @@ export const getLoadEntityCollectionActionCreator = entity => (message = `${enti
     })
 }
 
-export const getAddEntityToFirebaseActionCreator = entity => (newEntity, message) => (
-  dispatch,
-  getState,
-  getFirebase,
-) => {
+export const getAddEntityToFirebaseActionCreator = entity => (
+  newEntity,
+  message,
+) => (dispatch, getState, getFirebase) => {
   const wordForms = getWordForms(entity)
   const firebase = getFirebase()
   firebase.push(wordForms.prular, newEntity).then(snap => {
@@ -97,11 +94,11 @@ export const getAddEntityToFirebaseActionCreator = entity => (newEntity, message
   })
 }
 
-export const getUpdateEntityToFirebaseActionCreator = entity => (uid, updatedEntity, message) => (
-  dispatch,
-  getState,
-  getFirebase,
-) => {
+export const getUpdateEntityToFirebaseActionCreator = entity => (
+  uid,
+  updatedEntity,
+  message,
+) => (dispatch, getState, getFirebase) => {
   const wordForms = getWordForms(entity)
   const firebase = getFirebase()
   firebase.set(`${wordForms.prular}/${uid}`, updatedEntity).then(() => {
@@ -112,11 +109,10 @@ export const getUpdateEntityToFirebaseActionCreator = entity => (uid, updatedEnt
   })
 }
 
-export const getRemoveEntityFromFirebaseActionCreator = entity => (uid, message) => (
-  dispatch,
-  getState,
-  getFirebase,
-) => {
+export const getRemoveEntityFromFirebaseActionCreator = entity => (
+  uid,
+  message,
+) => (dispatch, getState, getFirebase) => {
   const wordForms = getWordForms(entity)
   const firebase = getFirebase()
   firebase
@@ -159,39 +155,48 @@ export const getMapDispatchToProps = (entity, sources = {}) => dispatch => {
   const wordForms = getWordForms(entity)
 
   const map = {}
-  map[`add${wordForms.capitalized}`] = item => dispatch(addEntity(item, `${wordForms.capitalizedPrular} added...`))
+  map[`add${wordForms.capitalized}`] = item =>
+    dispatch(addEntity(item, `${wordForms.capitalizedPrular} added...`))
+  // eslint-disable-next-line max-len
   map[`update${wordForms.capitalized}`] = (uid, item) =>
     dispatch(updateEntity(uid, item, `${wordForms.capitalized} updated...`))
-  map[`remove${wordForms.capitalized}`] = uid => dispatch(removeEntity(uid, `${wordForms.capitalized} removed...`))
-  map[`load${wordForms.capitalizedPrular}`] = () => dispatch(loadEntities(`${wordForms.capitalizedPrular} loaded...`))
+  map[`remove${wordForms.capitalized}`] = uid =>
+    dispatch(removeEntity(uid, `${wordForms.capitalized} removed...`))
+  map[`load${wordForms.capitalizedPrular}`] = () =>
+    dispatch(loadEntities(`${wordForms.capitalizedPrular} loaded...`))
+  // eslint-disable-next-line max-len
   map[`load${wordForms.capitalized}`] = (uid, addToStore) =>
     dispatch(loadEntity(uid, `${wordForms.capitalized} loaded...`, addToStore))
   forEach(sources, source => {
     const sourceWordForms = getWordForms(source)
     const loadSource = getLoadEntityCollectionActionCreator(source)
+    // eslint-disable-next-line max-len
     map[`load${sourceWordForms.capitalizedPrular}`] = () =>
       dispatch(loadSource(`${sourceWordForms.capitalizedPrular} loaded...`))
   })
   return map
 }
 
-const getEntityReducer = entity => (state = getInitialState(entity), action) => {
+const getEntityReducer = entity => (
+  state = getInitialState(entity),
+  action,
+) => {
   const wordForms = getWordForms(entity)
   switch (action.type) {
-  case `ADD_${wordForms.allCaps}`: {
-    return getApplyEntityToState(entity)(state, action)
-  }
-  case `ADD_${wordForms.allCapsPrular}`: {
-    return getApplyEntityCollectionToState(entity)(state, action)
-  }
-  case `${wordForms.allCapsPrular}_COLLECTION_NOT_READY`: {
-    return applyReady(state, { payload: false })
-  }
-  case `${wordForms.allCapsPrular}_COLLECTION_IS_READY`: {
-    return applyReady(state, { payload: true })
-  }
-  default:
-    return state
+    case `ADD_${wordForms.allCaps}`: {
+      return getApplyEntityToState(entity)(state, action)
+    }
+    case `ADD_${wordForms.allCapsPrular}`: {
+      return getApplyEntityCollectionToState(entity)(state, action)
+    }
+    case `${wordForms.allCapsPrular}_COLLECTION_NOT_READY`: {
+      return applyReady(state, { payload: false })
+    }
+    case `${wordForms.allCapsPrular}_COLLECTION_IS_READY`: {
+      return applyReady(state, { payload: true })
+    }
+    default:
+      return state
   }
 }
 

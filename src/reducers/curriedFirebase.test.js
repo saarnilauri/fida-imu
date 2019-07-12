@@ -61,7 +61,9 @@ describe('curriedFirebase', () => {
   })
 
   it('getEntityCollectionNotReadyActionCreator returns valid action creator', () => {
-    const setResultchainsCollectionNotReady = getEntityCollectionNotReadyActionCreator('resultschain')
+    const setResultchainsCollectionNotReady = getEntityCollectionNotReadyActionCreator(
+      'resultschain',
+    )
     expect(setResultchainsCollectionNotReady).toEqual(expect.any(Function))
 
     expect(setResultchainsCollectionNotReady()).toEqual({
@@ -70,7 +72,9 @@ describe('curriedFirebase', () => {
   })
 
   it('getEntityCollectionIsReadyActionCreator returns valid action creator', () => {
-    const setResultchainsCollectionIsReady = getEntityCollectionIsReadyActionCreator('resultschain')
+    const setResultchainsCollectionIsReady = getEntityCollectionIsReadyActionCreator(
+      'resultschain',
+    )
     expect(setResultchainsCollectionIsReady).toEqual(expect.any(Function))
 
     expect(setResultchainsCollectionIsReady()).toEqual({
@@ -83,7 +87,9 @@ describe('curriedFirebase', () => {
     const initialState = getInitialState('resultschain')
     const store = mockStore(initialState)
 
-    const setResultchainsCollectionIsReady = getEntityCollectionIsReadyActionCreator('resultschain')
+    const setResultchainsCollectionIsReady = getEntityCollectionIsReadyActionCreator(
+      'resultschain',
+    )
 
     // Dispatch the action
     store.dispatch(setResultchainsCollectionIsReady())
@@ -113,11 +119,17 @@ describe('curriedFirebase', () => {
       test: null,
       testsCollection: [],
     })
-    expect(applyReady({}, { payload: false })).toEqual({ collectionReady: false })
+    expect(applyReady({}, { payload: false })).toEqual({
+      collectionReady: false,
+    })
   })
 
   it('getApplyEntityToState return a new valid state', () => {
-    expect(getApplyEntityToState('test')(getInitialState('test'), { payload: { title: 'test' } })).toEqual({
+    expect(
+      getApplyEntityToState('test')(getInitialState('test'), {
+        payload: { title: 'test' },
+      }),
+    ).toEqual({
       collectionReady: false,
       test: { title: 'test' },
       testsCollection: [],

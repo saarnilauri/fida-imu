@@ -1,6 +1,10 @@
 export const text = title => ({ type: 'string', title })
 export const number = title => ({ type: 'integer', title })
-export const dateTime = title => ({ type: 'string', title, format: 'date-time' })
+export const dateTime = title => ({
+  type: 'string',
+  title,
+  format: 'date-time',
+})
 export const bool = title => ({ type: 'boolean', title })
 export const radioEnum = (title, itemValues) => ({
   type: 'array',
@@ -43,7 +47,8 @@ export const typeahead = (title, values) => ({
 })
 
 const schema = value => ({ 'ui:widget': value })
-export const textareaSchema = (rows = 5) => Object.assign(schema('textarea'), { 'ui:options': { rows } })
+export const textareaSchema = (rows = 5) =>
+  Object.assign(schema('textarea'), { 'ui:options': { rows } })
 export const radioSchema = () => schema('radio')
 export const numberSchema = () => schema('updown')
 export const hiddenSchema = () => schema('hidden')

@@ -36,7 +36,10 @@ const withAuthorization = (condition, profileCondition = null) => Component => {
     profile: state.firebase.profile,
   })
 
-  return compose(withRouter, connect(mapStateToProps))(WithAuthorization)
+  return compose(
+    withRouter,
+    connect(mapStateToProps),
+  )(WithAuthorization)
 }
 
 // withAuthorization.propTypes = {

@@ -23,7 +23,11 @@ const schema = {
     progress: Object.assign(text(), { default: '0' }),
     type: bool('Is this relative to other indicators?', ['goal', 'relative']),
     component: select('Component', [], []),
-    column: checkbox('Result chain column', ['ouput', 'outcome', 'impact'], ['Ouput', 'Outcome', 'Impact']),
+    column: checkbox(
+      'Result chain column',
+      ['ouput', 'outcome', 'impact'],
+      ['Ouput', 'Outcome', 'Impact'],
+    ),
   },
 }
 

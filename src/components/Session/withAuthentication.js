@@ -11,6 +11,7 @@ const withAuthentication = Component => {
       super(props)
       this.state = { ready: false, user: null }
     }
+
     componentDidMount() {
       const { onSetAuthUser, onGetUserProfile, loadThumbUrl } = this.props
 
@@ -46,7 +47,8 @@ const withAuthentication = Component => {
   const mapDispatchToProps = dispatch => ({
     onSetAuthUser: authUser => dispatch({ type: 'AUTH_USER_SET', authUser }),
     loadThumbUrl: uid => dispatch(loadThumbURL(uid)),
-    onGetUserProfile: userProfile => dispatch({ type: 'SET_USER_PROFILE', userProfile }),
+    onGetUserProfile: userProfile =>
+      dispatch({ type: 'SET_USER_PROFILE', userProfile }),
   })
 
   return connect(

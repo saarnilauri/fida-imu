@@ -33,7 +33,11 @@ export const loadOneResultsChain = uid => (dispatch, getState, getFirebase) => {
     })
 }
 
-export const loadResultsChains = (message = 'Result chains loaded...') => (dispatch, getState, getFirebase) => {
+export const loadResultsChains = (message = 'Result chains loaded...') => (
+  dispatch,
+  getState,
+  getFirebase,
+) => {
   dispatch(setNotReady())
   const firebase = getFirebase()
   firebase
@@ -46,7 +50,11 @@ export const loadResultsChains = (message = 'Result chains loaded...') => (dispa
     })
 }
 
-export const addResultsChainToFirebase = newResultsChain => (dispatch, getState, getFirebase) => {
+export const addResultsChainToFirebase = newResultsChain => (
+  dispatch,
+  getState,
+  getFirebase,
+) => {
   const firebase = getFirebase()
   firebase.push('resultschains', newResultsChain).then(snap => {
     dispatch(addResultsChain({ ...newResultsChain, uid: snap.key }))
@@ -54,7 +62,11 @@ export const addResultsChainToFirebase = newResultsChain => (dispatch, getState,
   })
 }
 
-export const updateResultsChainToFirebase = (uid, resultsChain) => (dispatch, getState, getFirebase) => {
+export const updateResultsChainToFirebase = (uid, resultsChain) => (
+  dispatch,
+  getState,
+  getFirebase,
+) => {
   const firebase = getFirebase()
   firebase.set(`resultschains/${uid}`, resultsChain).then(() => {
     dispatch(addResultsChain({ ...resultsChain, uid }))
@@ -79,20 +91,20 @@ export const applyReady = (state, action) => ({
 
 const resultsChainReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'ADD_RESULTS_CHAIN': {
-    return applySetPayload(state, action)
-  }
-  case 'ADD_RESULTS_CHAINS': {
-    return applySetList(state, action)
-  }
-  case 'NOT_READY': {
-    return applyReady(state, { payload: false })
-  }
-  case 'READY': {
-    return applyReady(state, { payload: true })
-  }
-  default:
-    return state
+    case 'ADD_RESULTS_CHAIN': {
+      return applySetPayload(state, action)
+    }
+    case 'ADD_RESULTS_CHAINS': {
+      return applySetList(state, action)
+    }
+    case 'NOT_READY': {
+      return applyReady(state, { payload: false })
+    }
+    case 'READY': {
+      return applyReady(state, { payload: true })
+    }
+    default:
+      return state
   }
 }
 

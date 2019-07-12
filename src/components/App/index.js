@@ -23,15 +23,27 @@ const messages = {
   fi: defineMessages(fiLocale),
 }
 
-const EnhancedLayout = withAuthentication(branch(props => !props.ready, renderComponent(CenteredLoader))(Layout))
+const EnhancedLayout = withAuthentication(
+  branch(props => !props.ready, renderComponent(CenteredLoader))(Layout),
+)
 
 const App = ({ locale }) => (
   <IntlProvider locale={locale} key={locale} messages={messages[locale]}>
     <HashRouter>
       <Switch>
         <Route exact path="/login" name="Login Page" component={Login} />
-        <Route exact path="/forgot" name="Forgot password Page" component={PasswordForget} />
-        <Route exact path="/signup" name="Sign-up Page" component={SignUpPage} />
+        <Route
+          exact
+          path="/forgot"
+          name="Forgot password Page"
+          component={PasswordForget}
+        />
+        <Route
+          exact
+          path="/signup"
+          name="Sign-up Page"
+          component={SignUpPage}
+        />
         <Route path="/" name="Home" component={EnhancedLayout} />
         {
           // <Route exact path="/register" name="Register Page" component={Register} />

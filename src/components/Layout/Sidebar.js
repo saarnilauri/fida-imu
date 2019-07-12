@@ -20,11 +20,15 @@ const SideBar = props => {
   const mapTranslationsToNavi = rawNavigation => {
     Object.keys(rawNavigation.items).forEach(key => {
       // eslint-disable-next-line
-      rawNavigation.items[key].name = formatMessage({ id: rawNavigation.items[key].name })
+      rawNavigation.items[key].name = formatMessage({
+        id: rawNavigation.items[key].name,
+      })
     })
     return rawNavigation
   }
-  const userNavi = mapTranslationsToNavi(has(props.roles, 'admin') ? navigation : basicNavigation)
+  const userNavi = mapTranslationsToNavi(
+    has(props.roles, 'admin') ? navigation : basicNavigation,
+  )
   return (
     <AppSidebar fixed display="lg">
       <AppSidebarHeader />

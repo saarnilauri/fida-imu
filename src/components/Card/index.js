@@ -4,10 +4,14 @@ import PropTypes from 'prop-types'
 
 const CardWrapper = props => (
   <Card>
-    {!props.titleIntheBody && <CardHeader className={props.headerClass}>{props.title}</CardHeader>}
+    {!props.titleIntheBody && (
+      <CardHeader className={props.headerClass}>{props.title}</CardHeader>
+    )}
     {!props.noBody && (
       <CardBody style={props.noPadding ? { padding: 0 } : null}>
-        {props.titleIntheBody && <h1 className={props.headerClass}>{props.title}</h1>}
+        {props.titleIntheBody && (
+          <h1 className={props.headerClass}>{props.title}</h1>
+        )}
         {props.children}
       </CardBody>
     )}
@@ -22,7 +26,11 @@ CardWrapper.defaultProps = {
 }
 
 CardWrapper.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),
+  children: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+    PropTypes.string,
+  ]),
   headerClass: PropTypes.string,
   noBody: PropTypes.bool,
   noPadding: PropTypes.bool,

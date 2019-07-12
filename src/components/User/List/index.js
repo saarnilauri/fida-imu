@@ -28,14 +28,22 @@ class UserList extends Component {
   setTableSettings() {
     const { formatMessage } = this.props.intl
     this.tableColumns = [
-      { Header: formatMessage({ id: 'user.list.table.header.username' }), accessor: 'username' },
+      {
+        Header: formatMessage({ id: 'user.list.table.header.username' }),
+        accessor: 'username',
+      },
       {
         Header: formatMessage({ id: 'user.list.table.header.activated' }),
         id: 'isActive',
         width: 70,
         accessor: d => (
           <div style={{ textAlign: 'center' }}>
-            <Checkbox handleCheckboxChange={this.handleCheckboxChange} isChecked={d.isActive} isSimple label={d.uid} />
+            <Checkbox
+              handleCheckboxChange={this.handleCheckboxChange}
+              isChecked={d.isActive}
+              isSimple
+              label={d.uid}
+            />
           </div>
         ),
       },
@@ -96,11 +104,20 @@ const mapDispatchToProps = getMapDispatchToProps('user')
 
 const mapStateToProps = state => ({
   authUser: state.sessionState.authUser,
-  data: state.userState.collectionReady === true ? collectionToArray(state.userState.usersCollection) : [],
+  data:
+    state.userState.collectionReady === true
+      ? collectionToArray(state.userState.usersCollection)
+      : [],
   ready: state.userState.collectionReady,
   activeUser: state.userState.user,
 })
 
-const EnhanchedUserList = compose(injectIntl, connect(mapStateToProps, mapDispatchToProps))(UserList)
+const EnhanchedUserList = compose(
+  injectIntl,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+)(UserList)
 
 export default EnhanchedUserList

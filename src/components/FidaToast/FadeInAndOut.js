@@ -8,7 +8,12 @@ export const fadeOut = node => node.classList.add('fadeOutUpBig', 'animated')
 
 // Any transition created with react-transition-group/Transition will work !
 const FadeInAndOut = ({ children, ...props }) => (
-  <Transition {...props} timeout={TOAST_ANIMATION_DURATION} onEnter={fadeIn} onExit={fadeOut}>
+  <Transition
+    {...props}
+    timeout={TOAST_ANIMATION_DURATION}
+    onEnter={fadeIn}
+    onExit={fadeOut}
+  >
     {children}
   </Transition>
 )

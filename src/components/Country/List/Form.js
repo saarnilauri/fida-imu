@@ -6,13 +6,26 @@ import ErrorMsg from '../../ErrorMsg'
 import FormElement from '../../FormGroupElement'
 
 const CountryListForm = props => {
-  const { onSubmit, error, onNameChange, name, area, onAreaChange, code, onCodeChange, editMode, cancelEdit } = props
+  const {
+    onSubmit,
+    error,
+    onNameChange,
+    name,
+    area,
+    onAreaChange,
+    code,
+    onCodeChange,
+    editMode,
+    cancelEdit,
+  } = props
   const { formatMessage } = props.intl
   const buttons = [
     {
       color: 'primary',
       onClick: () => {},
-      title: editMode ? formatMessage({ id: 'actions.save' }) : formatMessage({ id: 'actions.add' }),
+      title: editMode
+        ? formatMessage({ id: 'actions.save' })
+        : formatMessage({ id: 'actions.add' }),
       type: 'submit',
     },
   ]
@@ -31,16 +44,27 @@ const CountryListForm = props => {
         value={name}
         name="name"
         id="name"
-        placeholder={formatMessage({ id: 'country.list.page.form.placeholder.country' })}
+        placeholder={formatMessage({
+          id: 'country.list.page.form.placeholder.country',
+        })}
         icon="map-marker"
       />
-      <FormElement onChange={onAreaChange} value={area} name="area" id="area" placeholder="Region" icon="map" />
+      <FormElement
+        onChange={onAreaChange}
+        value={area}
+        name="area"
+        id="area"
+        placeholder="Region"
+        icon="map"
+      />
       <FormElement
         onChange={onCodeChange}
         value={code}
         name="code"
         id="code"
-        placeholder={formatMessage({ id: 'country.list.page.form.placeholder.code' })}
+        placeholder={formatMessage({
+          id: 'country.list.page.form.placeholder.code',
+        })}
         icon="globe"
       />
       <ButtonGroup buttons={buttons} />

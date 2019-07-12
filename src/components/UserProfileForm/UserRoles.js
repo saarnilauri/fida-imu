@@ -4,7 +4,15 @@ import { FormGroup, Label } from 'reactstrap'
 import uuid from 'uuid'
 import Checkbox from '../Checkbox'
 
-const roles = ['missionary', 'admin', 'joti', 'communications', 'partner', 'church', 'church']
+const roles = [
+  'missionary',
+  'admin',
+  'joti',
+  'communications',
+  'partner',
+  'church',
+  'church',
+]
 
 const UserRoles = props => (
   <FormGroup>

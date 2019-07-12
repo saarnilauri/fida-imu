@@ -1,5 +1,10 @@
 import getEntityAdminPage from '../../hoc/getEntityAdminPage'
-import { text, textareaSchema, bool, radioSchema } from '../../hoc/schemaFunctions'
+import {
+  text,
+  textareaSchema,
+  bool,
+  radioSchema,
+} from '../../hoc/schemaFunctions'
 
 const schema = {
   type: 'object',

@@ -9,7 +9,7 @@ import { FormattedMessage } from 'react-intl'
 import { withRouter } from 'react-router-dom'
 
 import { setLocaleLanguage } from '../../reducers/userLocale'
-import LanguageSwitch from '../LanguageSwitch'
+import LanguageSwitch from './index'
 
 const LanguageMenu = props => {
   const { setLocale, history } = props
@@ -34,8 +34,12 @@ const LanguageMenu = props => {
                 history.go('/')
               }}
             >
-              <span style={{ color: props.locale === locale ? '#368489' : 'gray' }}>
-                <Fontawesome name={props.locale === locale ? 'circle' : 'circle-o'} />
+              <span
+                style={{ color: props.locale === locale ? '#368489' : 'gray' }}
+              >
+                <Fontawesome
+                  name={props.locale === locale ? 'circle' : 'circle-o'}
+                />
               </span>{' '}
               <FormattedMessage id={`app.header.dropdown.language.${locale}`} />
             </a>
@@ -60,4 +64,10 @@ const mapStateToProps = state => ({
   locale: state.userLocaleState.locale,
 })
 
-export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(LanguageMenu)
+export default compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+)(LanguageMenu)

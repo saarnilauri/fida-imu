@@ -14,14 +14,14 @@ const applySetUserProfile = (state, action) => ({
 
 const sessionReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'AUTH_USER_SET': {
-    return applySetAuthUser(state, action)
-  }
-  case 'SET_USER_PROFILE': {
-    return applySetUserProfile(state, action)
-  }
-  default:
-    return state
+    case 'AUTH_USER_SET': {
+      return applySetAuthUser(state, action)
+    }
+    case 'SET_USER_PROFILE': {
+      return applySetUserProfile(state, action)
+    }
+    default:
+      return state
   }
 }
 

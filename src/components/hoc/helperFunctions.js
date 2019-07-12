@@ -37,7 +37,8 @@ export const getListMapStateToProps = (entity, sources = {}) => state => {
   const sourceMaps = { sources: {} }
   forEach(sources, (source, key) => {
     const sourceWordForms = getWordForms(source)
-    sourceMaps.sources[key] = state[`${source}State`][`${sourceWordForms.prular}Collection`]
+    sourceMaps.sources[key] =
+      state[`${source}State`][`${sourceWordForms.prular}Collection`]
   })
   return {
     ...sourceMaps,
@@ -45,7 +46,9 @@ export const getListMapStateToProps = (entity, sources = {}) => state => {
     userProfile: state.firebase.profile,
     data:
       state[`${entity}State`].collectionReady === true
-        ? collectionToArray(state[`${entity}State`][`${wordForms.prular}Collection`])
+        ? collectionToArray(
+            state[`${entity}State`][`${wordForms.prular}Collection`],
+          )
         : [],
     ready: state[`${entity}State`].collectionReady,
   }

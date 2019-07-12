@@ -11,7 +11,12 @@ import PageWrapper from '../../PageWrapper'
 import CountryListForm from './Form'
 import CountryList from './index'
 
-import { updateByPropertyName, collectionToArray, getSchemaKeys, shouldItRerender } from '../../../constants/utils'
+import {
+  updateByPropertyName,
+  collectionToArray,
+  getSchemaKeys,
+  shouldItRerender,
+} from '../../../constants/utils'
 import { getMapDispatchToProps } from '../../../reducers/curriedFirebase'
 
 const getCleanState = () => ({
@@ -77,8 +82,12 @@ class CountryListPage extends Component {
 
   editCountry(uid) {
     const { data } = this.props
-    this.setState(() => ({ ...data.find(item => item.uid === uid), editMode: true }))
+    this.setState(() => ({
+      ...data.find(item => item.uid === uid),
+      editMode: true,
+    }))
   }
+
   render() {
     const { area, name, code, error, editMode } = this.state
     const { formatMessage } = this.props.intl
@@ -88,7 +97,10 @@ class CountryListPage extends Component {
         <PageWrapper>
           <Row>
             <Col md="8">
-              <Card title={formatMessage({ id: 'country.list.page.subheader' })} noPadding>
+              <Card
+                title={formatMessage({ id: 'country.list.page.subheader' })}
+                noPadding
+              >
                 <CountryList edit={this.editCountry} />
               </Card>
             </Col>
@@ -97,16 +109,30 @@ class CountryListPage extends Component {
                 title={
                   editMode
                     ? formatMessage({ id: 'country.list.page.form.title.edit' })
-                    : formatMessage({ id: 'country.list.page.form.title.add_new' })
+                    : formatMessage({
+                        id: 'country.list.page.form.title.add_new',
+                      })
                 }
                 headerClass={editMode ? 'bg-secondary text-white' : ''}
               >
                 <CountryListForm
                   onSubmit={this.onSubmit}
                   error={error}
-                  onNameChange={event => this.setState(updateByPropertyName('name', event.target.value))}
-                  onCodeChange={event => this.setState(updateByPropertyName('code', event.target.value))}
-                  onAreaChange={event => this.setState(updateByPropertyName('area', event.target.value))}
+                  onNameChange={event =>
+                    this.setState(
+                      updateByPropertyName('name', event.target.value),
+                    )
+                  }
+                  onCodeChange={event =>
+                    this.setState(
+                      updateByPropertyName('code', event.target.value),
+                    )
+                  }
+                  onAreaChange={event =>
+                    this.setState(
+                      updateByPropertyName('area', event.target.value),
+                    )
+                  }
                   name={name}
                   area={area}
                   code={code}
@@ -134,8 +160,17 @@ const mapDispatchToProps = getMapDispatchToProps('country')
 
 const mapStateToProps = state => ({
   authUser: state.sessionState.authUser,
-  data: state.countryState.collectionReady === true ? collectionToArray(state.countryState.countriesCollection) : [],
+  data:
+    state.countryState.collectionReady === true
+      ? collectionToArray(state.countryState.countriesCollection)
+      : [],
   ready: state.countryState.collectionReady,
 })
 
-export default compose(injectIntl, connect(mapStateToProps, mapDispatchToProps))(CountryListPage)
+export default compose(
+  injectIntl,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+)(CountryListPage)

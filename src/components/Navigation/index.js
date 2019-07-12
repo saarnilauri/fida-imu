@@ -10,7 +10,8 @@ import * as routes from '../../constants/routes'
 const NavElement = ({ link, label, icon }) => (
   <NavItem>
     <NavLink href={link}>
-      {icon && <FontAwesome name={icon} />}&nbsp;
+      {icon && <FontAwesome name={icon} />}
+      &nbsp;
       {label}
     </NavLink>
   </NavItem>

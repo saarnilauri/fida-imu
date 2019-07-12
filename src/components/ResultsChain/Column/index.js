@@ -55,35 +55,49 @@ class ResultsChainColumn extends Component {
       <React.Fragment>
         <Col xs="12" sm="6" md="3">
           <Card>
-            <CardHeader className={`text-white text-center ${this.props.bgClass}`}>
+            <CardHeader
+              className={`text-white text-center ${this.props.bgClass}`}
+            >
               <span>
-                {this.props.title} {!this.props.noArrow && <FontAwesome name="arrow-right" />}{' '}
+                {this.props.title}{' '}
+                {!this.props.noArrow && <FontAwesome name="arrow-right" />}{' '}
                 <HelpButton id={topHeaderId} onClickEvent={this.helpClick} />
               </span>
             </CardHeader>
             <CardBody>
-              <ItemToMeasure contentHeight={this.props.topContentHeight} onResize={this.props.onResizeTop}>
+              <ItemToMeasure
+                contentHeight={this.props.topContentHeight}
+                onResize={this.props.onResizeTop}
+              >
                 {this.props.children[0]}
               </ItemToMeasure>
             </CardBody>
             <CardHeader className="bg-light text-left text-dark">
               <span>
-                {this.props.midTitle} <HelpButton id={midHeaderId} onClickEvent={this.helpClick} />
+                {this.props.midTitle}{' '}
+                <HelpButton id={midHeaderId} onClickEvent={this.helpClick} />
               </span>
             </CardHeader>
             <CardBody className="small-padding">
-              <ItemToMeasure contentHeight={this.props.midContentHeight} onResize={this.props.onResizeMid}>
+              <ItemToMeasure
+                contentHeight={this.props.midContentHeight}
+                onResize={this.props.onResizeMid}
+              >
                 {this.props.children[1]}
               </ItemToMeasure>
             </CardBody>
             <CardHeader className="bg-secondary text-white text-left">
               <span>
-                {this.props.botTitle} <HelpButton id={botHeaderId} onClickEvent={this.helpClick} />
+                {this.props.botTitle}{' '}
+                <HelpButton id={botHeaderId} onClickEvent={this.helpClick} />
               </span>
             </CardHeader>
             <CardBody>
               <div style={{ height: this.props.botContentHeight }}>
-                <ItemToMeasure contentHeight={this.props.botContentHeight} onResize={this.props.onResizeBot}>
+                <ItemToMeasure
+                  contentHeight={this.props.botContentHeight}
+                  onResize={this.props.onResizeBot}
+                >
                   {this.props.children[2]}
                 </ItemToMeasure>
               </div>

@@ -17,3 +17,4 @@ db.json
 .eslintrc.json
 .travis.yml
 fileTransform.js
+__mocks__/*

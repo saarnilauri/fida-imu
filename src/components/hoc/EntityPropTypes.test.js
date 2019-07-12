@@ -6,6 +6,8 @@ describe('get entity wrapper functions', () => {
     expect(EntityFormPropTypes).toEqual(expect.any(Object))
   })
   it('getEntityForm should return a function', () => {
-    expect(getEntityListPropTypes(getWordForms('test'))).toEqual(expect.any(Object))
+    expect(getEntityListPropTypes(getWordForms('test'))).toEqual(
+      expect.any(Object),
+    )
   })
 })
