@@ -1,4 +1,7 @@
 {
-  "presets": ["env", "react"],
-  "plugins": ["add-react-displayname", "transform-object-rest-spread"]
+  "presets": ["@babel/env", "@babel/react"],
+  "plugins": [
+    "@babel/transform-react-display-name",
+    "@babel/proposal-object-rest-spread"
+  ]
 }
