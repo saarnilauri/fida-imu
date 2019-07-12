@@ -20,6 +20,7 @@ const rootReducer = combineReducers({
   indicatorState: getEntityReducer('indicator'),
   prayerState: getEntityReducer('prayer'),
   profileThumb: profileThumbReducer,
+  surveyState: getEntityReducer('survey'),
 })
 
 export default rootReducer

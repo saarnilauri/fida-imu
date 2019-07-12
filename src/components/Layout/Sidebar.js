@@ -29,7 +29,7 @@ const SideBar = props => {
     <AppSidebar fixed display="lg">
       <AppSidebarHeader />
       <AppSidebarForm />
-      <AppSidebarNav navConfig={userNavi} {...this.props} />
+      <AppSidebarNav navConfig={userNavi} {...props} />
       <AppSidebarFooter />
       <AppSidebarMinimizer />
     </AppSidebar>
@@ -45,4 +45,7 @@ const mapStateToProps = state => ({
   roles: state.sessionState.userProfile.roles,
 })
 
-export default compose(injectIntl, connect(mapStateToProps))(SideBar)
+export default compose(
+  injectIntl,
+  connect(mapStateToProps),
+)(SideBar)
