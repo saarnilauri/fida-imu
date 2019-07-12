@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Suspense } from 'react'
 import PropTypes from 'prop-types'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { AppFooter, AppHeader } from '@coreui/react'
@@ -9,6 +9,7 @@ import Footer from './Footer'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import FidaToast from '../FidaToast'
+import Loading from '../CenteredLoader'
 
 class Layout extends Component {
   static propTypes = {
@@ -26,19 +27,21 @@ class Layout extends Component {
           <div className="app-body">
             <Sidebar />
             <main className="main">
-              <Switch>
-                {routes.map(route => {
-                  return route.component ? (
-                    <Route
-                      key={uuid()}
-                      path={route.path}
-                      exact={route.exact}
-                      name={route.name}
-                      render={props => <route.component {...props} />}
-                    />
-                  ) : null
-                })}
-              </Switch>
+              <Suspense fallback={Loading}>
+                <Switch>
+                  {routes.map(route => {
+                    return route.component ? (
+                      <Route
+                        key={uuid()}
+                        path={route.path}
+                        exact={route.exact}
+                        name={route.name}
+                        render={props => <route.component {...props} />}
+                      />
+                    ) : null
+                  })}
+                </Switch>
+              </Suspense>
             </main>
           </div>
           <AppFooter>

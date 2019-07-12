@@ -14,6 +14,7 @@ const getEntitySelect = entity => {
       const view = ready ? (
         <React.Fragment>
           <Typeahead
+            id={entity}
             labelKey="label"
             multiple
             options={data}
@@ -39,6 +40,9 @@ const getEntitySelect = entity => {
     value: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.array, PropTypes.string]),
   }
 
-  return compose(injectIntl, withEntities(entity))(EntitySelect)
+  return compose(
+    injectIntl,
+    withEntities(entity),
+  )(EntitySelect)
 }
 export default getEntitySelect

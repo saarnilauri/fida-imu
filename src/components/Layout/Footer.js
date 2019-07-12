@@ -15,7 +15,7 @@ class Footer extends Component {
     return (
       <React.Fragment>
         <span>
-          <a href="http://www.fida.info">Fida</a> &copy; 2018
+          <a href="http://www.fida.info">Fida</a> &copy; 2019
         </span>
         <span className="ml-auto">IMU reporting</span>
       </React.Fragment>

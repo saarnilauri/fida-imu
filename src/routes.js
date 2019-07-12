@@ -1,56 +1,18 @@
-import Loadable from 'react-loadable'
-import Loading from './components/CenteredLoader'
+import { lazy } from 'react'
 import { activeProfileCondition, authCondition, adminRoleCondition } from './components/Session/utils'
 import withAuthorization from './components/Session/withAuthorization'
 
-const Users = Loadable({
-  loader: () => import('./components/User/AdminPage'),
-  loading: Loading,
-})
-
-const LandingPage = Loadable({
-  loader: () => import('./components/Landing'),
-  loading: Loading,
-})
-
-const AccountPage = Loadable({
-  loader: () => import('./components/Account'),
-  loading: Loading,
-})
-
-const ResultsChain = Loadable({
-  loader: () => import('./components/ResultsChain/Container'),
-  loading: Loading,
-})
-
-const IndicatorAdminPage = Loadable({
-  loader: () => import('./components/Indicator/AdminPage'),
-  loading: Loading,
-})
-
-const CountryList = Loadable({
-  loader: () => import('./components/Country/List/Page'),
-  loading: Loading,
-})
-
-const ChurchAdminPage = Loadable({
-  loader: () => import('./components/Church/AdminPage'),
-  loading: Loading,
-})
-
-const ComponentAdminPage = Loadable({
-  loader: () => import('./components/Component/AdminPage'),
-  loading: Loading,
-})
-const PrayerAdminPage = Loadable({
-  loader: () => import('./components/Prayer/AdminPage'),
-  loading: Loading,
-})
-
-const NotAllowed = Loadable({
-  loader: () => import('./components/NotAllowed'),
-  loading: Loading,
-})
+const Users = lazy(() => import('./components/User/AdminPage'))
+const LandingPage = lazy(() => import('./components/Landing'))
+const AccountPage = lazy(() => import('./components/Account'))
+const ResultsChain = lazy(() => import('./components/ResultsChain/Container'))
+const IndicatorAdminPage = lazy(() => import('./components/Indicator/AdminPage'))
+const CountryList = lazy(() => import('./components/Country/List/Page'))
+const ChurchAdminPage = lazy(() => import('./components/Church/AdminPage'))
+const SurveyAdminPage = lazy(() => import('./components/Survey/AdminPage'))
+const ComponentAdminPage = lazy(() => import('./components/Component/AdminPage'))
+const PrayerAdminPage = lazy(() => import('./components/Prayer/AdminPage'))
+const NotAllowed = lazy(() => import('./components/NotAllowed'))
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -91,6 +53,11 @@ const routes = [
     path: '/countries',
     name: 'Countries',
     component: withAuthorization(authCondition, activeProfileCondition)(CountryList),
+  },
+  {
+    path: '/surveys',
+    name: 'Surveys',
+    component: withAuthorization(authCondition, activeProfileCondition)(SurveyAdminPage),
   },
   { path: '/notAllowed', name: 'Not allowd', component: NotAllowed },
 ]

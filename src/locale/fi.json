@@ -85,7 +85,6 @@
   "component.datatable.now-rows-found": "Järjestelmään ei ole lisätty yhtään komponenttia",
   "component.list.page.form.title.add_new": "Lisää komponentti",
   "component.list.page.form.title.edit": "Muokkaa komponenttin tietoja",
-  
   "component.list.page.form.placeholder.name": "Nimi",
 
   "country.list.page.form.placeholder.code": "Maakoodi (esim. fi)",
@@ -98,6 +97,8 @@
   "country.list.table.header.area": "Alue",
   "country.list.table.header.name": "Nimi",
   "coyntry.list.modal.question.remove_country": "Haluatko varmasti poistaa maan?",
+
+
   "datatable.loading": "Ladataan",
   "datatable.of": " / ",
   "datatable.page": "Sivu",
@@ -166,5 +167,14 @@
   "user.list.page.title": "Käyttäjien hallinta",
   "user.list.table.header.activated": "Aktivoitu",
   "user.list.table.header.roles": "Roolit",
-  "user.list.table.header.username": "Nimi"
+  "user.list.table.header.username": "Nimi",
+
+  "survey.list.page.form.placeholder.name": "Nimi",
+  "survey.list.page.form.title.add_new": "Lisää kysely",
+  "survey.list.page.form.title.edit": "Muokkaa kyselyä",
+  "survey.list.page.header": "Auditointi kyselyt",
+  "survey.list.page.subheader": "Kyselyt",
+  "survey.list.table.header.actions": "Toiminnot",
+  "survey.list.table.header.name": "Nimi",
+  "survey.list.modal.question.remove_country": "Haluatko varmasti poistaa kyselyn?"
 }

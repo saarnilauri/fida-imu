@@ -1,8 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import LogRocket from 'logrocket'
-import setupLogRocketReact from 'logrocket-react'
 import WebFont from 'webfontloader'
 
 // Styles
@@ -25,9 +23,6 @@ import './scss/style.css'
 import store from './store'
 import App from './components/App'
 import registerServiceWorker from './registerServiceWorker'
-
-LogRocket.init('agmdy3/fida-imu')
-setupLogRocketReact(LogRocket)
 
 WebFont.load({
   google: {
