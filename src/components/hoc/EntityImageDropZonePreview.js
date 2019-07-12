@@ -14,7 +14,11 @@ const EntityImageDropZonePreview = ({ onFileDelete, uploadedFiles }) => (
             <Col md="10" key={file.name + uuid()}>
               <div className="dropzone-image-wrapper">
                 <div>
-                  <img src={file.downloadURL} alt={file.name} className="img-fluid img-thumbnail" />
+                  <img
+                    src={file.downloadURL}
+                    alt={file.name}
+                    className="img-fluid img-thumbnail"
+                  />
                 </div>
                 <div className="dropzone-image-remove-wrapper">
                   <Button

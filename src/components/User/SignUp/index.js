@@ -7,7 +7,11 @@ import { auth, db } from '../../../firebase'
 import * as routes from '../../../constants/routes'
 import { updateByPropertyName, setStateValue } from '../../../constants/utils'
 import PageWrapper from '../PageWrapper'
-import { UsernameField, EmailField, PasswordConfirmField } from '../../FormGroupElement/FormFields'
+import {
+  UsernameField,
+  EmailField,
+  PasswordConfirmField,
+} from '../../FormGroupElement/FormFields'
 import { LoginLangMenu } from '../Login'
 import ErrorMsg from '../../ErrorMsg'
 
@@ -22,7 +26,10 @@ const SignUpPage = ({ history }) => (
         <LoginLangMenu />
       </CardBody>
     </Card>
-    <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: `${44}%` }}>
+    <Card
+      className="text-white bg-primary py-5 d-md-down-none"
+      style={{ width: `${44}%` }}
+    >
       <CardBody className="text-center">
         <div className="flex-row align-items-center">
           <div>
@@ -67,8 +74,7 @@ class SignUpForm extends Component {
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         // Create a user in your own accessible Firebase Database too
-        db
-          .doCreateUser(authUser.uid, username, email)
+        db.doCreateUser(authUser.uid, username, email)
           .then(() => {
             this.setState(() => ({ ...INITIAL_STATE }))
             history.push(routes.HOME)
@@ -86,12 +92,19 @@ class SignUpForm extends Component {
 
   render() {
     const { username, email, passwordOne, passwordTwo, error } = this.state
-    const isInvalid = passwordOne !== passwordTwo || passwordOne === '' || username === '' || email === ''
+    const isInvalid =
+      passwordOne !== passwordTwo ||
+      passwordOne === '' ||
+      username === '' ||
+      email === ''
 
     return (
       <form onSubmit={this.onSubmit}>
         {error && <ErrorMsg error={error.message} />}
-        <UsernameField value={username} onChange={setStateValue('username', this)} />
+        <UsernameField
+          value={username}
+          onChange={setStateValue('username', this)}
+        />
         <EmailField value={email} onChange={setStateValue('email', this)} />
         <PasswordConfirmField
           passwordOne={passwordOne}

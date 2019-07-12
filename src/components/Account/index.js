@@ -11,19 +11,34 @@ import UserProfileForm from '../UserProfileForm'
 import getEntityImageDropZone from '../hoc/getEntityImageDropZone'
 // authUser.email
 const AccountPage = props => {
-  const ImageDropZone = getEntityImageDropZone('user', false, props.authUser.uid)
+  const ImageDropZone = getEntityImageDropZone(
+    'user',
+    false,
+    props.authUser.uid,
+  )
   return (
     <div>
-      <PageTitle title={props.intl.formatMessage({ id: 'account.page.title' })} />
+      <PageTitle
+        title={props.intl.formatMessage({ id: 'account.page.title' })}
+      />
       <Container fluid>
         <Row className="full-height d-flex justify-content-left align-items-top py-4">
           <Col md="8" className="fadeIn animated">
-            <Card title={props.intl.formatMessage({ id: 'account.page.subtitle' }, { name: props.authUser.email })}>
+            <Card
+              title={props.intl.formatMessage(
+                { id: 'account.page.subtitle' },
+                { name: props.authUser.email },
+              )}
+            >
               <UserProfileForm formatMessage={props.intl.formatMessage} />
             </Card>
           </Col>
           <Col md="4">
-            <Card title={props.intl.formatMessage({ id: 'account.page.profile.picture' })}>
+            <Card
+              title={props.intl.formatMessage({
+                id: 'account.page.profile.picture',
+              })}
+            >
               <ImageDropZone />
             </Card>
           </Col>
@@ -42,4 +57,7 @@ const mapStateToProps = state => ({
   authUser: state.sessionState.authUser,
 })
 
-export default compose(injectIntl, connect(mapStateToProps))(AccountPage)
+export default compose(
+  injectIntl,
+  connect(mapStateToProps),
+)(AccountPage)

@@ -39,7 +39,11 @@ UsersPage.propTypes = {
 const UserList = ({ users }) => (
   <div>
     <h2>List of Usernames of Users</h2>
-    <ul>{Object.keys(users).map(key => <li key={key}>{users[key].username}</li>)}</ul>
+    <ul>
+      {Object.keys(users).map(key => (
+        <li key={key}>{users[key].username}</li>
+      ))}
+    </ul>
   </div>
 )
 
@@ -57,4 +61,10 @@ const mapDispatchToProps = dispatch => ({
 
 const authCondition = authUser => !!authUser
 
-export default compose(withAuthorization(authCondition), connect(mapStateToProps, mapDispatchToProps))(UsersPage)
+export default compose(
+  withAuthorization(authCondition),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+)(UsersPage)

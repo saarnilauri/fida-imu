@@ -14,14 +14,14 @@ const applySetPayload = (state, action) => ({
 
 const notificationReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'NOTIFICATION': {
-    return applySetPayload(state, action)
-  }
-  case 'CLEAN_NOTIFICATION': {
-    return applySetPayload(state, { payload: '' })
-  }
-  default:
-    return state
+    case 'NOTIFICATION': {
+      return applySetPayload(state, action)
+    }
+    case 'CLEAN_NOTIFICATION': {
+      return applySetPayload(state, { payload: '' })
+    }
+    default:
+      return state
   }
 }
 

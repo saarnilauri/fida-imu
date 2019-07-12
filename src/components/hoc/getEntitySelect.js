@@ -37,7 +37,12 @@ const getEntitySelect = entity => {
     data: PropTypes.array,
     intl: PropTypes.object,
     onChange: PropTypes.func,
-    value: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.array, PropTypes.string]),
+    value: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.object,
+      PropTypes.array,
+      PropTypes.string,
+    ]),
   }
 
   return compose(

@@ -1,4 +1,8 @@
-import { authCondition, activeProfileCondition, adminRoleCondition } from './utils'
+import {
+  authCondition,
+  activeProfileCondition,
+  adminRoleCondition,
+} from './utils'
 
 const mockProfile = {
   churches: [

@@ -131,8 +131,17 @@ const mapDispatchToProps = getMapDispatchToProps('country')
 
 const mapStateToProps = state => ({
   authUser: state.sessionState.authUser,
-  data: state.countryState.collectionReady === true ? collectionToArray(state.countryState.countriesCollection) : [],
+  data:
+    state.countryState.collectionReady === true
+      ? collectionToArray(state.countryState.countriesCollection)
+      : [],
   ready: state.countryState.collectionReady,
 })
 
-export default compose(injectIntl, connect(mapStateToProps, mapDispatchToProps))(CountryList)
+export default compose(
+  injectIntl,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+)(CountryList)

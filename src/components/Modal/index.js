@@ -5,7 +5,11 @@ import Fontawesome from 'react-fontawesome'
 import ButtonGroup from '../ButtonGroup'
 
 const ModalWrapper = props => (
-  <Modal isOpen={props.isOpen} toggle={props.toggle} className={props.className}>
+  <Modal
+    isOpen={props.isOpen}
+    toggle={props.toggle}
+    className={props.className}
+  >
     <ModalHeader toggle={props.toggle}>
       {props.titleIcon && <Fontawesome name={props.titleIcon} />}
       {` ${props.title}`}
@@ -39,7 +43,11 @@ ModalWrapper.propTypes = {
   cancel: PropTypes.func,
   cancelBtnIcon: PropTypes.string,
   cancelBtnTitle: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),
+  children: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+    PropTypes.string,
+  ]),
   className: PropTypes.string,
   isOpen: PropTypes.bool,
   title: PropTypes.string,

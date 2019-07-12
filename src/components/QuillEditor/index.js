@@ -24,9 +24,22 @@ class QuillEditor extends Component {
 
   render() {
     const modules = {
-      toolbar: [['bold', 'italic', 'underline', { header: 1 }], [{ list: 'ordered' }, { list: 'bullet' }]],
+      toolbar: [
+        ['bold', 'italic', 'underline', { header: 1 }],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+      ],
     }
-    const formats = ['header', 'bold', 'italic', 'underline', 'strike', 'blockquote', 'list', 'bullet', 'indent']
+    const formats = [
+      'header',
+      'bold',
+      'italic',
+      'underline',
+      'strike',
+      'blockquote',
+      'list',
+      'bullet',
+      'indent',
+    ]
     const { editMode, full } = this.props
     if (full) {
       modules.toolbar = fullToolbarOptions
@@ -44,8 +57,13 @@ class QuillEditor extends Component {
           />
         </div>
       ) : (
-        // eslint-disable-next-line
-        <div dangerouslySetInnerHTML={{ __html: this.state.text ? this.state.text : this.props.defaultValue }} />
+        /* eslint-disable */
+        <div
+          dangerouslySetInnerHTML={{
+            __html: this.state.text ? this.state.text : this.props.defaultValue,
+          }}
+        />
+        /* eslint-enable */
       )
     return view
   }

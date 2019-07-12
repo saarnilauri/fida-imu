@@ -1,7 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import FormElement from './index'
-import { UsernameField, EmailField, PasswordField, PasswordConfirmField } from './FormFields'
+import {
+  UsernameField,
+  EmailField,
+  PasswordField,
+  PasswordConfirmField,
+} from './FormFields'
 
 it('renders without crashing', () => {
   const div = document.createElement('div')

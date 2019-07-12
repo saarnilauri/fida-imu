@@ -9,11 +9,16 @@ import { EmailField, PasswordField } from '../../../FormGroupElement/FormFields'
 const LoginForm = props => (
   <React.Fragment>
     <EmailField mb="3" value={props.email} onChange={props.onChangeEmail} />
-    <PasswordField mb="4" value={props.password} onChange={props.onChangePassword} />
+    <PasswordField
+      mb="4"
+      value={props.password}
+      onChange={props.onChangePassword}
+    />
     <Row>
       <Col xs={props.forgotPasswordRoute ? '6' : '12'}>
         <Button color="secondary" disabled={props.isInvalid} type="submit">
-          <FontAwesome name="sign-in" /> <FormattedMessage id="app.login.form.sign-in" />
+          <FontAwesome name="sign-in" />{' '}
+          <FormattedMessage id="app.login.form.sign-in" />
         </Button>
       </Col>
       {props.forgotPasswordRoute && (

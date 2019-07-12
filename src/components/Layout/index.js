@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { AppFooter, AppHeader } from '@coreui/react'
 import uuid from 'uuid'
+
 // sidebar nav config
 import routes from '../../routes'
 import Footer from './Footer'

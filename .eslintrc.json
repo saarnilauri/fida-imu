@@ -5,7 +5,7 @@
     "jest": true
   },
   "plugins": ["react"],
-  "extends": ["airbnb"],
+  "extends": ["airbnb", "plugin:prettier/recommended"],
   "settings": {
     "react": {
       "pragma": "React",
@@ -17,7 +17,6 @@
   "rules": {
     "arrow-body-style": "off",
     "arrow-parens": [0],
-    "indent": ["error", 2],
     "jsx-a11y/anchor-is-valid": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "function-paren-newline": "off",
@@ -31,6 +30,9 @@
     "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx"] }],
     "react/prefer-stateless-function": [0],
     "react/require-default-props": [0],
+    "react/destructuring-assignment": [0, "always"],
+    "react/no-access-state-in-setstate": [0],
+    "react/jsx-one-expression-per-line": [0],
     "semi": ["error", "never"]
   }
 }

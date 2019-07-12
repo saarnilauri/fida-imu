@@ -5,7 +5,12 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { injectIntl } from 'react-intl'
 import Fontawesome from 'react-fontawesome'
-import { Collapse, ListGroup, ListGroupItem, ListGroupItemHeading } from 'reactstrap'
+import {
+  Collapse,
+  ListGroup,
+  ListGroupItem,
+  ListGroupItemHeading,
+} from 'reactstrap'
 import { getListMapStateToProps } from '../../hoc/helperFunctions'
 import { getMapDispatchToProps } from '../../../reducers/curriedFirebase'
 import Card from '../../Card'
@@ -26,7 +31,9 @@ class RecentPrayers extends Component {
 
   toggle(item) {
     this.setState(previousState => {
-      const collapse = Object.assign({}, previousState.collapse, { [item]: !previousState.collapse[item] })
+      const collapse = Object.assign({}, previousState.collapse, {
+        [item]: !previousState.collapse[item],
+      })
       return { collapse }
     })
   }
@@ -34,24 +41,39 @@ class RecentPrayers extends Component {
   render() {
     const { formatMessage } = this.props.intl
     return (
-      <Card noBody headerClass="bg-secondary text-white" title={formatMessage({ id: 'prayer.recent.card.headder' })}>
+      <Card
+        noBody
+        headerClass="bg-secondary text-white"
+        title={formatMessage({ id: 'prayer.recent.card.headder' })}
+      >
         <ListGroup>
           {this.props.data.slice(0, 3).map(prayer => {
             const id = uuid()
             return (
               <ListGroupItem key={id}>
-                <ListGroupItemHeading onClick={() => this.toggle(prayer.uid)} className="prayer-heading">
+                <ListGroupItemHeading
+                  onClick={() => this.toggle(prayer.uid)}
+                  className="prayer-heading"
+                >
                   <Fontawesome name="comment-o" /> {prayer.name}{' '}
                   <span className="collapseToggle">
-                    <Fontawesome name={this.state.collapse[prayer.uid] ? 'compress' : 'expand'} />
+                    <Fontawesome
+                      name={
+                        this.state.collapse[prayer.uid] ? 'compress' : 'expand'
+                      }
+                    />
                   </span>
                 </ListGroupItemHeading>
                 <Collapse isOpen={this.state.collapse[prayer.uid]}>
                   <div className="list-group-item-text">
-                    <blockquote className="blockquote prayer-text">{prayer.text}</blockquote>
+                    <blockquote className="blockquote prayer-text">
+                      {prayer.text}
+                    </blockquote>
                     {!prayer.anonymous && (
                       <footer className="blockquote-footer text-right">
-                        <cite title="Source Title">{prayer.person ? prayer.person : prayer.username}</cite>
+                        <cite title="Source Title">
+                          {prayer.person ? prayer.person : prayer.username}
+                        </cite>
                       </footer>
                     )}
                   </div>

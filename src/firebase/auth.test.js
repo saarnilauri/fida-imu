@@ -5,7 +5,10 @@ import {
 } from './auth'
 
 it('doCreateUserWithEmailAndPassword user returns promise', () => {
-  const returnValue = doCreateUserWithEmailAndPassword('test@test.com', 'password')
+  const returnValue = doCreateUserWithEmailAndPassword(
+    'test@test.com',
+    'password',
+  )
   expect(returnValue).toBeInstanceOf(Object)
 })
 

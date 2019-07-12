@@ -12,7 +12,11 @@ import userIcon from '../../../assets/img/user.svg'
 const UserHeaderMenu = props => (
   <AppHeaderDropdown direction="down">
     <DropdownToggle nav>
-      <img src={props.profilePic ? props.profilePic : userIcon} className="img-avatar" alt="" />{' '}
+      <img
+        src={props.profilePic ? props.profilePic : userIcon}
+        className="img-avatar"
+        alt=""
+      />{' '}
       {props.user && props.user.email}
     </DropdownToggle>
     <DropdownMenu right style={{ right: 'auto' }}>
@@ -23,11 +27,14 @@ const UserHeaderMenu = props => (
       </DropdownItem>
       <DropdownItem>
         <Link to="account">
-          <FontAwesome name="user" /> <FormattedMessage id="app.header.dropdown.profileLink" />
+          <FontAwesome name="user" />{' '}
+          <FormattedMessage id="app.header.dropdown.profileLink" />
         </Link>
       </DropdownItem>
       <DropdownItem>
-        <SignOutButton text={<FormattedMessage id="app.header.dropdown.signout" />} />
+        <SignOutButton
+          text={<FormattedMessage id="app.header.dropdown.signout" />}
+        />
       </DropdownItem>
     </DropdownMenu>
   </AppHeaderDropdown>

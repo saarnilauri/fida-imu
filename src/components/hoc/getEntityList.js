@@ -69,7 +69,8 @@ const getEntityList = (entity, settings) => {
     render() {
       const { modalIsOpen } = this.state
       const { ready, data } = this.props // eslint-disable-line
-      const { formatMessage } = this.props.intl
+      const { formatMessage } = this.props.intl // eslint-disable-line
+      // linting disabled because proptypes are provided by curried function and eslint cannot check this
       const view = ready ? (
         <EntityListView
           formatMessage={formatMessage}
@@ -90,7 +91,13 @@ const getEntityList = (entity, settings) => {
   EntityList.propTypes = getEntityListPropTypes(wordForms)
   const mapDispatchToProps = getMapDispatchToProps(entity)
   const mapStateToProps = getListMapStateToProps(entity)
-  return compose(injectIntl, connect(mapStateToProps, mapDispatchToProps))(EntityList)
+  return compose(
+    injectIntl,
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    ),
+  )(EntityList)
 }
 
 export default getEntityList

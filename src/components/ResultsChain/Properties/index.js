@@ -23,7 +23,12 @@ class ResultsChainProperties extends Component {
 
   render() {
     const { formatMessage } = this.props.intl
-    const { title, countries, handleSelectCountriesChange, selectedComponent } = this.props
+    const {
+      title,
+      countries,
+      handleSelectCountriesChange,
+      selectedComponent,
+    } = this.props
     const error = null
     return (
       <Card title={formatMessage({ id: 'resultschain.form.title' })}>
@@ -34,18 +39,26 @@ class ResultsChainProperties extends Component {
             value={title}
             name="title"
             id="title"
-            placeholder={formatMessage({ id: 'resultschain.form.placeholders.title' })}
+            placeholder={formatMessage({
+              id: 'resultschain.form.placeholders.title',
+            })}
             icon="table"
           />
           <Components
             selected={selectedComponent}
-            onChangeComponent={this.props.setParentStateValue('selectedComponent')}
+            onChangeComponent={this.props.setParentStateValue(
+              'selectedComponent',
+            )}
           />
           <div className="py-2">
             <Label for="123">
-              <Fontawesome name="globe" /> {formatMessage({ id: 'resultschain.form.labels.countries' })}
+              <Fontawesome name="globe" />{' '}
+              {formatMessage({ id: 'resultschain.form.labels.countries' })}
             </Label>
-            <CountrySelection value={countries} onChange={handleSelectCountriesChange} />
+            <CountrySelection
+              value={countries}
+              onChange={handleSelectCountriesChange}
+            />
           </div>
           <Button type="submit">{formatMessage({ id: 'actions.save' })}</Button>
         </form>

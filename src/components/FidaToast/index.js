@@ -10,7 +10,8 @@ style({
   colorSuccess: '#4cd964',
   colorWarning: '#f1c40f',
   colorError: '#e74c3c',
-  colorProgressDefault: 'linear-gradient(to right, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55)',
+  colorProgressDefault:
+    'linear-gradient(to right, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55)',
   mobile: 'only screen and (max-width : 480px)',
   fontFamily: "'Istok Web', sans-serif", // eslint-disable-line
   zIndex: 9999,
@@ -42,6 +43,12 @@ style({
   },
 })
 
-const FidaToast = () => <ToastContainer autoClose={TOAST_LONG} hideProgressBar transition={FadeInAndOut} />
+const FidaToast = () => (
+  <ToastContainer
+    autoClose={TOAST_LONG}
+    hideProgressBar
+    transition={FadeInAndOut}
+  />
+)
 
 export default FidaToast

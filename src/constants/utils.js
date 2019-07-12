@@ -8,7 +8,10 @@ export const updateByPropertyName = (propertyName, value) => () => ({
 })
 
 export const setStateValue = (propertyName, componentThis) => {
-  return event => componentThis.setState(updateByPropertyName(propertyName, event.target.value))
+  return event =>
+    componentThis.setState(
+      updateByPropertyName(propertyName, event.target.value),
+    )
 }
 
 export const findUserItems = (collection, uid = null) => {
@@ -18,8 +21,8 @@ export const findUserItems = (collection, uid = null) => {
     Object.keys(collection).forEach(key => {
       const userItems = collection[key].users
         ? collection[key].users.find(item => {
-          return item === uid
-        })
+            return item === uid
+          })
         : []
 
       if (userItems && userItems.length > 0) {
@@ -30,13 +33,20 @@ export const findUserItems = (collection, uid = null) => {
 
   return items
 }
-
+// eslint-disable-next-line max-len
 export const collectionToArray = collection =>
-  (collection ? Object.keys(collection).map(uid => ({ ...collection[uid], uid })) : [])
-
+  collection
+    ? Object.keys(collection).map(uid => ({ ...collection[uid], uid }))
+    : []
+// eslint-disable-next-line max-len
 export const collectionToArrayWithLabelAndValue = (collection, label) =>
-  Object.keys(collection).map(uid => ({ ...collection[uid], label: collection[uid][label], value: uid, key: uid }))
-
+  Object.keys(collection).map(uid => ({
+    ...collection[uid],
+    label: collection[uid][label],
+    value: uid,
+    key: uid,
+  }))
+// eslint-disable-next-line max-len
 export const collectionToArrayWithNames = (collection, label) =>
   Object.keys(collection).map(uid => collection[uid][label])
 
@@ -58,7 +68,8 @@ export function getWordForms(word) {
   }
 }
 
-export const getValueByPath = (p, o) => p.reduce((xs, x) => (xs && xs[x] ? xs[x] : null), o)
+export const getValueByPath = (p, o) =>
+  p.reduce((xs, x) => (xs && xs[x] ? xs[x] : null), o)
 
 export const shouldItRerender = (nextProps, props, nextState, state) => {
   if (isEqual(nextProps, props) && isEqual(nextState, state)) {

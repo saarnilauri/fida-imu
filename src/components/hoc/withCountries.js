@@ -16,7 +16,10 @@ export default function withCountries(WrappedComponent) {
     authUser: state.sessionState.authUser,
     data:
       state.countryState.collectionReady === true
-        ? collectionToArrayWithLabelAndValue(state.countryState.countriesCollection, 'name')
+        ? collectionToArrayWithLabelAndValue(
+            state.countryState.countriesCollection,
+            'name',
+          )
         : [],
     ready: state.countryState.collectionReady,
   })
@@ -41,5 +44,8 @@ export default function withCountries(WrappedComponent) {
     ready: PropTypes.bool,
   }
 
-  return connect(mapStateToProps, mapDispatchToProps)(WithCountries)
+  return connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(WithCountries)
 }

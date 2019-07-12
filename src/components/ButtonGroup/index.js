@@ -9,8 +9,14 @@ const ButtonGroup = props => {
     const color = button.color ? button.color : props.color
     return (
       <React.Fragment key={uuid()}>
-        <Button color={color} onClick={button.onClick} type={button.type} title={button.titleAttr}>
-          {button.icon && <Fontawesome name={button.icon} />} {button.title}
+        <Button
+          color={color}
+          onClick={button.onClick}
+          type={button.type}
+          title={button.titleAttr}
+        >
+          {button.icon && <Fontawesome name={button.icon} />}
+          {button.title}
         </Button>{' '}
       </React.Fragment>
     )

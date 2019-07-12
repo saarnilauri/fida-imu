@@ -1,7 +1,10 @@
 import getEntityAdminPage from './getEntityAdminPage'
 import getEntityForm from './getEntityForm'
 import getEntityList from './getEntityList'
-import { getAddEditCancelButtonSetup, getErrorProperty } from './helperFunctions'
+import {
+  getAddEditCancelButtonSetup,
+  getErrorProperty,
+} from './helperFunctions'
 
 const settings = {
   initialState: {

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import capitalize from 'lodash/capitalize'
-import FormElement from '../FormGroupElement'
+import FormElement from './index'
 
 const propTypes = {
   value: PropTypes.string,
@@ -11,7 +11,12 @@ const propTypes = {
 }
 
 const Field = ({ id, ...props }) => (
-  <FormElement {...props} name={id} id={id} label={props.label ? props.label : capitalize(id)} />
+  <FormElement
+    {...props}
+    name={id}
+    id={id}
+    label={props.label ? props.label : capitalize(id)}
+  />
 )
 
 Field.propTypes = {
@@ -63,7 +68,13 @@ export const PwdField = ({ onChange, value, intl }) => (
 PwdField.propTypes = propTypes
 export const PasswordField = injectIntl(PwdField)
 
-export const PwdConfirmField = ({ onChangeOne, passwordOne, onChangeTwo, passwordTwo, intl }) => (
+export const PwdConfirmField = ({
+  onChangeOne,
+  passwordOne,
+  onChangeTwo,
+  passwordTwo,
+  intl,
+}) => (
   <div>
     <Field
       className=""
@@ -93,6 +104,9 @@ PwdConfirmField.propTypes = {
   onChangeOne: PropTypes.func,
   passwordTwo: PropTypes.string,
   onChangeTwo: PropTypes.func,
+  intl: PropTypes.shape({
+    formatMessage: PropTypes.func,
+  }),
 }
 
 export const PasswordConfirmField = injectIntl(PwdConfirmField)

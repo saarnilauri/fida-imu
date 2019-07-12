@@ -9,7 +9,9 @@ const EditModeToggleButton = props => {
   /* eslint-disable */ return (
     <Button color="secondary" size="sm" onClick={props.onClick}>
       <Fontawesome name={!props.editMode ? 'cog' : 'eye'} />{' '}
-      {!props.editMode ? formatMessage({ id: 'actions.edit' }) : formatMessage({ id: 'actions.view' })}{' '}
+      {!props.editMode
+        ? formatMessage({ id: 'actions.edit' })
+        : formatMessage({ id: 'actions.view' })}{' '}
       {formatMessage({ id: 'noun.results_chain' })}
     </Button>
   )

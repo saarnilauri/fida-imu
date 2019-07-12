@@ -2,14 +2,18 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getLoadEntityCollectionActionCreator } from '../../reducers/curriedFirebase'
-import { collectionToArrayWithLabelAndValue, getWordForms } from '../../constants/utils'
+import {
+  collectionToArrayWithLabelAndValue,
+  getWordForms,
+} from '../../constants/utils'
 
 const withEntities = entity => WrappedComponent => {
   const wordForms = getWordForms(entity)
   const loadEntities = getLoadEntityCollectionActionCreator(entity)
 
   const mapDispatchToProps = dispatch => ({
-    loadEntities: () => dispatch(loadEntities(`${wordForms.capitalizedPrural} loaded...`)),
+    loadEntities: () =>
+      dispatch(loadEntities(`${wordForms.capitalizedPrural} loaded...`)),
   })
 
   const mapStateToProps = state => {
@@ -17,7 +21,10 @@ const withEntities = entity => WrappedComponent => {
       authUser: state.sessionState.authUser,
       data:
         state[`${entity}State`].collectionReady === true
-          ? collectionToArrayWithLabelAndValue(state[`${entity}State`][`${wordForms.prular}Collection`], 'name')
+          ? collectionToArrayWithLabelAndValue(
+              state[`${entity}State`][`${wordForms.prular}Collection`],
+              'name',
+            )
           : [],
       ready: state[`${entity}State`].collectionReady,
     }
@@ -43,7 +50,10 @@ const withEntities = entity => WrappedComponent => {
     ready: PropTypes.bool,
   }
 
-  return connect(mapStateToProps, mapDispatchToProps)(WithEntities)
+  return connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(WithEntities)
 }
 
 export default withEntities

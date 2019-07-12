@@ -19,7 +19,9 @@ class ItemToMeasure extends Component {
     return (
       <div style={{ height: `${this.props.contentHeight}px` }}>
         <Measure bounds onResize={this.onResize}>
-          {({ measureRef }) => <div ref={measureRef}>{this.props.children}</div>}
+          {({ measureRef }) => (
+            <div ref={measureRef}>{this.props.children}</div>
+          )}
         </Measure>
       </div>
     )

@@ -19,7 +19,9 @@ describe('profile picture thumbnail reducer', () => {
   })
 
   it('applySetUserProfileThumb returns action', () => {
-    expect(applySetUserProfileThumb({ val: 'test' }, { payload: 'test.jpg' })).toEqual({
+    expect(
+      applySetUserProfileThumb({ val: 'test' }, { payload: 'test.jpg' }),
+    ).toEqual({
       val: 'test',
       thumb: 'test.jpg',
     })

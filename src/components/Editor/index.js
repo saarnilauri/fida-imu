@@ -4,9 +4,32 @@ import CKEditor from 'ckeditor4-react'
 
 const toolbar = [
   { name: 'styles', items: ['Format'] },
-  { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
+  {
+    name: 'clipboard',
+    items: [
+      'Cut',
+      'Copy',
+      'Paste',
+      'PasteText',
+      'PasteFromWord',
+      '-',
+      'Undo',
+      'Redo',
+    ],
+  },
   { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline'] },
-  { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] },
+  {
+    name: 'paragraph',
+    items: [
+      'NumberedList',
+      'BulletedList',
+      '-',
+      'Outdent',
+      'Indent',
+      '-',
+      'Blockquote',
+    ],
+  },
   { name: 'links', items: ['Link', 'Unlink'] },
   { name: 'colors', items: ['TextColor', 'BGColor'] },
 ]

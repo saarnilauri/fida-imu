@@ -9,7 +9,12 @@ const propTypes = {
 }
 
 const Field = ({ id, ...props }) => (
-  <FormElement {...props} name={id} id={id} label={props.label ? props.label : capitalize(id)} />
+  <FormElement
+    {...props}
+    name={id}
+    id={id}
+    label={props.label ? props.label : capitalize(id)}
+  />
 )
 
 Field.propTypes = {
@@ -18,24 +23,49 @@ Field.propTypes = {
 }
 
 export const UsernameField = ({ onChange, value }) => (
-  <Field className="" id="username" value={value} onChange={onChange} type="text" />
+  <Field
+    className=""
+    id="username"
+    value={value}
+    onChange={onChange}
+    type="text"
+  />
 )
 
 UsernameField.propTypes = propTypes
 
 export const EmailField = ({ onChange, value }) => (
-  <Field className="py-2" value={value} id="email" onChange={onChange} type="text" placeholder="Email Address" />
+  <Field
+    className="py-2"
+    value={value}
+    id="email"
+    onChange={onChange}
+    type="text"
+    placeholder="Email Address"
+  />
 )
 
 EmailField.propTypes = propTypes
 
 export const PasswordField = ({ onChange, value }) => (
-  <Field className="py-2" id="password" value={value} onChange={onChange} type="password" placeholder="Password" />
+  <Field
+    className="py-2"
+    id="password"
+    value={value}
+    onChange={onChange}
+    type="password"
+    placeholder="Password"
+  />
 )
 
 PasswordField.propTypes = propTypes
 
-export const PasswordConfirmField = ({ onChangeOne, passwordOne, onChangeTwo, passwordTwo }) => (
+export const PasswordConfirmField = ({
+  onChangeOne,
+  passwordOne,
+  onChangeTwo,
+  passwordTwo,
+}) => (
   <React.Fragment>
     <Field
       className=""

@@ -11,7 +11,11 @@ const PageWrapper = props => (
 )
 
 PageWrapper.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),
+  children: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+    PropTypes.string,
+  ]),
 }
 
 export default PageWrapper

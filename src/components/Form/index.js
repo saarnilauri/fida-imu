@@ -11,7 +11,11 @@ const Form = props => (
 )
 
 Form.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object, PropTypes.string]),
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string,
+  ]),
   error: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
 }

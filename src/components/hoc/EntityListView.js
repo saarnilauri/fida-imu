@@ -4,7 +4,16 @@ import ReactTable from 'react-table'
 import Modal from '../Modal'
 
 const EntityListView = props => {
-  const { formatMessage, data, tableColumns, tableSort, entity, modalIsOpen, removeEntity, cancelRemove } = props
+  const {
+    formatMessage,
+    data,
+    tableColumns,
+    tableSort,
+    entity,
+    modalIsOpen,
+    removeEntity,
+    cancelRemove,
+  } = props
   return (
     <React.Fragment>
       <ReactTable

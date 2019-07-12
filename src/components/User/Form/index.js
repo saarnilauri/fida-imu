@@ -5,7 +5,18 @@ import ButtonGroup from '../../ButtonGroup'
 import FormElement from '../../FormGroupElement'
 
 const CountryListForm = props => {
-  const { onSubmit, error, onNameChange, name, area, onAreaChange, code, onCodeChange, editMode, cancelEdit } = props
+  const {
+    onSubmit,
+    error,
+    onNameChange,
+    name,
+    area,
+    onAreaChange,
+    code,
+    onCodeChange,
+    editMode,
+    cancelEdit,
+  } = props
   const buttons = [
     {
       color: 'primary',
@@ -32,7 +43,14 @@ const CountryListForm = props => {
         placeholder="Country name"
         icon="map-marker"
       />
-      <FormElement onChange={onAreaChange} value={area} name="area" id="area" placeholder="Region" icon="map" />
+      <FormElement
+        onChange={onAreaChange}
+        value={area}
+        name="area"
+        id="area"
+        placeholder="Region"
+        icon="map"
+      />
       <FormElement
         onChange={onCodeChange}
         value={code}

@@ -57,8 +57,9 @@ const getEntityAdminPage = (entity, settings) => {
           this.props[`load${sourceWordForms.capitalizedPrular}`]()
         })
       }
-      // eslint-disable-next-line
+      // eslint-disable-next-line react/prop-types
       if (!this.props.ready) {
+        // linting disabled because proptypes are provided by curried function and eslint cannot check this
         this.props[`load${wordForms.capitalizedPrular}`]()
       }
     }
@@ -85,29 +86,44 @@ const getEntityAdminPage = (entity, settings) => {
     }
 
     editEntity(uid) {
+      // eslint-disable-next-line
       const { data } = this.props
-      this.setState(() => ({ uid, formData: data.find(item => item.uid === uid), editMode: true }))
+      // linting disabled because proptypes are provided by curried function and eslint cannot check this
+      this.setState(() => ({
+        uid,
+        formData: data.find(item => item.uid === uid), // eslint-disable-line
+        editMode: true,
+      }))
     }
+
     cancelEdit() {
       this.setState(() => ({ formData: null, editMode: false, uid: null }))
     }
 
     render() {
-      const mappedSchema = mapSourcesToSchema(this.props.sources, settings.form.schema) // eslint-disable-line
+      const mappedSchema = mapSourcesToSchema(
+        this.props.sources, // eslint-disable-line react/prop-types
+        settings.form.schema,
+      )
 
       const EntityForm = getEntityForm(entity, settings.form, mappedSchema)
       const EntityList = getEntityList(entity, settings.list.settings)
 
       const { formData, editMode } = this.state
-      const { formatMessage } = this.props.intl // eslint-disable-line
+      const { formatMessage } = this.props.intl // eslint-disable-line react/prop-types
 
       return (
         <React.Fragment>
-          <PageTitle title={formatMessage({ id: `${entity}.list.page.header` })} />
+          <PageTitle
+            title={formatMessage({ id: `${entity}.list.page.header` })}
+          />
           <PageWrapper>
             <Row>
               <Col md="8">
-                <Card title={formatMessage({ id: `${entity}.list.page.subheader` })} noPadding>
+                <Card
+                  title={formatMessage({ id: `${entity}.list.page.subheader` })}
+                  noPadding
+                >
                   <EntityList edit={this.editEntity} entity={entity} />
                 </Card>
               </Col>
@@ -115,8 +131,12 @@ const getEntityAdminPage = (entity, settings) => {
                 <Card
                   title={
                     editMode
-                      ? formatMessage({ id: `${entity}.list.page.form.title.edit` })
-                      : formatMessage({ id: `${entity}.list.page.form.title.add_new` })
+                      ? formatMessage({
+                          id: `${entity}.list.page.form.title.edit`,
+                        })
+                      : formatMessage({
+                          id: `${entity}.list.page.form.title.add_new`,
+                        })
                   }
                   headerClass={editMode ? 'bg-secondary text-white' : ''}
                 >
@@ -145,7 +165,9 @@ const getEntityAdminPage = (entity, settings) => {
     injectIntl,
     connect(
       settings.mapStateToProps ? settings.mapStateToProps : mapStateToProps,
-      settings.mapDispatchToProps ? settings.mapDispatchToProps : mapDispatchToProps,
+      settings.mapDispatchToProps
+        ? settings.mapDispatchToProps
+        : mapDispatchToProps,
     ),
   )(EntityListPage)
 }

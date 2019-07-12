@@ -8,13 +8,15 @@ describe('session reducer', () => {
   })
 
   it('should handle AUTH_USER_SET', () => {
-    expect(sessionReducer(undefined, {
-      type: 'AUTH_USER_SET',
-      authUser: {
-        name: 'Tester',
-        email: 'test@test.com',
-      },
-    })).toEqual({
+    expect(
+      sessionReducer(undefined, {
+        type: 'AUTH_USER_SET',
+        authUser: {
+          name: 'Tester',
+          email: 'test@test.com',
+        },
+      }),
+    ).toEqual({
       authUser: {
         name: 'Tester',
         email: 'test@test.com',

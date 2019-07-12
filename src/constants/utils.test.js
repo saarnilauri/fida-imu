@@ -30,7 +30,9 @@ const mockCollection = {
 
 describe('Util functions', () => {
   it('updateByPropertyName returns function', () => {
-    expect(updateByPropertyName('testKey', 'testValue')).toEqual(expect.any(Function))
+    expect(updateByPropertyName('testKey', 'testValue')).toEqual(
+      expect.any(Function),
+    )
   })
 
   it('updateByPropertyName curried function returns valid object', () => {
@@ -40,7 +42,9 @@ describe('Util functions', () => {
   })
 
   it('findUserItems returns array of objects', () => {
-    expect(findUserItems(mockCollection, 'test-user-key')).toEqual(expect.any(Array))
+    expect(findUserItems(mockCollection, 'test-user-key')).toEqual(
+      expect.any(Array),
+    )
   })
 
   it('collectionToArray returns array of objects', () => {
@@ -99,8 +103,12 @@ describe('Util functions', () => {
   })
 
   it('getValueByPath return correct value from object by given path', () => {
-    expect(getValueByPath(['a', 'b', 'c'], { a: { b: { c: 'value' } } })).toBe('value')
-    expect(getValueByPath(['a', 'b', 'd'], { a: { b: { c: 'value' } } })).toBe(null)
+    expect(getValueByPath(['a', 'b', 'c'], { a: { b: { c: 'value' } } })).toBe(
+      'value',
+    )
+    expect(getValueByPath(['a', 'b', 'd'], { a: { b: { c: 'value' } } })).toBe(
+      null,
+    )
   })
 
   it('shouldItRerender return true if props or state do not match with previous values', () => {
@@ -110,6 +118,8 @@ describe('Util functions', () => {
     expect(shouldItRerender({ a: 1 }, { a: 1 }, { b: 1 }, { b: 1 })).toBe(false)
   })
   it('shouldItRerender return false if props and state match with previous values. Compare deep.', () => {
-    expect(shouldItRerender({ a: { c: 1 } }, { a: { c: 1 } }, { b: 1 }, { b: 1 })).toBe(false)
+    expect(
+      shouldItRerender({ a: { c: 1 } }, { a: { c: 1 } }, { b: 1 }, { b: 1 }),
+    ).toBe(false)
   })
 })

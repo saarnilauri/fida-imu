@@ -9,6 +9,7 @@ class Notifications extends Component {
       this.props.cleanNotification()
     }
   }
+
   render() {
     const { notification } = this.props
 
@@ -48,6 +49,9 @@ const mapDispatchToProps = dispatch => ({
 
 export { Notifications }
 
-const EnhachedNotification = connect(mapStateToProps, mapDispatchToProps)(Notifications)
+const EnhachedNotification = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Notifications)
 
 export default EnhachedNotification

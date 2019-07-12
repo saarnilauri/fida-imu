@@ -57,10 +57,17 @@ class ResultsChainContainer extends Component {
     this.schema = ['title', 'selectedComponent', 'countries']
     this.state = getInitialState()
     this.cols = ['activity', 'output', 'outcome', 'impact']
-    this.colors = { activity: 'dark', output: 'info', outcome: 'success', impact: 'orange' }
+    this.colors = {
+      activity: 'dark',
+      output: 'info',
+      outcome: 'success',
+      impact: 'orange',
+    }
 
     this.save = this.save.bind(this)
-    this.handleSelectCountriesChange = this.handleSelectCountriesChange.bind(this)
+    this.handleSelectCountriesChange = this.handleSelectCountriesChange.bind(
+      this,
+    )
   }
 
   componentDidMount() {
@@ -76,36 +83,47 @@ class ResultsChainContainer extends Component {
   onResizeActivityTop = measures => {
     this.setState(updateByPropertyName('activityTop', measures.bounds.height))
   }
+
   onResizeActivityMid = measures => {
     this.setState(updateByPropertyName('activityMid', measures.bounds.height))
   }
+
   onResizeActivityBot = measures => {
     this.setState(updateByPropertyName('activityBot', measures.bounds.height))
   }
+
   onResizeOutputTop = measures => {
     this.setState(updateByPropertyName('outputTop', measures.bounds.height))
   }
+
   onResizeOutputMid = measures => {
     this.setState(updateByPropertyName('outputMid', measures.bounds.height))
   }
+
   onResizeOutputBot = measures => {
     this.setState(updateByPropertyName('outputBot', measures.bounds.height))
   }
+
   onResizeOutcomeTop = measures => {
     this.setState(updateByPropertyName('outcomeTop', measures.bounds.height))
   }
+
   onResizeOutcomeMid = measures => {
     this.setState(updateByPropertyName('outcomeMid', measures.bounds.height))
   }
+
   onResizeOutcomeBot = measures => {
     this.setState(updateByPropertyName('outcomeBot', measures.bounds.height))
   }
+
   onResizeImpactTop = measures => {
     this.setState(updateByPropertyName('impactTop', measures.bounds.height))
   }
+
   onResizeImpactMid = measures => {
     this.setState(updateByPropertyName('impactMid', measures.bounds.height))
   }
+
   onResizeImpactBot = measures => {
     this.setState(updateByPropertyName('impactBot', measures.bounds.height))
   }
@@ -127,8 +145,25 @@ class ResultsChainContainer extends Component {
     this.setState(updateByPropertyName(editorName, value))
   }
 
-  handleSelectCountriesChange(countries) {
-    this.setState(() => ({ countries }))
+  toggleEditMode = () => {
+    this.setState(prevState => ({
+      editMode: !prevState.editMode,
+    }))
+  }
+
+  selectResultsChain = event => {
+    const selValue = event.target.value
+    if (selValue !== '__null' && selValue !== '__new') {
+      this.updateState(selValue)
+    } else {
+      const data = {}
+      getSchemaKeys(this.state, this.schema).forEach(key => {
+        data[key] = ''
+      })
+      this.setState(() => ({ ...data, uid: '', editMode: true }))
+    }
+    this.setState(updateByPropertyName('userHasSelected', true))
+    event.preventDefault()
   }
 
   save() {
@@ -151,25 +186,8 @@ class ResultsChainContainer extends Component {
     }
   }
 
-  toggleEditMode = () => {
-    this.setState(prevState => ({
-      editMode: !prevState.editMode,
-    }))
-  }
-
-  selectResultsChain = event => {
-    const selValue = event.target.value
-    if (selValue !== '__null' && selValue !== '__new') {
-      this.updateState(selValue)
-    } else {
-      const data = {}
-      getSchemaKeys(this.state, this.schema).forEach(key => {
-        data[key] = ''
-      })
-      this.setState(() => ({ ...data, uid: '', editMode: true }))
-    }
-    this.setState(updateByPropertyName('userHasSelected', true))
-    event.preventDefault()
+  handleSelectCountriesChange(countries) {
+    this.setState(() => ({ countries }))
   }
 
   updateState(uid) {
@@ -198,11 +216,17 @@ class ResultsChainContainer extends Component {
         <PageWrapper>
           <Row className="py-2">
             <Col md="4">
-              <EnhachedResultsChainSelect resultsChains={userResultsChains} onSelect={this.selectResultsChain} />
+              <EnhachedResultsChainSelect
+                resultsChains={userResultsChains}
+                onSelect={this.selectResultsChain}
+              />
             </Col>
             {userHasSelected && (
               <Col md="8" className="text-right">
-                <EnhachedEditModeToggleButton editMode={editMode} onClick={this.toggleEditMode} />
+                <EnhachedEditModeToggleButton
+                  editMode={editMode}
+                  onClick={this.toggleEditMode}
+                />
               </Col>
             )}
           </Row>
@@ -216,7 +240,9 @@ class ResultsChainContainer extends Component {
                       {this.state.selectedComponent && (
                         <React.Fragment>
                           <Badge color="primary">
-                            {formatMessage({ id: `components.radiolabel.${this.state.selectedComponent}` })}
+                            {formatMessage({
+                              id: `components.radiolabel.${this.state.selectedComponent}`,
+                            })}
                           </Badge>
                         </React.Fragment>
                       )}
@@ -238,7 +264,9 @@ class ResultsChainContainer extends Component {
                       return (
                         <ColumnWrapper
                           sysName={key}
-                          midTitle={formatMessage({ id: 'resultschain.column.title.mid' })}
+                          midTitle={formatMessage({
+                            id: 'resultschain.column.title.mid',
+                          })}
                           bgClass={`bg-${this.colors[key]}`}
                           key={key}
                           noArrow={key === 'impact'}
@@ -246,11 +274,21 @@ class ResultsChainContainer extends Component {
                           editMode={editMode}
                           midContentHeight={this.getHighestValue('Mid')}
                           onChange={this.handleEditorChange}
-                          onResizeBot={this[`onResize${wordForms.capitalized}Bot`]}
-                          onResizeMid={this[`onResize${wordForms.capitalized}Mid`]}
-                          onResizeTop={this[`onResize${wordForms.capitalized}Top`]}
-                          title={formatMessage({ id: `resultschain.column.title.top.${key}` })}
-                          botTitle={formatMessage({ id: 'resultschain.column.title.assumptions' })}
+                          onResizeBot={
+                            this[`onResize${wordForms.capitalized}Bot`]
+                          }
+                          onResizeMid={
+                            this[`onResize${wordForms.capitalized}Mid`]
+                          }
+                          onResizeTop={
+                            this[`onResize${wordForms.capitalized}Top`]
+                          }
+                          title={formatMessage({
+                            id: `resultschain.column.title.top.${key}`,
+                          })}
+                          botTitle={formatMessage({
+                            id: 'resultschain.column.title.assumptions',
+                          })}
                           topContentHeight={this.getHighestValue('Top')}
                           botEditorValue={this.state[`${key}BotEditor`]}
                           topEditorValue={this.state[`${key}TopEditor`]}
@@ -269,7 +307,9 @@ class ResultsChainContainer extends Component {
                 <Col md="3">
                   <ResultsChainProperties
                     countries={this.state.countries}
-                    handleSelectCountriesChange={this.handleSelectCountriesChange}
+                    handleSelectCountriesChange={
+                      this.handleSelectCountriesChange
+                    }
                     onSubmit={this.save}
                     selectedComponent={this.state.selectedComponent}
                     setParentStateValue={this.setPropertiesValues}
@@ -301,15 +341,26 @@ ResultsChainContainer.propTypes = {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addResultsChainToFirebase: resultsChain => dispatch(addResultsChainToFirebase(resultsChain)),
-  updateResultsChainToFirebase: (uid, resultsChain) => dispatch(updateResultsChainToFirebase(uid, resultsChain)),
+  addResultsChainToFirebase: resultsChain =>
+    dispatch(addResultsChainToFirebase(resultsChain)),
+  updateResultsChainToFirebase: (uid, resultsChain) =>
+    dispatch(updateResultsChainToFirebase(uid, resultsChain)),
   loadResultsChains: () => dispatch(loadResultsChains()),
 })
 
 const mapStateToProps = state => ({
   authUser: state.sessionState.authUser,
-  userResultsChains: findUserItems(state.resultsChainState.resultsChainCollection, state.sessionState.authUser.uid),
+  userResultsChains: findUserItems(
+    state.resultsChainState.resultsChainCollection,
+    state.sessionState.authUser.uid,
+  ),
   ready: state.resultsChainState.collectionReady,
 })
 
-export default compose(injectIntl, connect(mapStateToProps, mapDispatchToProps))(ResultsChainContainer)
+export default compose(
+  injectIntl,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+)(ResultsChainContainer)
